@@ -1,0 +1,611 @@
+/* TCJ Gourmet Store - Dark Luxury Design System */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #080808;
+  --bg-secondary: #111111;
+  --bg-card: #151312;
+  --bg-card-hover: #1c1816;
+  --choco-brown: #32180F;
+  --deep-cocoa: #1B100D;
+  --gold-accent: #D6A65B;
+  --gold-light: #F3CA85;
+  --gold-dark: #A17534;
+  --cream-text: #F5EBDD;
+  --secondary-text: #A49B91;
+  --muted-text: #706860;
+  --pistachio-accent: #A8B77A;
+  --pistachio-dark: #64733D;
+  --cyan-accent: #38BDF8;
+  --border-subtle: rgba(214, 166, 91, 0.15);
+  --border-gold: rgba(214, 166, 91, 0.35);
+  --border-cyan: rgba(56, 189, 248, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--cream-text);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--cream-text);
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Classes */
+.font-editorial {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.04em;
+}
+
+.font-mono {
+  font-family: 'Space Grotesk', monospace;
+}
+
+/* Gold Gradient Text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF0D4 0%, #D6A65B 50%, #B88536 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-pistachio-gradient {
+  background: linear-gradient(135deg, #E2EEC0 0%, #A8B77A 50%, #76864A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-cyan-gradient {
+  background: linear-gradient(135deg, #BAE6FD 0%, #38BDF8 50%, #0284C7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-cream-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5EBDD 60%, #C9BEAF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Luxury Glass Cards */
+.luxury-card {
+  background: rgba(21, 19, 18, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  background: rgba(28, 24, 22, 0.85);
+  border-color: var(--border-gold);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(214, 166, 91, 0.12);
+}
+
+/* Pinned Scroll Canvas Wrappers (Chocolate, Drinks, Snacks & Candy) */
+#chocolate-experience-section,
+#drinks-experience-section,
+#snacks-experience-section,
+#candy-experience-section,
+#shopfront-experience-section {
+  position: relative;
+  width: 100%;
+  background: #080808;
+}
+
+.chocolate-canvas-container,
+.drinks-canvas-container,
+.snacks-canvas-container,
+.candy-canvas-container,
+.shopfront-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #080808;
+}
+
+
+#chocolate-scrub-canvas,
+#drinks-scrub-canvas,
+#snacks-scrub-canvas,
+#candy-scrub-canvas,
+#shopfront-scrub-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(102%) brightness(98%);
+}
+
+/* Luxury Buttons */
+.btn-gold {
+  background: linear-gradient(135deg, #E5BA73 0%, #D6A65B 50%, #BA8537 100%);
+  color: #080808;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(214, 166, 91, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #F3CA85 0%, #E5BA73 50%, #C99544 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(214, 166, 91, 0.4);
+}
+
+.btn-gold:active {
+  transform: translateY(1px);
+}
+
+.btn-cyan {
+  background: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0284C7 100%);
+  color: #080808;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-cyan:hover {
+  background: linear-gradient(135deg, #BAE6FD 0%, #7DD3FC 50%, #38BDF8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.45);
+}
+
+.btn-cyan:active {
+  transform: translateY(1px);
+}
+
+.btn-candy {
+  background: linear-gradient(135deg, #F472B6 0%, #EC4899 50%, #A855F7 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-candy:hover {
+  background: linear-gradient(135deg, #F9A8D4 0%, #F472B6 50%, #C084FC 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(236, 72, 153, 0.45);
+}
+
+.btn-candy:active {
+  transform: translateY(1px);
+}
+
+.btn-snack {
+  background: linear-gradient(135deg, #FB923C 0%, #EF4444 50%, #B91C1C 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-snack:hover {
+  background: linear-gradient(135deg, #FDBA74 0%, #F87171 50%, #DC2626 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.5);
+}
+
+.btn-snack:active {
+  transform: translateY(1px);
+}
+
+.btn-luxury-outline {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(214, 166, 91, 0.4);
+  color: #F5EBDD;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-luxury-outline:hover {
+  background: rgba(214, 166, 91, 0.12);
+  border-color: #D6A65B;
+  color: #FFF0D4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(214, 166, 91, 0.18);
+}
+
+/* 3D Perspective Card Tilt */
+.card-3d-wrap {
+  perspective: 1200px;
+}
+
+.card-3d-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.4, 1), box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+/* Ambient Glow Accents */
+.gold-glow {
+  box-shadow: 0 0 50px -10px rgba(214, 166, 91, 0.25);
+}
+
+.gold-glow-subtle {
+  box-shadow: 0 0 30px -5px rgba(214, 166, 91, 0.15);
+}
+
+.pistachio-glow {
+  box-shadow: 0 0 35px -8px rgba(168, 183, 122, 0.25);
+}
+
+.cyan-glow {
+  box-shadow: 0 0 40px -8px rgba(56, 189, 248, 0.3);
+}
+
+.candy-glow {
+  box-shadow: 0 0 40px -8px rgba(236, 72, 153, 0.35);
+}
+
+.snack-glow {
+  box-shadow: 0 0 40px -8px rgba(239, 68, 68, 0.4);
+}
+
+/* Vignette Gradients */
+.vignette-radial {
+  background: radial-gradient(circle at 50% 50%, rgba(8, 8, 8, 0) 40%, rgba(8, 8, 8, 0.8) 100%);
+}
+
+.vignette-bottom {
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0) 0%, rgba(8, 8, 8, 0.85) 70%, #080808 100%);
+}
+
+.vignette-top {
+  background: linear-gradient(0deg, rgba(8, 8, 8, 0) 0%, rgba(8, 8, 8, 0.85) 70%, #080808 100%);
+}
+
+/* Floating particles animation */
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg) scale(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0px) rotate(360deg) scale(1);
+    opacity: 0.6;
+  }
+}
+
+.floating-particle {
+  animation: floatParticle 8s ease-in-out infinite;
+}
+
+/* Scooter Float & Ride */
+@keyframes scooterCruise {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-0.5deg);
+  }
+}
+
+.scooter-animation {
+  animation: scooterCruise 3s ease-in-out infinite;
+}
+
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A1D17;
+  border-radius: 9999px;
+  border: 1px solid rgba(214, 166, 91, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D6A65B;
+}
+
+/* Utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Reduced Motion (excludes GSAP pin-spacers to prevent layout calculation corruption) */
+@media (prefers-reduced-motion: reduce) {
+  .scooter-animation,
+  .floating-particle {
+    animation: none !important;
+  }
+}
+
+/* ============================================================== */
+/* LUXURY LIGHT THEME SYSTEM                                      */
+/* ============================================================== */
+html.light-theme,
+body.light-theme {
+  --bg-primary: #FAF8F5;
+  --bg-secondary: #F3EFEA;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FDFCFA;
+  --choco-brown: #54331C;
+  --deep-cocoa: #3A2315;
+  --cream-text: #1A1615;
+  --secondary-text: #574F47;
+  --muted-text: #7D736A;
+  --gold-accent: #B4823A;
+  --gold-light: #CFA45B;
+  --gold-dark: #8F6224;
+  --border-subtle: rgba(180, 130, 58, 0.22);
+  --border-gold: rgba(180, 130, 58, 0.45);
+  background-color: #FAF8F5 !important;
+  color: #1A1615 !important;
+}
+
+/* Background Color Overrides */
+.light-theme {
+  background-color: #FAF8F5 !important;
+  color: #1A1615 !important;
+}
+
+.light-theme .bg-\[\#080808\] {
+  background-color: #FAF8F5 !important;
+}
+
+.light-theme .bg-\[\#111111\],
+.light-theme .bg-\[\#12100E\] {
+  background-color: #F3EFEA !important;
+}
+
+.light-theme .bg-\[\#151312\],
+.light-theme .bg-\[\#151312\]\/80,
+.light-theme .bg-\[\#151312\]\/90,
+.light-theme .bg-\[\#171412\],
+.light-theme .bg-\[\#1A1715\],
+.light-theme .bg-\[\#1F1A17\],
+.light-theme .bg-\[\#25201C\] {
+  background-color: #FFFFFF !important;
+}
+
+.light-theme .bg-\[\#151312\]\/60 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Text Color Overrides */
+.light-theme .text-\[\#F5EBDD\],
+.light-theme .text-\[\#FAF4EB\],
+.light-theme .text-white {
+  color: #1A1615 !important;
+}
+
+.light-theme .text-\[\#A49B91\],
+.light-theme .text-\[\#B8AFA6\] {
+  color: #574F47 !important;
+}
+
+.light-theme .text-\[\#706860\] {
+  color: #7D736A !important;
+}
+
+.light-theme .text-gold-gradient {
+  background: linear-gradient(135deg, #7A4E12 0%, #B4823A 50%, #D49D4A 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Border Overrides */
+.light-theme .border-\[\#D6A65B\]\/20,
+.light-theme .border-\[\#D6A65B\]\/30,
+.light-theme .border-\[\#D6A65B\]\/15,
+.light-theme .border-\[\#25201C\],
+.light-theme .border-white\/10 {
+  border-color: rgba(180, 130, 58, 0.22) !important;
+}
+
+/* Header & Navigation */
+.light-theme header {
+  background: rgba(250, 248, 245, 0.94) !important;
+  border-bottom: 1px solid rgba(180, 130, 58, 0.25) !important;
+  box-shadow: 0 4px 20px -5px rgba(45, 35, 25, 0.05) !important;
+}
+
+.light-theme header a {
+  color: #3A332C !important;
+}
+
+.light-theme header a:hover {
+  color: #B4823A !important;
+}
+
+/* Announcement Ticker */
+.light-theme #announcement-ticker {
+  background: #F3EFEA !important;
+  border-bottom: 1px solid rgba(180, 130, 58, 0.2) !important;
+  color: #574F47 !important;
+}
+
+/* Luxury Cards */
+.light-theme .luxury-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(180, 130, 58, 0.2) !important;
+  box-shadow: 0 10px 30px -5px rgba(45, 35, 25, 0.07), 0 0 15px -3px rgba(214, 166, 91, 0.08) !important;
+}
+
+.light-theme .luxury-card:hover {
+  background: #FFFFFF !important;
+  border-color: #B4823A !important;
+  box-shadow: 0 16px 36px -10px rgba(45, 35, 25, 0.12), 0 0 25px -4px rgba(214, 166, 91, 0.18) !important;
+}
+
+/* Modals & Drawers */
+.light-theme #cart-sidebar,
+.light-theme #search-modal > div,
+.light-theme #product-modal > div {
+  background: #FAF8F5 !important;
+  color: #1A1615 !important;
+  border-color: rgba(180, 130, 58, 0.3) !important;
+  box-shadow: 0 25px 60px -15px rgba(45, 35, 25, 0.2) !important;
+}
+
+/* Scrubber Containers (Cinema Lightbox) - Canvas viewports remain dark */
+.light-theme .drinks-canvas-container,
+.light-theme .chocolate-canvas-container,
+.light-theme .snacks-canvas-container,
+.light-theme .candy-canvas-container,
+.light-theme #chocolate-experience-section {
+  background-color: #080808 !important;
+}
+
+/* Dedicated Showcase rows (Mini-Shelves) under the video scrubbers */
+.light-theme #drinks-experience-section,
+.light-theme #snacks-experience-section,
+.light-theme #candy-experience-section {
+  background-color: transparent !important;
+}
+
+.light-theme #drinks-experience-section > div:last-child,
+.light-theme #snacks-experience-section > div:last-child,
+.light-theme #candy-experience-section > div:last-child {
+  background: #FAF8F5 !important;
+  border-top-color: rgba(180, 130, 58, 0.22) !important;
+}
+
+.light-theme #drinks-experience-section > div:last-child h3,
+.light-theme #snacks-experience-section > div:last-child h3,
+.light-theme #candy-experience-section > div:last-child h3 {
+  color: #1A1615 !important;
+}
+
+
+
+.light-theme footer {
+  background-color: #F3EFEA !important;
+  border-top: 1px solid rgba(180, 130, 58, 0.2) !important;
+}
+
+.light-theme footer h4 {
+  color: #1A1615 !important;
+}
+
+.light-theme footer p,
+.light-theme footer a {
+  color: #574F47 !important;
+}
+
+.light-theme footer a:hover {
+  color: #B4823A !important;
+}
+
+.light-theme [id^="drinks-stage-card-"],
+.light-theme [id^="stage-card-"],
+.light-theme [id^="snacks-stage-card-"],
+.light-theme [id^="candy-stage-card-"] {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.light-theme [id^="drinks-stage-card-"] > .luxury-card,
+.light-theme [id^="stage-card-"] > .luxury-card,
+.light-theme [id^="snacks-stage-card-"] > .luxury-card,
+.light-theme [id^="candy-stage-card-"] > .luxury-card,
+.light-theme .stage-card {
+  background: rgba(255, 255, 255, 0.94) !important;
+  color: #1A1615 !important;
+  border: 1px solid rgba(180, 130, 58, 0.35) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.4) !important;
+}
+
+.light-theme .stage-card p,
+.light-theme [id^="drinks-stage-card-"] p,
+.light-theme [id^="stage-card-"] p,
+.light-theme [id^="snacks-stage-card-"] p,
+.light-theme [id^="candy-stage-card-"] p {
+  color: #574F47 !important;
+}
+
+.light-theme .stage-card h2,
+.light-theme [id^="drinks-stage-card-"] h2,
+.light-theme [id^="stage-card-"] h2,
+.light-theme [id^="snacks-stage-card-"] h2,
+.light-theme [id^="candy-stage-card-"] h2 {
+  color: #1A1615 !important;
+}
+
+/* Scrollbar for Light Theme */
+.light-theme::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+
+.light-theme::-webkit-scrollbar-thumb {
+  background: #D6A65B;
+  border: 1px solid rgba(180, 130, 58, 0.3);
+}
+
+/* Hero section text preservation in Light Theme (since video is dark luxury) */
+.light-theme #hero-section h1,
+.light-theme #hero-section p,
+.light-theme #hero-section span:not(#hero-sound-toggle-btn span) {
+  color: #F5EBDD !important;
+}
+
+.light-theme #hero-section .text-gold-gradient {
+  background: linear-gradient(135deg, #FFF0D4 0%, #D6A65B 50%, #B88536 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.light-theme #hero-section #store-status-badge {
+  background: rgba(21, 19, 18, 0.8) !important;
+  border-color: rgba(214, 166, 91, 0.3) !important;
+}
+
+.light-theme #hero-section #store-status-badge span {
+  color: #A8B77A !important;
+}
+
+/* Loading Overlays always stay dark */
+#drinks-loading-overlay,
+#snacks-loading-overlay,
+#candy-loading-overlay,
+#chocolate-loading-overlay {
+  background-color: #080808 !important;
+  pointer-events: none !important;
+}
+

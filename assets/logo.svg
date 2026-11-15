@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 70" fill="none">
+  <!-- Bubbly Retro-Modern TCJ Logo inspired by Zoaam style -->
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="0" flood-color="#1A1A1A"/>
+    </filter>
+  </defs>
+
+  <!-- TCJ Bubbly Badge -->
+  <g filter="url(#shadow)">
+    <!-- Main text with heavy outline -->
+    <text x="120" y="46" 
+          text-anchor="middle" 
+          font-family="'Fredoka', 'Righteous', 'Arial Black', sans-serif" 
+          font-weight="900" 
+          font-size="44" 
+          letter-spacing="-1.5" 
+          fill="#FFFFFF" 
+          stroke="#1A1A1A" 
+          stroke-width="7" 
+          stroke-linejoin="round"
+          paint-order="stroke fill">
+      tcj.
+    </text>
+  </g>
+  
+  <text x="120" y="62" 
+        text-anchor="middle" 
+        font-family="'Fredoka', sans-serif" 
+        font-weight="700" 
+        font-size="8.5" 
+        letter-spacing="2.5" 
+        fill="#FF5B36">
+    THE CONVENIENCE JUNCTION
+  </text>
+</svg>

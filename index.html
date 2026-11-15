@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>TCJ Gourmet Store — The Convenience Junction | Viral Dubai Chocolates & Global Treats | Ujjain</title>
+  <meta name="description" content="Ujjain's premier destination for Viral Dubai Pistachio Knafeh Chocolates, Imported Energy Drinks, Samyang Buldak Ramen, Prime Hydration, and imported global delicacies. 25-45 min local doorstep delivery.">
+
+  <!-- Tailwind CSS CDN with Custom Dark Luxury Configuration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tcj: {
+              bg: '#080808',
+              secondary: '#111111',
+              card: '#151312',
+              choco: '#32180F',
+              cocoa: '#1B100D',
+              gold: '#D6A65B',
+              goldlight: '#F3CA85',
+              cream: '#F5EBDD',
+              textmuted: '#A49B91',
+              pistachio: '#A8B77A',
+              cyan: '#38BDF8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Custom Luxury Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="assets/tcj-official-logo.png" type="image/png">
+
+
+  <!-- GSAP 3.12 & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-[#080808] text-[#F5EBDD] antialiased selection:bg-[#D6A65B] selection:text-[#080808] relative">
+
+  <!-- ============================================================== -->
+  <!-- FLOATING MINIMAL ACTION CONTROLS (CART, THEME, SEARCH, MENU)   -->
+  <!-- ============================================================== -->
+  <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center gap-2 sm:gap-2.5">
+    <!-- Menu / Sections Drawer Button -->
+    <button 
+      onclick="toggleNavDrawer(true)"
+      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#151312]/85 backdrop-blur-md border border-[#D6A65B]/30 hover:border-[#D6A65B] flex flex-col justify-center items-center gap-1 shadow-2xl hover:scale-105 active:scale-95 transition-all group"
+      aria-label="Open Navigation Menu"
+      title="Menu & Sections"
+    >
+      <span class="w-4 h-0.5 bg-[#D6A65B] rounded-full group-hover:w-5 transition-all"></span>
+      <span class="w-3.5 h-0.5 bg-[#38BDF8] rounded-full group-hover:w-5 transition-all"></span>
+      <span class="w-4 h-0.5 bg-[#F5EBDD] rounded-full group-hover:w-5 transition-all"></span>
+    </button>
+
+    <!-- Search Button -->
+    <button 
+      onclick="toggleSearch(true)"
+      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#151312]/85 backdrop-blur-md border border-[#D6A65B]/30 hover:border-[#D6A65B] flex items-center justify-center text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+      aria-label="Search Catalog"
+      title="Search Products"
+    >
+      <svg class="w-4 h-4 text-[#D6A65B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </button>
+
+    <!-- Theme Toggle (Light / Dark) -->
+    <button 
+      id="theme-toggle-btn"
+      onclick="toggleTheme()"
+      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#151312]/85 backdrop-blur-md border border-[#D6A65B]/30 hover:border-[#D6A65B] flex items-center justify-center text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+      title="Toggle Light / Dark Theme"
+      aria-label="Toggle Theme"
+    >
+      <span id="theme-toggle-icon" class="text-base">☀️</span>
+    </button>
+
+    <!-- Shopping Bag Cart Trigger -->
+    <button 
+      onclick="toggleCartDrawer(true)"
+      class="relative px-3.5 sm:px-4 h-10 sm:h-11 rounded-2xl bg-[#151312]/90 backdrop-blur-md border border-[#D6A65B]/40 hover:border-[#D6A65B] flex items-center gap-2 text-xs font-bold text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+      aria-label="View Shopping Bag"
+      title="Shopping Bag"
+    >
+      <span class="text-base">🛍️</span>
+      <span class="hidden sm:inline font-mono tracking-wider">BAG</span>
+      <span class="cart-count-badge hidden px-1.5 py-0.5 rounded-full bg-[#D6A65B] text-[#080808] font-black text-[10px]">
+        0
+      </span>
+    </button>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 1. HERO STOREFRONT SCROLL ANIMATION & STORE ENTRY             -->
+  <!-- ============================================================== -->
+  <section id="shopfront-experience-section" class="relative w-full bg-[#080808]">
+    
+    <!-- Sticky Fullscreen Media Container -->
+    <div class="shopfront-canvas-container relative">
+      
+      <!-- PC Desktop Video (Fallback) -->
+      <video 
+        id="shopfront-video-desktop" 
+        class="hidden md:block absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_shop_desktop/frame_001.jpg"
+      >
+        <source src="assets/video/shop_pc.mp4" type="video/mp4">
+        <source src="shop pc version.mp4" type="video/mp4">
+      </video>
+
+      <!-- Mobile Video (Fallback) -->
+      <video 
+        id="shopfront-video-mobile" 
+        class="block md:hidden absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_shop_mobile/frame_001.jpg"
+      >
+        <source src="assets/video/shop_mobile.mp4" type="video/mp4">
+        <source src="shop mobile version.mp4" type="video/mp4">
+      </video>
+
+      <!-- High-DPI Scrubber Canvas for 60FPS Sync -->
+      <canvas id="shopfront-scrub-canvas" class="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none opacity-100"></canvas>
+
+      <!-- Subtle Dark Luxury Vignette Layers -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#080808]/40 via-transparent to-[#080808]/40 pointer-events-none z-15"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#080808]/40 via-transparent to-[#080808]/40 pointer-events-none z-15"></div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 4. NEW: DRINKS SPECIAL SCROLL ANIMATION & VIDEO EXPERIENCE      -->
+  <!-- ============================================================== -->
+  <section id="drinks-experience-section" class="relative w-full bg-[#080808]">
+    
+    <!-- Sticky Fullscreen Media Container -->
+    <div class="drinks-canvas-container relative">
+      
+      <!-- PC Desktop Video (16:9 Landscape) -->
+      <video 
+        id="drinks-video-desktop" 
+        class="hidden md:block absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_drinks_desktop/frame_001.jpg"
+      >
+        <source src="energy drink pc.mp4" type="video/mp4">
+        <source src="assets/video/drinks_pc.mp4" type="video/mp4">
+      </video>
+
+      <!-- Mobile Video (9:16 Portrait) -->
+      <video 
+        id="drinks-video-mobile" 
+        class="block md:hidden absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_drinks_mobile/frame_001.jpg"
+      >
+        <source src="energy drink mobile.mp4" type="video/mp4">
+        <source src="assets/video/drinks_mobile.mp4" type="video/mp4">
+      </video>
+
+      <!-- High-DPI Scrubber Canvas for 60FPS Sync -->
+      <canvas id="drinks-scrub-canvas" class="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none opacity-100"></canvas>
+
+      <!-- Dark Luxury & Electric Cyan Vignette Layers -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/75 pointer-events-none z-15"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#080808]/85 via-transparent to-[#080808]/85 pointer-events-none z-15"></div>
+
+    </div>
+
+    <!-- Dedicated Chilled Drinks Showcase Row (Mini-Shelf) -->
+    <div class="relative z-20 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-sky-400/20 bg-gradient-to-b from-[#080808] to-[#0c0f12]">
+      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold tracking-widest text-sky-400 uppercase block mb-1">
+            ⚡ SUB-ZERO CHILLER SELECTION
+          </span>
+          <h3 class="font-editorial text-2xl sm:text-4xl font-bold text-[#F5EBDD]">
+            ICONIC GLOBAL SIPS.
+          </h3>
+        </div>
+        <span class="text-xs text-[#A49B91] font-semibold bg-[#151312] px-3.5 py-1.5 rounded-xl border border-sky-400/20">
+          Dispatched in Insulated Cold Packs • Ujjain
+        </span>
+      </div>
+
+      <!-- 4 Drink Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Prime Blue Raz -->
+        <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-sky-400/20 hover:border-sky-400/50 transition-all group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#0c2438] text-sky-300 border border-sky-400/30">⚡ Logan & KSI</span>
+              <span class="text-[11px] text-[#A49B91]">🇺🇸 500ml</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="assets/mockup/food-prime-drink.png" alt="Prime Hydration" class="max-h-full object-contain filter drop-shadow-[0_10px_20px_rgba(56,189,248,0.2)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Prime Hydration Blue Raz</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">10% coconut water, BCAAs, and zero added sugar.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-sky-400/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-sky-400">₹349</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('prime-hydration-blue-raz')" class="btn-cyan px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Prime Hydration Blue Raz', 349)" class="p-1.5 rounded-lg bg-[#151312] text-sky-400 border border-sky-400/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monster Energy Mango Loco -->
+        <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-amber-400/20 hover:border-amber-400/50 transition-all group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#2a1708] text-amber-300 border border-amber-400/30">🥭 Tropical Juice</span>
+              <span class="text-[11px] text-[#A49B91]">🇬🇧 500ml</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80" alt="Monster Mango Loco" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(217,119,6,0.2)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Monster Juice Mango Loco</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Exotic tropical fruit juice blend with Monster energy.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-400/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-amber-400">₹299</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('monster-energy-mango-loco')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Monster Energy Mango Loco', 299)" class="p-1.5 rounded-lg bg-[#151312] text-amber-400 border border-amber-400/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Japanese Ramune Marble Soda -->
+        <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-pink-400/20 hover:border-pink-400/50 transition-all group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#291220] text-pink-300 border border-pink-400/30">🇯🇵 Marble Soda</span>
+              <span class="text-[11px] text-[#A49B91]">🇯🇵 200ml</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=600&auto=format&fit=crop&q=80" alt="Hata Kosen Ramune" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(244,114,182,0.2)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Hata Kosen Ramune Strawberry</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Iconic glass Codd-neck bottle with pop-down marble.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-pink-400/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-pink-400">₹249</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('hata-kosen-ramune')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Hata Kosen Ramune', 249)" class="p-1.5 rounded-lg bg-[#151312] text-pink-400 border border-pink-400/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dr Pepper Classic Cherry Vanilla -->
+        <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-rose-400/20 hover:border-rose-400/50 transition-all group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#291210] text-rose-300 border border-rose-400/30">🇺🇸 23 Flavors</span>
+              <span class="text-[11px] text-[#A49B91]">🇺🇸 355ml</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=600&auto=format&fit=crop&q=80" alt="Dr Pepper Classic" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(244,63,94,0.2)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Dr Pepper Cherry Vanilla USA</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Authentic American blend with crisp cherry vanilla sparkle.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-rose-400/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-rose-400">₹199</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('dr-pepper-classic')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Dr Pepper Classic', 199)" class="p-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-400/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 5. NEW: SNACKS SPECIAL SCROLL ANIMATION & VIDEO EXPERIENCE      -->
+  <!-- ============================================================== -->
+  <section id="snacks-experience-section" class="relative w-full bg-[#080808] border-t border-orange-500/20">
+    
+    <!-- Sticky Fullscreen Media Container -->
+    <div class="snacks-canvas-container relative">
+      
+      <!-- PC Desktop Video (16:9 Landscape) -->
+      <video 
+        id="snacks-video-desktop" 
+        class="hidden md:block absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_snacks_desktop/frame_001.jpg"
+      >
+        <source src="assets/video/snacks_pc.mp4" type="video/mp4">
+        <source src="pc Snack .mp4" type="video/mp4">
+      </video>
+
+      <!-- Mobile Video (9:16 Portrait) -->
+      <video 
+        id="snacks-video-mobile" 
+        class="block md:hidden absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_snacks_mobile/frame_001.jpg"
+      >
+        <source src="assets/video/snacks_mobile.mp4" type="video/mp4">
+        <source src="mobile snack version.mp4" type="video/mp4">
+      </video>
+
+      <!-- High-DPI Scrubber Canvas for 60FPS Sync -->
+      <canvas id="snacks-scrub-canvas" class="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none opacity-100"></canvas>
+
+      <!-- Dark Luxury & Fiery Orange Vignette Layers -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/75 pointer-events-none z-15"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#080808]/85 via-transparent to-[#080808]/85 pointer-events-none z-15"></div>
+
+    </div>
+
+    <!-- Dedicated Spicy Snacks Showcase Row (Mini-Shelf) -->
+    <div class="relative z-20 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-orange-500/20 bg-gradient-to-b from-[#080808] to-[#120a07]">
+      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold tracking-widest text-orange-400 uppercase block mb-1">
+            🔥 FIERY SNACKS SELECTION
+          </span>
+          <h3 class="font-editorial text-2xl sm:text-4xl font-bold text-[#F5EBDD]">
+            WORLD'S HOTTEST CRUNCH.
+          </h3>
+        </div>
+        <span class="text-xs text-[#A49B91] font-semibold bg-[#151312] px-3.5 py-1.5 rounded-xl border border-orange-500/20">
+          Express 25–45 Min Delivery • Ujjain
+        </span>
+      </div>
+
+      <!-- 4 Snack Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Snack 1: Takis Fuego -->
+        <div class="luxury-card rounded-2xl p-4 border border-orange-500/20 hover:border-orange-500/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-950/60 text-orange-400 border border-orange-500/30">🌶️ Extreme Chili Lime</span>
+              <span class="text-[11px] text-[#A49B91]">🇲🇽 113g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="assets/mockup/food-takis.png" alt="Takis Fuego" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(249,115,22,0.25)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Takis Fuego Hot Chili & Lime</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Crispy rolled corn tortilla chips with intense fiery chili lime.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-orange-500/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-orange-400">₹249</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('takis-fuego')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Takis Fuego', 249)" class="p-1.5 rounded-lg bg-[#151312] text-orange-400 border border-orange-500/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Snack 2: Cheetos Flamin Hot -->
+        <div class="luxury-card rounded-2xl p-4 border border-rose-500/20 hover:border-rose-500/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-400 border border-rose-500/30">🔥 Flamin' Hot Cheese</span>
+              <span class="text-[11px] text-[#A49B91]">🇺🇸 226g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=600&auto=format&fit=crop&q=80" alt="Cheetos Flamin Hot" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(244,63,94,0.25)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Cheetos Flamin' Hot Crunchy</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Authentic USA import with legendary fiery cheese crunch.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-rose-500/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-rose-400">₹329</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('cheetos-flamin-hot')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Cheetos Flamin Hot', 329)" class="p-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-500/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Snack 3: Lay's Imported Gourmet -->
+        <div class="luxury-card rounded-2xl p-4 border border-[#D6A65B]/20 hover:border-[#D6A65B]/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#2A1D17] text-[#D6A65B] border border-[#D6A65B]/30">🇪🇸 Spanish Truffle</span>
+              <span class="text-[11px] text-[#A49B91]">🇪🇸 135g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="assets/mockup/cat-food-chips.png" alt="Lays Gourmet" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(214,166,91,0.2)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Lay's Imported Spanish Truffle</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Kettle-cooked golden crisps dusted in aromatic black truffle.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-[#D6A65B]">₹220</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('lays-imported-gourmet')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Lays Gourmet Spanish Truffle', 220)" class="p-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Snack 4: Samyang Buldak 2X Spicy -->
+        <div class="luxury-card rounded-2xl p-4 border border-red-600/20 hover:border-red-600/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-950/60 text-red-400 border border-red-600/30">🔥 2X Spicy Challenge</span>
+              <span class="text-[11px] text-[#A49B91]">🇰🇷 140g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="assets/mockup/food-buldak-ramen.png" alt="Samyang Buldak 2X" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(220,38,38,0.25)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Samyang Buldak 2X Spicy Ramen</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">The world-famous Korean spicy chicken noodle sensation.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-red-600/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-red-400">₹299</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('samyang-buldak-2x-spicy')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Samyang Buldak 2X Spicy', 299)" class="p-1.5 rounded-lg bg-[#151312] text-red-400 border border-red-600/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 6. NEW: CANDY SPECIAL SCROLL ANIMATION & VIDEO EXPERIENCE       -->
+  <!-- ============================================================== -->
+  <section id="candy-experience-section" class="relative w-full bg-[#080808] border-t border-pink-500/20">
+    
+    <!-- Sticky Fullscreen Media Container -->
+    <div class="candy-canvas-container relative">
+      
+      <!-- PC Desktop Video (16:9 Landscape) -->
+      <video 
+        id="candy-video-desktop" 
+        class="hidden md:block absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_candy_desktop/frame_001.jpg"
+      >
+        <source src="assets/video/candy_pc.mp4" type="video/mp4">
+        <source src="candy pc.mp4" type="video/mp4">
+      </video>
+
+      <!-- Mobile Video (9:16 Portrait) -->
+      <video 
+        id="candy-video-mobile" 
+        class="block md:hidden absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_candy_mobile/frame_001.jpg"
+      >
+        <source src="assets/video/candy_mobile.mp4" type="video/mp4">
+        <source src="candy mobile.mp4" type="video/mp4">
+      </video>
+
+      <!-- High-DPI Scrubber Canvas for 60FPS Sync -->
+      <canvas id="candy-scrub-canvas" class="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none opacity-100"></canvas>
+
+      <!-- Dark Luxury & Sweet Candy Vignette Layers -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/75 pointer-events-none z-15"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#080808]/85 via-transparent to-[#080808]/85 pointer-events-none z-15"></div>
+
+    </div>
+
+    <!-- Dedicated Sweet Candy Showcase Row (Mini-Shelf) -->
+    <div class="relative z-20 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-pink-500/20 bg-gradient-to-b from-[#080808] to-[#140810]">
+      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold tracking-widest text-pink-400 uppercase block mb-1">
+            🍭 SWEET CANDY SELECTION
+          </span>
+          <h3 class="font-editorial text-2xl sm:text-4xl font-bold text-[#F5EBDD]">
+            GLOBAL CONFECTIONERY ICONS.
+          </h3>
+        </div>
+        <span class="text-xs text-[#A49B91] font-semibold bg-[#151312] px-3.5 py-1.5 rounded-xl border border-pink-500/20">
+          Express 25–45 Min Delivery • Ujjain
+        </span>
+      </div>
+
+      <!-- 4 Candy Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Candy 1: Haribo Goldbären -->
+        <div class="luxury-card rounded-2xl p-4 border border-pink-500/20 hover:border-pink-500/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-950/60 text-pink-400 border border-pink-500/30">🐻 German Original</span>
+              <span class="text-[11px] text-[#A49B91]">🇩🇪 200g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=600&auto=format&fit=crop&q=80" alt="Haribo Goldbären" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(236,72,153,0.25)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Haribo Goldbären Gummy Bears</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Authentic imported German fruit gummy bears with signature chew.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-pink-500/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-pink-400">₹229</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('haribo-goldbaren')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Haribo Goldbären Gummy Bears', 229)" class="p-1.5 rounded-lg bg-[#151312] text-pink-400 border border-pink-500/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Candy 2: Skittles Wild Berry -->
+        <div class="luxury-card rounded-2xl p-4 border border-purple-500/20 hover:border-purple-500/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-950/60 text-purple-400 border border-purple-500/30">🌈 Rainbow Punch</span>
+              <span class="text-[11px] text-[#A49B91]">🇺🇸 174g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1575224300306-1b8da36134ec?w=600&auto=format&fit=crop&q=80" alt="Skittles Wild Berry" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(168,85,247,0.25)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Skittles Wild Berry Candies</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Bite-sized rainbow candies bursting with intense wild berry flavors.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-purple-500/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-purple-400">₹199</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('skittles-wild-berry')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Skittles Wild Berry', 199)" class="p-1.5 rounded-lg bg-[#151312] text-purple-400 border border-purple-500/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Candy 3: Nerds Gummy Clusters -->
+        <div class="luxury-card rounded-2xl p-4 border border-fuchsia-500/20 hover:border-fuchsia-500/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-fuchsia-950/60 text-fuchsia-400 border border-fuchsia-500/30">🔥 TikTok Viral #1</span>
+              <span class="text-[11px] text-[#A49B91]">🇺🇸 142g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1581798459219-318e76aecc7b?w=600&auto=format&fit=crop&q=80" alt="Nerds Gummy Clusters" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(217,70,239,0.25)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Nerds Rainbow Gummy Clusters</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Crunchy tangy miniature Nerds candy wrapped around a sweet gummy center.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-fuchsia-500/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-fuchsia-400">₹299</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('nerds-gummy-clusters')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Nerds Gummy Clusters', 299)" class="p-1.5 rounded-lg bg-[#151312] text-fuchsia-400 border border-fuchsia-500/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Candy 4: Sour Patch Kids Watermelon -->
+        <div class="luxury-card rounded-2xl p-4 border border-rose-500/20 hover:border-rose-500/50 flex flex-col justify-between group transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-400 border border-rose-500/30">🍉 Sour Then Sweet</span>
+              <span class="text-[11px] text-[#A49B91]">🇺🇸 140g</span>
+            </div>
+            <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
+              <img src="https://images.unsplash.com/photo-1527515862127-a4fc05baf7a5?w=600&auto=format&fit=crop&q=80" alt="Sour Patch Kids Watermelon" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(244,63,94,0.25)] group-hover:scale-108 transition-transform" />
+            </div>
+            <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Sour Patch Kids Watermelon</h4>
+            <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">First sour, then sweet! Tangy sanded soft candies with mouth-watering watermelon flavor.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-rose-500/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-rose-400">₹249</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="addToCart('sour-patch-kids-watermelon')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
+              <button onclick="orderSingleItemWhatsApp('Sour Patch Kids Watermelon', 249)" class="p-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-500/30">💬</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================== -->
+  <!-- 7. CINEMATIC SCROLL ANIMATION: DUBAI CHOCOLATE EXPERIENCE      -->
+  <!-- ============================================================== -->
+  <section id="chocolate-experience-section" class="relative w-full bg-[#080808] border-t border-[#D6A65B]/15">
+    
+    <!-- Sticky Fullscreen Media Container -->
+    <div class="chocolate-canvas-container relative">
+      
+      <!-- PC Desktop Video (16:9 Landscape) -->
+      <video 
+        id="chocolate-video-desktop" 
+        class="hidden md:block absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_desktop/frame_001.jpg"
+      >
+        <source src="assets/video/pc_version.mp4" type="video/mp4">
+        <source src="laptop version.mp4" type="video/mp4">
+      </video>
+
+      <!-- Mobile Video (9:16 Portrait) -->
+      <video 
+        id="chocolate-video-mobile" 
+        class="block md:hidden absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105" 
+        muted 
+        playsinline 
+        preload="auto"
+        poster="assets/frames_mobile/frame_001.jpg"
+      >
+        <source src="assets/video/mobile_version.mp4" type="video/mp4">
+        <source src="mobile version chocolate.mp4" type="video/mp4">
+      </video>
+
+      <!-- High-DPI Scrubber Canvas for 60FPS Sync -->
+      <canvas id="chocolate-scrub-canvas" class="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none opacity-100"></canvas>
+
+      <!-- Dark Luxury & Golden Chocolate Vignette Layers -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/75 pointer-events-none z-15"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#080808]/85 via-transparent to-[#080808]/85 pointer-events-none z-15"></div>
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- DUBAI CHOCOLATE SHOWCASE SHELF: SIGNATURE VIRAL EDITIONS       -->
+    <!-- Directly bridges the scroll animation into tangible products   -->
+    <!-- ============================================================== -->
+    <div class="relative py-12 px-4 sm:px-6 lg:px-8 border-t border-[#D6A65B]/25 bg-gradient-to-b from-[#080808] via-[#1a100a] to-[#080808]">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#32180F] border border-[#D6A65B]/30 text-[#D6A65B] text-xs font-bold uppercase tracking-wider mb-2">
+              👑 Fresh Batch Made Daily in Ujjain
+            </div>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-extrabold text-[#F5EBDD]">
+              VIRAL DUBAI CHOCOLATE <span class="text-gold-gradient">EDITIONS</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-[#A49B91] mt-1">
+              Chilled in temperature-controlled coolers & express delivered across Ujjain in 25–45 minutes.
+            </p>
+          </div>
+          <a href="https://wa.me/916268344816" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-[#D6A65B] hover:underline flex items-center gap-1 self-start sm:self-auto">
+            <span>Inquire on WhatsApp</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+          <!-- 1. The Original Dubai Pistachio Knafeh -->
+          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-[#D6A65B]/30 hover:border-[#D6A65B]/70 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#32180F] text-[#D6A65B] border border-[#D6A65B]/30">👑 Viral #1 Bestseller</span>
+                <span class="text-[11px] text-[#A49B91]">🇦🇪 200g</span>
+              </div>
+              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-[#D6A65B]/15">
+                <img src="assets/mockup/food-dubai-chocolate.png" alt="Dubai Knafeh Pistachio Chocolate" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_25px_rgba(214,166,91,0.25)] group-hover:scale-108 transition-transform duration-300" />
+              </div>
+              <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Dubai Knafeh Pistachio Chocolate</h4>
+              <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Crispy roasted kataifi pastry & emerald pistachio crème in tempered Belgian milk chocolate.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between">
+              <div>
+                <span class="font-mono text-lg font-bold text-[#D6A65B]">₹699</span>
+                <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹899</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button onclick="addToCart('dubai-knafeh-chocolate')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
+                <button onclick="orderSingleItemWhatsApp('Dubai Knafeh Pistachio Chocolate', 699)" class="p-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 hover:bg-[#D6A65B]/10 transition-colors" title="Order on WhatsApp">💬</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Artisan Pistachio Kunafa Gourmet Cream Jar -->
+          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-[#A8B77A]/30 hover:border-[#A8B77A]/70 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1B100D] text-[#A8B77A] border border-[#A8B77A]/30">🍯 Pure Pistachio Crème</span>
+                <span class="text-[11px] text-[#A49B91]">🇦🇪 250g</span>
+              </div>
+              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-[#A8B77A]/15">
+                <img src="assets/mockup/food-dubai-chocolate.png" alt="Artisan Pistachio Kunafa Cream Jar" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_25px_rgba(168,183,122,0.25)] group-hover:scale-108 transition-transform duration-300" />
+              </div>
+              <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Artisan Pistachio Kunafa Cream Jar</h4>
+              <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">The authentic filling used in Dubai bars! Roasted pistachios & crisp kataifi shreds for waffles & spoons.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#A8B77A]/15 flex items-center justify-between">
+              <div>
+                <span class="font-mono text-lg font-bold text-[#A8B77A]">₹599</span>
+                <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹750</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button onclick="addToCart('dubai-pistachio-cream-jar')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
+                <button onclick="orderSingleItemWhatsApp('Artisan Pistachio Kunafa Cream Jar', 599)" class="p-1.5 rounded-lg bg-[#151312] text-[#A8B77A] border border-[#A8B77A]/30 hover:bg-[#A8B77A]/10 transition-colors" title="Order on WhatsApp">💬</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Dubai 70% Dark Cocoa Smoked Sea Salt Knafeh -->
+          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-[#D6A65B]/30 hover:border-[#D6A65B]/70 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#20140e] text-[#D6A65B] border border-[#D6A65B]/30">🍫 70% Dark Cocoa</span>
+                <span class="text-[11px] text-[#A49B91]">🇦🇪 200g</span>
+              </div>
+              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-[#D6A65B]/15">
+                <img src="assets/mockup/food-dubai-chocolate.png" alt="Dubai 70% Dark Cocoa Knafeh" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_25px_rgba(214,166,91,0.25)] group-hover:scale-108 transition-transform duration-300" />
+              </div>
+              <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Dubai 70% Dark Sea Salt Knafeh</h4>
+              <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Intense bittersweet Belgian dark cocoa with Maldon smoked sea salt flakes and roasted pistachio knafeh.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between">
+              <div>
+                <span class="font-mono text-lg font-bold text-[#D6A65B]">₹749</span>
+                <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹949</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button onclick="addToCart('dubai-dark-knafeh')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
+                <button onclick="orderSingleItemWhatsApp('Dubai 70% Dark Sea Salt Knafeh', 749)" class="p-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 hover:bg-[#D6A65B]/10 transition-colors" title="Order on WhatsApp">💬</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Dubai White Belgian Wild Berry Kadayif Bar -->
+          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-rose-400/30 hover:border-rose-400/70 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#291215] text-rose-300 border border-rose-400/30">🍓 Limited Berry Run</span>
+                <span class="text-[11px] text-[#A49B91]">🇦🇪 200g</span>
+              </div>
+              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-rose-400/15">
+                <img src="assets/mockup/food-dubai-chocolate.png" alt="Dubai White Belgian Wild Berry Kadayif" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_25px_rgba(244,63,94,0.25)] group-hover:scale-108 transition-transform duration-300" />
+              </div>
+              <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Dubai White Belgian Wild Berry Kadayif</h4>
+              <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Silky Swiss white chocolate swirled with tart wild raspberry coulis, crispy kadayif, and pistachio crème.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-rose-400/15 flex items-center justify-between">
+              <div>
+                <span class="font-mono text-lg font-bold text-rose-300">₹699</span>
+                <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹899</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button onclick="addToCart('dubai-white-berry')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
+                <button onclick="orderSingleItemWhatsApp('Dubai White Belgian Wild Berry Kadayif', 699)" class="p-1.5 rounded-lg bg-[#151312] text-rose-300 border border-rose-400/30 hover:bg-rose-400/10 transition-colors" title="Order on WhatsApp">💬</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================== -->
+  <!-- 9. STORE LOCATION SECTION                                      -->
+  <!-- ============================================================== -->
+  <section id="store-section" class="relative py-24 px-4 sm:px-6 lg:px-8 bg-[#080808] border-t border-[#D6A65B]/15">
+    
+    <div class="max-w-7xl mx-auto">
+      
+      <div id="store-info-content" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <div>
+          <span class="text-xs font-bold tracking-widest text-[#D6A65B] uppercase block mb-2">
+            PHYSICAL FLAGSHIP
+          </span>
+          <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-[#F5EBDD] leading-tight mb-6">
+            COME EXPERIENCE<br>
+            <span class="text-gold-gradient">IT YOURSELF.</span>
+          </h2>
+          <p class="text-sm sm:text-base text-[#A49B91] leading-relaxed mb-6">
+            Walk into our flagship store in Nanakheda, browse imported drink chillers, touch the viral snacks, and sample exotic treats in person.
+          </p>
+
+          <!-- Store Details List -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <span class="text-lg text-[#D6A65B] mt-0.5">📍</span>
+              <div>
+                <span class="text-xs font-bold text-[#F5EBDD] block">Store Address</span>
+                <p class="text-xs sm:text-sm text-[#A49B91] mt-0.5 leading-relaxed">
+                  TCJ Gourmet Store, A 25/5, Ved Nagar, Service Road, in front of Hotel Anand Palace, Nanakheda, Ujjain, Madhya Pradesh – 456010.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-lg text-[#D6A65B] mt-0.5">⏰</span>
+              <div>
+                <span class="text-xs font-bold text-[#F5EBDD] block">Operating Hours</span>
+                <p class="text-xs sm:text-sm text-[#A49B91] mt-0.5">
+                  <span class="text-[#A8B77A] font-semibold">Tuesday – Sunday:</span> 12:00 PM – 10:30 PM<br>
+                  <span class="text-rose-400 font-semibold">Monday:</span> Closed for deep inventory restock
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-lg text-[#D6A65B] mt-0.5">👤</span>
+              <div>
+                <span class="text-xs font-bold text-[#F5EBDD] block">Founder & Store Manager</span>
+                <p class="text-xs sm:text-sm text-[#A49B91] mt-0.5">
+                  Tapish Verma
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-lg text-[#D6A65B] mt-0.5">📱</span>
+              <div>
+                <span class="text-xs font-bold text-[#F5EBDD] block">Instagram Community</span>
+                <a href="https://instagram.com/theconveniencejunction" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-[#D6A65B] hover:underline mt-0.5 block">
+                  @theconveniencejunction
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-3">
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=TCJ+Gourmet+Store+Ved+Nagar+Nanakheda+Ujjain" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-gold px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2"
+            >
+              <span>Get Maps Directions</span>
+              <span>🗺️</span>
+            </a>
+            <a 
+              href="https://wa.me/916268344816" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-luxury-outline px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2"
+            >
+              <span>WhatsApp Tapish</span>
+              <span>💬</span>
+            </a>
+            <a 
+              href="tel:+916268344816" 
+              class="btn-luxury-outline px-5 py-3 rounded-xl text-xs font-bold"
+            >
+              Call +91 62683 44816
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Embedded Map Card -->
+        <div class="luxury-card rounded-3xl p-6 sm:p-8 border border-[#D6A65B]/25">
+          <div class="w-full h-80 rounded-2xl bg-[#080808] border border-[#D6A65B]/15 overflow-hidden relative flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-16 h-16 rounded-full bg-[#151312] border border-[#D6A65B]/30 flex items-center justify-center text-3xl mb-4">
+              📍
+            </div>
+            <h4 class="font-editorial text-lg font-bold text-[#F5EBDD] mb-1">Ved Nagar, Nanakheda</h4>
+            <p class="text-xs text-[#A49B91] max-w-sm mb-5 leading-relaxed">
+              In front of Hotel Anand Palace, Service Road, Ujjain, MP – 456010
+            </p>
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=TCJ+Gourmet+Store+Ved+Nagar+Nanakheda+Ujjain" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-gold px-6 py-2.5 rounded-xl text-xs font-bold"
+            >
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 12. FINAL CINEMATIC CALL TO ACTION                             -->
+  <!-- ============================================================== -->
+  <section class="relative py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#080808] via-[#1B100D] to-[#080808] border-t border-[#D6A65B]/20 overflow-hidden text-center">
+    
+    <div class="max-w-4xl mx-auto relative z-10">
+      
+      <span class="text-xs font-bold tracking-widest text-[#D6A65B] uppercase block mb-3">
+        THE CONVENIENCE JUNCTION • UJJAIN
+      </span>
+      
+      <h2 class="font-editorial text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#F5EBDD] leading-tight mb-6">
+        READY TO TASTE<br>
+        <span class="text-gold-gradient">THE WORLD?</span>
+      </h2>
+
+      <p class="text-sm sm:text-base text-[#A49B91] max-w-2xl mx-auto leading-relaxed mb-10">
+        Explore international snacks, viral chocolates, and exotic drinks at TCJ Gourmet Store. Delivered fresh to your doorstep in Ujjain.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a 
+          href="#store-section" 
+          class="btn-gold w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs sm:text-sm font-bold tracking-wider"
+        >
+          VISIT STORE
+        </a>
+        <a 
+          href="https://wa.me/916268344816" 
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-luxury-outline w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs sm:text-sm font-bold tracking-wider flex items-center justify-center gap-2"
+        >
+          <span>CHAT ON WHATSAPP</span>
+          <span>💬</span>
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 13. LUXURY FOOTER                                              -->
+  <!-- ============================================================== -->
+  <footer class="bg-[#050505] border-t border-[#D6A65B]/15 text-[#A49B91] py-14 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      
+      <!-- Brand column -->
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="assets/tcj-official-logo.png" alt="TCJ Logo" class="h-10 w-auto rounded-lg border border-[#D6A65B]/20" />
+          <div>
+            <span class="font-editorial text-base font-bold text-[#F5EBDD] block leading-none">TCJ GOURMET STORE</span>
+            <span class="text-[9px] text-[#D6A65B] font-bold uppercase tracking-widest">THE CONVENIENCE JUNCTION</span>
+          </div>
+        </div>
+        <p class="text-xs text-[#706860] max-w-md leading-relaxed">
+          Ujjain's ultimate destination for viral Dubai chocolates, Korean Buldak noodles, Prime hydration, Takis, and rare global imports. Crafted with luxury, delivered with speed.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-editorial text-xs font-bold text-[#F5EBDD] uppercase tracking-wider mb-3">Quick Navigation</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="#" class="hover:text-[#D6A65B] transition-colors">Home</a></li>
+          <li><a href="#drinks-experience-section" class="hover:text-sky-400 transition-colors">Drinks Special ⚡</a></li>
+          <li><a href="#snacks-experience-section" class="hover:text-orange-400 transition-colors">Snacks Special 🔥</a></li>
+          <li><a href="#candy-experience-section" class="hover:text-pink-400 transition-colors">Candy Special 🍭</a></li>
+          <li><a href="#chocolate-experience-section" class="hover:text-[#D6A65B] transition-colors">Dubai Chocolate Experience</a></li>
+          <li><a href="#shopfront-experience-section" class="hover:text-[#D6A65B] transition-colors">Shop Front Walkthrough 🏪</a></li>
+          <li><a href="#store-section" class="hover:text-[#D6A65B] transition-colors">Store Location</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 class="font-editorial text-xs font-bold text-[#F5EBDD] uppercase tracking-wider mb-3">Contact & Visit</h4>
+        <p class="text-xs text-[#706860] leading-relaxed mb-2">
+          A 25/5, Ved Nagar, Service Road, Nanakheda, Ujjain, MP – 456010
+        </p>
+        <p class="text-xs text-[#A8B77A] font-semibold mb-2">
+          Tue–Sun: 12 PM – 10:30 PM
+        </p>
+        <a href="https://wa.me/916268344816" class="text-xs text-[#D6A65B] hover:underline font-bold block">
+          WhatsApp: +91 62683 44816
+        </a>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-8 border-t border-[#D6A65B]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#706860]">
+      <p>© 2026 TCJ Gourmet Store (The Convenience Junction). All rights reserved.</p>
+      <p class="flex items-center gap-1">
+        <span>Designed with</span>
+        <span class="text-rose-500">♥</span>
+        <span>for luxury snack connoisseurs in Ujjain</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================== -->
+  <!-- 14. CART DRAWER (SLIDE-OVER FROM RIGHT)                         -->
+  <!-- ============================================================== -->
+  <div id="cart-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleCartDrawer(false)"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0e0d0c] border-l border-[#D6A65B]/25 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-[#D6A65B]/15 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">🛍️</span>
+        <h3 class="font-editorial text-base font-bold text-[#F5EBDD]">Your Gourmet Bag</h3>
+      </div>
+      <button onclick="toggleCartDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white">
+        ✕
+      </button>
+    </div>
+
+    <!-- Free Delivery Progress Bar -->
+    <div class="p-4 bg-[#151312] border-b border-[#D6A65B]/10">
+      <div id="free-shipping-text" class="text-xs text-[#A49B91] mb-2 font-medium">
+        Add ₹799 for FREE Delivery in Ujjain
+      </div>
+      <div class="w-full h-1.5 bg-[#080808] rounded-full overflow-hidden border border-[#D6A65B]/20">
+        <div id="free-shipping-progress" class="h-full bg-gradient-to-r from-[#D6A65B] to-[#A8B77A] transition-all duration-300" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items Scroll Area -->
+    <div id="cart-items-container" class="flex-grow overflow-y-auto p-4 space-y-3">
+      <!-- Injected via app.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="cart-empty-state" class="flex-grow flex flex-col items-center justify-center p-6 text-center">
+      <span class="text-4xl mb-3">🍫</span>
+      <h4 class="font-editorial text-base font-bold text-[#F5EBDD] mb-1">Your Bag is Empty</h4>
+      <p class="text-xs text-[#706860] max-w-xs mb-4">Discover viral Dubai chocolates, spicy Korean ramen, and exotic drinks.</p>
+      <button onclick="toggleCartDrawer(false)" class="btn-gold px-5 py-2 rounded-xl text-xs font-bold">
+        Explore Collection
+      </button>
+    </div>
+
+    <!-- Cart Footer & Checkout -->
+    <div id="cart-drawer-footer" class="p-5 bg-[#080808] border-t border-[#D6A65B]/20">
+      <div class="space-y-1.5 text-xs text-[#A49B91] mb-4">
+        <div class="flex items-center justify-between">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-price" class="font-mono font-bold text-[#F5EBDD]">₹0</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span>Ujjain Delivery</span>
+          <span id="cart-delivery-fee" class="font-mono font-bold text-[#A8B77A]">₹49</span>
+        </div>
+        <div class="flex items-center justify-between text-sm font-bold text-[#F5EBDD] pt-2 border-t border-[#D6A65B]/15">
+          <span>Grand Total</span>
+          <span id="cart-grand-total" class="font-mono text-base text-[#D6A65B]">₹0</span>
+        </div>
+      </div>
+
+      <button 
+        onclick="checkoutWhatsApp()" 
+        class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2"
+      >
+        <span>ORDER ON WHATSAPP</span>
+        <span>💬</span>
+      </button>
+      <p class="text-[10px] text-center text-[#706860] mt-2">
+        Instant order confirmation via Tapish Verma (+91 62683 44816)
+      </p>
+    </div>
+
+  </aside>
+
+  <!-- ============================================================== -->
+  <!-- 15. MOBILE NAVIGATION DRAWER                                   -->
+  <!-- ============================================================== -->
+  <div id="nav-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleNavDrawer(false)"></div>
+  <aside id="nav-drawer" class="fixed top-0 left-0 h-full w-full max-w-xs bg-[#0e0d0c] border-r border-[#D6A65B]/25 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col p-6">
+    <div class="flex items-center justify-between pb-4 border-b border-[#D6A65B]/15 mb-6">
+      <div class="flex items-center gap-2">
+        <img src="assets/tcj-official-logo.png" alt="TCJ Logo" class="h-8 w-auto rounded-md" />
+        <span class="font-editorial text-sm font-bold text-[#F5EBDD]">TCJ GOURMET</span>
+      </div>
+      <button onclick="toggleNavDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91]">
+        ✕
+      </button>
+    </div>
+
+    <nav class="flex flex-col space-y-4 text-sm font-bold uppercase tracking-wider text-[#A49B91]">
+      <a href="#shopfront-experience-section" onclick="toggleNavDrawer(false)" class="text-[#D6A65B]">Shop Front 🏪</a>
+      <a href="#drinks-experience-section" onclick="toggleNavDrawer(false)" class="text-sky-400">Drinks Special ⚡</a>
+      <a href="#snacks-experience-section" onclick="toggleNavDrawer(false)" class="text-orange-400">Snacks Special 🔥</a>
+      <a href="#candy-experience-section" onclick="toggleNavDrawer(false)" class="text-pink-400">Candy Special 🍭</a>
+      <a href="#chocolate-experience-section" onclick="toggleNavDrawer(false)" class="hover:text-[#D6A65B] transition-colors">Dubai Chocolate 👑</a>
+      <a href="#store-section" onclick="toggleNavDrawer(false)" class="hover:text-[#D6A65B] transition-colors">Visit Flagship Store 📍</a>
+    </nav>
+
+    <div class="mt-auto pt-6 border-t border-[#D6A65B]/15 space-y-3">
+      <button 
+        onclick="toggleTheme()" 
+        class="w-full py-2.5 px-4 rounded-xl bg-[#151312] border border-[#D6A65B]/25 flex items-center justify-between text-xs font-bold text-[#F5EBDD]"
+      >
+        <span>Theme Switcher</span>
+        <span id="mobile-theme-icon">☀️ Light Theme</span>
+      </button>
+
+      <a 
+        href="https://wa.me/916268344816" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="btn-gold w-full py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2"
+      >
+        <span>WhatsApp Order</span>
+        <span>💬</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============================================================== -->
+  <!-- 16. SEARCH MODAL                                               -->
+  <!-- ============================================================== -->
+  <div id="search-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-start justify-center pt-24 px-4">
+    <div class="luxury-card rounded-2xl p-6 w-full max-w-xl border border-[#D6A65B]/30 relative">
+      <div class="flex items-center justify-between mb-4">
+        <h4 class="font-editorial text-sm font-bold text-[#F5EBDD]">Search Viral Flavours</h4>
+        <button onclick="toggleSearch(false)" class="text-xs text-[#A49B91] hover:text-white">✕ Close</button>
+      </div>
+      <div class="relative">
+        <input 
+          id="mobile-search-input"
+          type="text" 
+          placeholder="Search Dubai chocolate, Buldak ramen, Prime, Takis..."
+          oninput="handleSearch(this.value)"
+          class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-3 text-sm text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]"
+        />
+        <button onclick="toggleSearch(false); setCategory('all');" class="btn-gold absolute right-2 top-2 px-4 py-1.5 rounded-lg text-xs font-bold">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 17. PRODUCT QUICK VIEW MODAL                                   -->
+  <!-- ============================================================== -->
+  <div id="product-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-2xl border border-[#D6A65B]/35 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
+        ✕
+      </button>
+      <div id="product-modal-body">
+        <!-- Injected via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/scroll-controller.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

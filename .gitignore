@@ -1,0 +1,15 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+
+# Editor directories
+.vscode/
+.idea/
