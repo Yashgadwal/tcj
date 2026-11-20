@@ -1431,55 +1431,30 @@ function toggleCandyPlay() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// THEME MANAGER (LUXURY LIGHT / DARK THEME)
+// THEME MANAGER (PERMANENT LIGHT LUXURY THEME)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function initThemeManager() {
-  let savedTheme = localStorage.getItem('tcj_theme');
-  // Always enforce Light theme as the permanent ShubhMewa standard
-  if (!savedTheme || savedTheme === 'dark') {
-    savedTheme = 'light';
-    try { localStorage.setItem('tcj_theme', 'light'); } catch (e) {}
-  }
-  applyTheme('light');
+  applyLightTheme();
 }
 
-function applyTheme(theme) {
-  const isLight = theme === 'light';
-  if (isLight) {
-    document.documentElement.classList.add('light-theme');
-    document.documentElement.classList.remove('dark-theme');
-    document.body.classList.add('light-theme');
-    document.body.classList.remove('dark-theme');
-    document.body.classList.remove('bg-[#080808]', 'text-[#F5EBDD]', 'bg-[#0a1a13]', 'text-[#fffdf8]');
-    document.body.classList.add('bg-[#fffdf8]', 'text-[#1a1a1a]');
-  } else {
-    document.documentElement.classList.remove('light-theme');
-    document.documentElement.classList.add('dark-theme');
-    document.body.classList.remove('light-theme');
-    document.body.classList.add('dark-theme');
-    document.body.classList.remove('bg-[#fffdf8]', 'text-[#1a1a1a]', 'bg-[#FAF8F5]', 'text-[#1A1615]');
-    document.body.classList.add('bg-[#0a1a13]', 'text-[#fffdf8]');
-  }
-
-  // Update theme toggle icons
-  const icon = document.getElementById('theme-toggle-icon');
-  if (icon) {
-    icon.textContent = isLight ? '🌙' : '☀️';
-  }
-  const mobIcon = document.getElementById('mobile-theme-icon');
-  if (mobIcon) {
-    mobIcon.textContent = isLight ? '🌙 Dark Emerald' : '☀️ Signature Ivory';
-  }
-
+function applyLightTheme() {
+  document.documentElement.classList.add('light-theme');
+  document.documentElement.classList.remove('dark-theme');
+  document.body.classList.add('light-theme');
+  document.body.classList.remove('dark-theme', 'bg-[#080808]', 'text-[#F5EBDD]', 'bg-[#0a1a13]', 'text-[#fffdf8]');
+  document.body.classList.add('bg-[#fffdf8]', 'text-[#1a1a1a]');
   try {
-    localStorage.setItem('tcj_theme', theme);
+    localStorage.setItem('tcj_theme', 'light');
   } catch (e) {}
 }
 
+function applyTheme(theme) {
+  applyLightTheme();
+}
+
 function toggleTheme() {
-  const isCurrentLight = document.documentElement.classList.contains('light-theme');
-  const newTheme = isCurrentLight ? 'dark' : 'light';
-  applyTheme(newTheme);
+  // Website is strictly light mode only
+  applyLightTheme();
 }
 
 

@@ -632,49 +632,6 @@ body.light-theme {
   border: 1px solid #eadcc8;
 }
 
-/* ============================================================== */
-/* SHUBHMEWA DARK LUXURY EMERALD OBSIDIAN SYSTEM                  */
-/* ============================================================== */
-html.dark-theme,
-body.dark-theme {
-  --bg-primary: #0a1a13;
-  --bg-secondary: #0e221a;
-  --bg-card: #11261d;
-  --bg-card-hover: #183328;
-  --cream-text: #fffdf8;
-  --secondary-text: #a3b5aa;
-  --muted-text: #6e8477;
-  --gold-accent: #b88a44;
-  --gold-light: #e0bb72;
-  --border-subtle: rgba(184, 138, 68, 0.22);
-  --border-gold: rgba(184, 138, 68, 0.45);
-  background-color: #0a1a13 !important;
-  color: #fffdf8 !important;
-}
-
-.dark-theme .luxury-card {
-  background: #11261d !important;
-  border-color: rgba(184, 138, 68, 0.25) !important;
-  color: #fffdf8 !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
-}
-
-.dark-theme .luxury-card:hover {
-  background: #183328 !important;
-  border-color: #b88a44 !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(184, 138, 68, 0.2) !important;
-}
-
-.dark-theme #cart-drawer,
-.dark-theme #nav-drawer,
-.dark-theme #account-drawer {
-  background-color: #0a1a13 !important;
-  border-color: rgba(184, 138, 68, 0.25) !important;
-}
-
-.dark-theme footer {
-  background-color: #06110c !important;
-}
 
 /* Loading Overlays always stay dark emerald */
 #drinks-loading-overlay,
