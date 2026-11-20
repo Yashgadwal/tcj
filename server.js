@@ -12,6 +12,8 @@ if (!fs.existsSync(DATA_DIR)) {
 
 // Active admin sessions in memory
 const activeSessions = new Set();
+// Active customer sessions in memory (token -> customerId)
+const activeCustomerSessions = new Map();
 
 // Helper: Read JSON from data folder
 function readJson(fileName, fallback = []) {
@@ -67,7 +69,7 @@ function sendJson(res, statusCode, data) {
     'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token'
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token, x-customer-token'
   });
   res.end(JSON.stringify(data));
 }
@@ -77,6 +79,18 @@ function isAuthorized(req) {
   const authHeader = req.headers['authorization'] || req.headers['x-admin-token'] || '';
   const token = authHeader.replace(/^Bearer\s+/i, '').trim();
   return activeSessions.has(token);
+}
+
+// Helper: Get Authenticated Customer from Token
+function getCustomerSession(req) {
+  const authHeader = req.headers['authorization'] || req.headers['x-customer-token'] || '';
+  const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+  if (!token) return null;
+  const customerId = activeCustomerSessions.get(token);
+  if (!customerId) return null;
+  const customers = readJson('customers.json', []);
+  const cust = customers.find(c => c.id === customerId);
+  return cust || null;
 }
 
 const MIME_TYPES = {
@@ -100,7 +114,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token'
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token, x-customer-token'
     });
     return res.end();
   }
@@ -112,7 +126,7 @@ const server = http.createServer(async (req, res) => {
   // 1. REST API ENDPOINTS
   // ==============================================================
 
-  // --- AUTHENTICATION ---
+  // --- ADMIN AUTHENTICATION ---
   if (reqPath === '/api/auth/login' && req.method === 'POST') {
     const body = await parseBody(req);
     const settings = readJson('settings.json', { adminPasscode: 'tcj2026' });
@@ -139,6 +153,151 @@ const server = http.createServer(async (req, res) => {
     const token = authHeader.replace(/^Bearer\s+/i, '').trim();
     activeSessions.delete(token);
     return sendJson(res, 200, { success: true, message: 'Logged out' });
+  }
+
+  // --- CUSTOMER / STOREFRONT AUTHENTICATION ---
+  if (reqPath === '/api/customer/signup' && req.method === 'POST') {
+    const body = await parseBody(req);
+    const name = (body.name || '').trim();
+    const phone = (body.phone || '').trim().replace(/\D/g, '').slice(-10);
+    const password = (body.password || '').trim();
+
+    if (!name || !phone || !password) {
+      return sendJson(res, 400, { error: 'Full Name, 10-digit mobile number, and password are required' });
+    }
+
+    const customers = readJson('customers.json', []);
+    if (customers.some(c => c.phone === phone)) {
+      return sendJson(res, 400, { error: 'An account with this mobile number already exists. Please sign in.' });
+    }
+
+    const customerId = 'CUST-' + (1000 + customers.length + 1);
+    const addresses = [];
+    if (body.address) {
+      addresses.push({
+        id: 'addr-1',
+        label: 'Home',
+        street: body.address.trim(),
+        landmark: (body.landmark || '').trim(),
+        locality: (body.locality || 'Freeganj').trim(),
+        city: 'Ujjain',
+        pincode: (body.pincode || '456001').trim(),
+        isDefault: true
+      });
+    }
+
+    const newCust = {
+      id: customerId,
+      name,
+      phone,
+      email: (body.email || '').trim().toLowerCase(),
+      password,
+      vipTier: 'Gourmet Connoisseur',
+      addresses,
+      createdAt: new Date().toISOString()
+    };
+
+    customers.unshift(newCust);
+    writeJson('customers.json', customers);
+
+    const token = `tcj_cust_${Date.now()}_${Math.random().toString(36).substring(2, 12)}`;
+    activeCustomerSessions.set(token, newCust.id);
+
+    const safeCust = { ...newCust };
+    delete safeCust.password;
+
+    return sendJson(res, 201, { success: true, token, customer: safeCust });
+  }
+
+  if (reqPath === '/api/customer/login' && req.method === 'POST') {
+    const body = await parseBody(req);
+    const identifier = (body.identifier || body.phone || body.email || '').trim();
+    const password = (body.password || '').trim();
+
+    if (!identifier || !password) {
+      return sendJson(res, 400, { error: 'Phone/Email and password are required' });
+    }
+
+    const cleanPhone = identifier.replace(/\D/g, '').slice(-10);
+    const customers = readJson('customers.json', []);
+
+    const cust = customers.find(c => 
+      (cleanPhone && c.phone === cleanPhone) || 
+      (c.email && c.email.toLowerCase() === identifier.toLowerCase())
+    );
+
+    if (!cust || cust.password !== password) {
+      return sendJson(res, 401, { error: 'Invalid mobile/email or password' });
+    }
+
+    const token = `tcj_cust_${Date.now()}_${Math.random().toString(36).substring(2, 12)}`;
+    activeCustomerSessions.set(token, cust.id);
+
+    const safeCust = { ...cust };
+    delete safeCust.password;
+
+    return sendJson(res, 200, { success: true, token, customer: safeCust });
+  }
+
+  if (reqPath === '/api/customer/me' && req.method === 'GET') {
+    const cust = getCustomerSession(req);
+    if (!cust) return sendJson(res, 401, { error: 'Unauthorized customer session' });
+
+    const safeCust = { ...cust };
+    delete safeCust.password;
+    return sendJson(res, 200, { success: true, customer: safeCust });
+  }
+
+  if (reqPath === '/api/customer/profile' && req.method === 'PUT') {
+    const cust = getCustomerSession(req);
+    if (!cust) return sendJson(res, 401, { error: 'Unauthorized customer session' });
+
+    const body = await parseBody(req);
+    const customers = readJson('customers.json', []);
+    const idx = customers.findIndex(c => c.id === cust.id);
+    if (idx === -1) return sendJson(res, 404, { error: 'Customer not found' });
+
+    if (body.name) customers[idx].name = body.name.trim();
+    if (body.email !== undefined) customers[idx].email = body.email.trim().toLowerCase();
+    if (Array.isArray(body.addresses)) customers[idx].addresses = body.addresses;
+    if (body.newAddress) {
+      customers[idx].addresses = customers[idx].addresses || [];
+      customers[idx].addresses.push({
+        id: 'addr-' + Date.now().toString(36),
+        label: body.newAddress.label || 'Home',
+        street: body.newAddress.street || body.newAddress.address || '',
+        landmark: body.newAddress.landmark || '',
+        locality: body.newAddress.locality || 'Freeganj',
+        city: 'Ujjain',
+        pincode: body.newAddress.pincode || '456001',
+        isDefault: Boolean(body.newAddress.isDefault)
+      });
+    }
+
+    writeJson('customers.json', customers);
+    const safeCust = { ...customers[idx] };
+    delete safeCust.password;
+    return sendJson(res, 200, { success: true, customer: safeCust });
+  }
+
+  if (reqPath === '/api/customer/orders' && req.method === 'GET') {
+    const cust = getCustomerSession(req);
+    if (!cust) return sendJson(res, 401, { error: 'Unauthorized customer session' });
+
+    const orders = readJson('orders.json', []);
+    const userOrders = orders.filter(o => 
+      (o.customerId && o.customerId === cust.id) || 
+      (o.phone && o.phone.replace(/\D/g, '').slice(-10) === cust.phone)
+    );
+
+    return sendJson(res, 200, { success: true, orders: userOrders });
+  }
+
+  if (reqPath === '/api/customer/logout' && req.method === 'POST') {
+    const authHeader = req.headers['authorization'] || req.headers['x-customer-token'] || '';
+    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+    activeCustomerSessions.delete(token);
+    return sendJson(res, 200, { success: true, message: 'Customer signed out' });
   }
 
   // --- PRODUCTS API ---
@@ -296,23 +455,35 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (reqPath === '/api/orders' && req.method === 'POST') {
-    // Allows public logging from storefront WhatsApp checkout
+    // Allows logging from storefront guest checkout or VIP member checkout
     const body = await parseBody(req);
     const orders = readJson('orders.json', []);
 
+    // Detect logged-in customer session if token present
+    const loggedInCustomer = getCustomerSession(req);
+    const customerId = body.customerId || (loggedInCustomer ? loggedInCustomer.id : null);
+    const isGuest = body.isGuest !== undefined ? Boolean(body.isGuest) : (customerId ? false : true);
+
+    const address = (body.address || 
+      (body.addressDetails ? `${body.addressDetails.street || ''}${body.addressDetails.landmark ? ', Near ' + body.addressDetails.landmark : ''}${body.addressDetails.locality ? ', ' + body.addressDetails.locality : ''}, Ujjain` : '') ||
+      'Pick-up / Store Concierge').trim();
+
     const newOrder = {
       id: 'TCJ-ORD-' + (1000 + orders.length + 1),
-      customerName: (body.customerName || 'WhatsApp Customer').trim(),
-      phone: (body.phone || '').trim(),
-      address: (body.address || '').trim(),
+      customerName: (body.customerName || (loggedInCustomer ? loggedInCustomer.name : 'Gourmet Patron')).trim(),
+      phone: (body.phone || (loggedInCustomer ? loggedInCustomer.phone : '')).trim(),
+      address: address,
+      addressDetails: body.addressDetails || null,
       items: Array.isArray(body.items) ? body.items : [],
       subtotal: Number(body.subtotal || 0),
       deliveryFee: Number(body.deliveryFee || 0),
       total: Number(body.total || 0),
       status: 'Pending',
-      paymentMode: body.paymentMode || 'UPI / Cash on Delivery',
-      source: body.source || 'WhatsApp Checkout',
-      notes: body.notes || '',
+      paymentMode: body.paymentMode || body.paymentMethod || 'UPI on Delivery',
+      isGuest: isGuest,
+      customerId: customerId,
+      source: body.source || (isGuest ? 'Guest Checkout (No Login)' : 'VIP Member Checkout'),
+      notes: (body.notes || body.deliveryNotes || '').trim(),
       createdAt: new Date().toISOString()
     };
 

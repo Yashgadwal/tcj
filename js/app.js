@@ -8,7 +8,12 @@ const state = {
   activeCategory: 'all',
   searchQuery: '',
   cart: [],
-  wishlist: []
+  wishlist: [],
+  customer: null,
+  customerToken: localStorage.getItem('tcj_customer_token') || '',
+  checkoutMode: 'guest',
+  returnToCheckoutAfterAuth: false,
+  customerOrders: []
 };
 
 let TCJ_PHONE = '916268344816';
@@ -24,6 +29,7 @@ function initApp() {
   updateCartUI();
   updateStoreStatus();
   syncLiveStoreData();
+  initCustomerAuth();
 }
 
 async function syncLiveStoreData() {
@@ -442,14 +448,488 @@ function updateCartUI() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// WHATSAPP CHECKOUT GENERATOR
+// CUSTOMER AUTHENTICATION (VIP CLUB & PROFILE)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function checkoutWhatsApp() {
+async function initCustomerAuth() {
+  const token = state.customerToken;
+  if (!token) {
+    renderAccountButton();
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/customer/me', {
+      headers: { 'x-customer-token': token }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.customer) {
+        state.customer = data.customer;
+      }
+    } else {
+      state.customer = null;
+      state.customerToken = '';
+      localStorage.removeItem('tcj_customer_token');
+    }
+  } catch (e) {
+    // Offline or network error
+  }
+  renderAccountButton();
+}
+
+function renderAccountButton() {
+  const btn = document.getElementById('account-btn');
+  const icon = document.getElementById('account-btn-icon');
+  const label = document.getElementById('account-btn-label');
+  if (!btn || !icon || !label) return;
+
+  if (state.customer) {
+    const firstName = state.customer.name.split(' ')[0] || 'VIP';
+    icon.textContent = '👑';
+    label.textContent = firstName;
+    btn.classList.add('border-[#D6A65B]', 'bg-[#1e1914]');
+  } else {
+    icon.textContent = '👤';
+    label.textContent = 'VIP';
+    btn.classList.remove('border-[#D6A65B]', 'bg-[#1e1914]');
+  }
+}
+
+function handleAccountClick() {
+  if (state.customer) {
+    toggleAccountDrawer(true);
+    loadCustomerOrders();
+  } else {
+    toggleCustomerAuthModal(true);
+  }
+}
+
+function toggleCustomerAuthModal(open) {
+  const modal = document.getElementById('customer-auth-modal');
+  if (!modal) return;
+  if (open) {
+    modal.classList.remove('hidden');
+    switchAuthTab('login');
+  } else {
+    modal.classList.add('hidden');
+  }
+}
+
+function switchAuthTab(tab) {
+  const tabLogin = document.getElementById('auth-tab-login');
+  const tabSignup = document.getElementById('auth-tab-signup');
+  const formLogin = document.getElementById('customer-login-form');
+  const formSignup = document.getElementById('customer-signup-form');
+  const title = document.getElementById('auth-modal-title');
+  if (!tabLogin || !tabSignup || !formLogin || !formSignup) return;
+
+  if (tab === 'login') {
+    tabLogin.className = 'py-2 text-xs font-bold rounded-lg transition-all text-[#080808] bg-[#D6A65B] shadow-sm';
+    tabSignup.className = 'py-2 text-xs font-bold rounded-lg transition-all text-[#A49B91] hover:text-[#F5EBDD]';
+    formLogin.classList.remove('hidden');
+    formSignup.classList.add('hidden');
+    if (title) title.textContent = 'Welcome Back to TCJ';
+  } else {
+    tabSignup.className = 'py-2 text-xs font-bold rounded-lg transition-all text-[#080808] bg-[#D6A65B] shadow-sm';
+    tabLogin.className = 'py-2 text-xs font-bold rounded-lg transition-all text-[#A49B91] hover:text-[#F5EBDD]';
+    formSignup.classList.remove('hidden');
+    formLogin.classList.add('hidden');
+    if (title) title.textContent = 'Join the VIP Gourmet Club';
+  }
+}
+
+async function handleCustomerLoginSubmit(e) {
+  e.preventDefault();
+  const idInput = document.getElementById('login-identifier');
+  const pwdInput = document.getElementById('login-password');
+  const errBox = document.getElementById('login-form-error');
+  const submitBtn = document.getElementById('btn-login-submit');
+
+  const identifier = idInput.value.trim();
+  const password = pwdInput.value.trim();
+  if (!identifier || !password) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Signing in...';
+  if (errBox) errBox.classList.add('hidden');
+
+  try {
+    const res = await fetch('/api/customer/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to sign in');
+
+    state.customer = data.customer;
+    state.customerToken = data.token;
+    localStorage.setItem('tcj_customer_token', data.token);
+
+    toggleCustomerAuthModal(false);
+    renderAccountButton();
+    showToast(`Welcome back, ${data.customer.name}! 👑`);
+
+    // If customer was trying to checkout, resume checkout flow
+    if (state.returnToCheckoutAfterAuth) {
+      state.returnToCheckoutAfterAuth = false;
+      openCheckoutModal();
+    }
+  } catch (err) {
+    if (errBox) {
+      errBox.textContent = err.message;
+      errBox.classList.remove('hidden');
+    }
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Sign In to VIP Account';
+  }
+}
+
+async function handleCustomerSignupSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('signup-name').value.trim();
+  const phone = document.getElementById('signup-phone').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value.trim();
+  const address = document.getElementById('signup-address').value.trim();
+  const locality = document.getElementById('signup-locality').value;
+  const landmark = document.getElementById('signup-landmark').value.trim();
+  const errBox = document.getElementById('signup-form-error');
+  const submitBtn = document.getElementById('btn-signup-submit');
+
+  if (!name || !phone || !password || !address) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Creating Account...';
+  if (errBox) errBox.classList.add('hidden');
+
+  try {
+    const res = await fetch('/api/customer/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, email, password, address, locality, landmark })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Registration failed');
+
+    state.customer = data.customer;
+    state.customerToken = data.token;
+    localStorage.setItem('tcj_customer_token', data.token);
+
+    toggleCustomerAuthModal(false);
+    renderAccountButton();
+    showToast(`Welcome to TCJ VIP Club, ${data.customer.name}! 👑`);
+
+    if (state.returnToCheckoutAfterAuth) {
+      state.returnToCheckoutAfterAuth = false;
+      openCheckoutModal();
+    }
+  } catch (err) {
+    if (errBox) {
+      errBox.textContent = err.message;
+      errBox.classList.remove('hidden');
+    }
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Create VIP Account & Save Address';
+  }
+}
+
+function continueAsGuestFromAuth() {
+  toggleCustomerAuthModal(false);
+  if (state.returnToCheckoutAfterAuth) {
+    state.returnToCheckoutAfterAuth = false;
+    selectCheckoutMode('guest');
+  }
+}
+
+function handleCustomerLogout() {
+  fetch('/api/customer/logout', {
+    method: 'POST',
+    headers: { 'x-customer-token': state.customerToken }
+  }).catch(() => {});
+
+  state.customer = null;
+  state.customerToken = '';
+  localStorage.removeItem('tcj_customer_token');
+  toggleAccountDrawer(false);
+  renderAccountButton();
+  showToast('Signed out of VIP account');
+}
+
+function toggleAccountDrawer(open) {
+  const drawer = document.getElementById('account-drawer');
+  const backdrop = document.getElementById('account-backdrop');
+  if (!drawer || !backdrop) return;
+
+  if (open) {
+    if (state.customer) {
+      const nameEl = document.getElementById('drawer-cust-name');
+      const phoneEl = document.getElementById('drawer-cust-phone');
+      const addrCard = document.getElementById('drawer-address-card');
+      if (nameEl) nameEl.textContent = state.customer.name;
+      if (phoneEl) phoneEl.textContent = `+91 ${state.customer.phone.replace(/(\d{5})(\d{5})/, '$1 $2')}`;
+      if (addrCard) {
+        const defAddr = (state.customer.addresses && state.customer.addresses[0]);
+        if (defAddr) {
+          addrCard.innerHTML = `
+            <div class="font-semibold text-[#D6A65B] flex items-center gap-1.5">
+              <span>📍</span><span>${defAddr.label || 'Home'} (${defAddr.locality || 'Freeganj'})</span>
+            </div>
+            <div class="text-[#F5EBDD] mt-0.5">${defAddr.street || ''}</div>
+            ${defAddr.landmark ? `<div class="text-[#A49B91] text-[11px]">Landmark: Near ${defAddr.landmark}</div>` : ''}
+          `;
+        } else {
+          addrCard.innerHTML = `<span class="text-[#706860]">No address saved yet.</span>`;
+        }
+      }
+    }
+
+    backdrop.classList.remove('hidden');
+    setTimeout(() => {
+      drawer.classList.remove('translate-x-full');
+      backdrop.classList.remove('opacity-0');
+    }, 10);
+  } else {
+    drawer.classList.add('translate-x-full');
+    backdrop.classList.add('opacity-0');
+    setTimeout(() => backdrop.classList.add('hidden'), 300);
+  }
+}
+
+async function loadCustomerOrders() {
+  const container = document.getElementById('drawer-orders-list');
+  const countEl = document.getElementById('drawer-orders-count');
+  if (!container) return;
+
+  if (!state.customerToken) {
+    container.innerHTML = `<div class="py-6 text-center text-xs text-[#706860]">Please sign in to view past orders.</div>`;
+    return;
+  }
+
+  container.innerHTML = `<div class="py-6 text-center text-xs text-[#A49B91]">Loading your gourmet orders...</div>`;
+
+  try {
+    const res = await fetch('/api/customer/orders', {
+      headers: { 'x-customer-token': state.customerToken }
+    });
+    if (!res.ok) throw new Error('Failed to load orders');
+    const data = await res.json();
+    const orders = data.orders || [];
+    state.customerOrders = orders;
+
+    if (countEl) countEl.textContent = `${orders.length} Orders`;
+
+    if (orders.length === 0) {
+      container.innerHTML = `
+        <div class="py-8 text-center text-xs text-[#706860] border border-[#D6A65B]/10 rounded-xl bg-[#090807] p-4">
+          <span class="text-2xl block mb-2">🍫</span>
+          No orders logged yet. Check out viral snacks from the collection!
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = orders.map(ord => {
+      const items = ord.items || [];
+      const waLink = `https://wa.me/${TCJ_PHONE}?text=${encodeURIComponent(
+        `Hello Tapish! I'd like an update on my TCJ order #${ord.id}.`
+      )}`;
+
+      const statusBadgeClass = ord.status === 'Delivered' 
+        ? 'bg-emerald-950 text-emerald-300 border-emerald-500/30' 
+        : ord.status === 'Dispatched'
+        ? 'bg-purple-950 text-purple-300 border-purple-500/30'
+        : 'bg-amber-950 text-amber-300 border-amber-500/30';
+
+      return `
+        <div class="p-3.5 rounded-xl bg-[#0a0908] border border-[#D6A65B]/15 space-y-2 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-[#D6A65B]">${ord.id}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border ${statusBadgeClass}">${ord.status || 'Pending'}</span>
+          </div>
+          <div class="text-[11px] text-[#A49B91]">
+            ${items.map(it => `${it.quantity}x ${it.title}`).join(', ')}
+          </div>
+          <div class="pt-2 border-t border-[#D6A65B]/10 flex items-center justify-between">
+            <span class="font-mono font-bold text-[#F5EBDD]">₹${ord.total}</span>
+            <a href="${waLink}" target="_blank" class="text-[11px] text-emerald-400 hover:underline flex items-center gap-1">
+              <span>Track via WhatsApp 💬</span>
+            </a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+  } catch (err) {
+    container.innerHTML = `<div class="py-4 text-center text-xs text-rose-400">Failed to load order history.</div>`;
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DUAL CHECKOUT CONTROLLER (GUEST VS VIP MEMBER)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function openCheckoutModal() {
   if (state.cart.length === 0) {
     showToast('Your bag is currently empty');
     return;
   }
 
+  // Calculate pricing
+  let subtotal = 0;
+  state.cart.forEach(item => {
+    const prod = TCJ_PRODUCTS.find(p => p.id === item.id);
+    if (prod) subtotal += (prod.price * item.quantity);
+  });
+  const deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : FLAT_DELIVERY_FEE;
+  const grandTotal = subtotal + deliveryFee;
+
+  // Update modal figures
+  const countLabel = document.getElementById('checkout-choice-count');
+  const choiceTotal = document.getElementById('checkout-choice-total');
+  const formSub = document.getElementById('form-subtotal');
+  const formFee = document.getElementById('form-delivery-fee');
+  const formGrand = document.getElementById('form-grand-total');
+
+  if (countLabel) countLabel.textContent = `${state.cart.reduce((s, i) => s + i.quantity, 0)} items`;
+  if (choiceTotal) choiceTotal.textContent = `₹${grandTotal}`;
+  if (formSub) formSub.textContent = `₹${subtotal}`;
+  if (formFee) formFee.textContent = deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`;
+  if (formGrand) formGrand.textContent = `₹${grandTotal}`;
+
+  // If already logged in: bypass choice screen and directly open member checkout form
+  const modal = document.getElementById('checkout-modal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+
+  if (state.customer) {
+    selectCheckoutMode('member');
+  } else {
+    // Show choice view
+    const choiceView = document.getElementById('checkout-choice-view');
+    const formView = document.getElementById('checkout-form-view');
+    if (choiceView) choiceView.classList.remove('hidden');
+    if (formView) formView.classList.add('hidden');
+  }
+}
+
+function closeCheckoutModal() {
+  const modal = document.getElementById('checkout-modal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function selectCheckoutMode(mode) {
+  state.checkoutMode = mode;
+  const choiceView = document.getElementById('checkout-choice-view');
+  const formView = document.getElementById('checkout-form-view');
+  const badgeMode = document.getElementById('checkout-badge-mode');
+  const memberContainer = document.getElementById('member-saved-address-container');
+  const btnBack = document.getElementById('btn-back-to-choice');
+
+  const nameInput = document.getElementById('order-cust-name');
+  const phoneInput = document.getElementById('order-cust-phone');
+
+  if (mode === 'member') {
+    if (!state.customer) {
+      // Prompt sign in first
+      state.returnToCheckoutAfterAuth = true;
+      closeCheckoutModal();
+      toggleCustomerAuthModal(true);
+      return;
+    }
+
+    if (badgeMode) {
+      badgeMode.textContent = '👑 VIP Member Checkout';
+      badgeMode.className = 'text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#D6A65B]/20 text-[#D6A65B] border border-[#D6A65B]/40';
+    }
+
+    if (memberContainer) {
+      memberContainer.classList.remove('hidden');
+      const nameTag = document.getElementById('member-name-tag');
+      if (nameTag) nameTag.textContent = state.customer.name;
+
+      const sel = document.getElementById('member-address-select');
+      if (sel) {
+        const addrs = state.customer.addresses || [];
+        if (addrs.length > 0) {
+          sel.innerHTML = addrs.map((a, idx) => `
+            <option value="${idx}">${a.label || 'Home'} - ${a.street}, ${a.locality}</option>
+          `).join('');
+          handleSavedAddressSelect(0);
+        } else {
+          sel.innerHTML = `<option value="-1">Enter New Delivery Address</option>`;
+        }
+      }
+    }
+
+    if (nameInput) nameInput.value = state.customer.name || '';
+    if (phoneInput) phoneInput.value = state.customer.phone || '';
+
+  } else {
+    // Guest Mode
+    if (badgeMode) {
+      badgeMode.textContent = '⚡ Guest Checkout (No Login)';
+      badgeMode.className = 'text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30';
+    }
+    if (memberContainer) memberContainer.classList.add('hidden');
+  }
+
+  if (choiceView) choiceView.classList.add('hidden');
+  if (formView) formView.classList.remove('hidden');
+  if (btnBack) btnBack.classList.toggle('hidden', Boolean(state.customer));
+}
+
+function handleSavedAddressSelect(index) {
+  if (!state.customer || !state.customer.addresses) return;
+  const idx = Number(index);
+  const addr = state.customer.addresses[idx];
+  if (!addr) return;
+
+  const streetInput = document.getElementById('order-cust-street');
+  const localityInput = document.getElementById('order-cust-locality');
+  const landmarkInput = document.getElementById('order-cust-landmark');
+
+  if (streetInput) streetInput.value = addr.street || '';
+  if (landmarkInput) landmarkInput.value = addr.landmark || '';
+  if (localityInput && addr.locality) localityInput.value = addr.locality;
+}
+
+function backToCheckoutChoice() {
+  const choiceView = document.getElementById('checkout-choice-view');
+  const formView = document.getElementById('checkout-form-view');
+  if (choiceView) choiceView.classList.remove('hidden');
+  if (formView) formView.classList.add('hidden');
+}
+
+async function handleCheckoutFormSubmit(e) {
+  e.preventDefault();
+  if (state.cart.length === 0) return;
+
+  const nameInput = document.getElementById('order-cust-name');
+  const phoneInput = document.getElementById('order-cust-phone');
+  const streetInput = document.getElementById('order-cust-street');
+  const localityInput = document.getElementById('order-cust-locality');
+  const landmarkInput = document.getElementById('order-cust-landmark');
+  const notesInput = document.getElementById('order-cust-notes');
+  const submitBtn = document.getElementById('btn-submit-order');
+
+  const name = nameInput.value.trim();
+  const rawPhone = phoneInput.value.trim().replace(/\D/g, '').slice(-10);
+  const street = streetInput.value.trim();
+  const locality = localityInput.value;
+  const landmark = landmarkInput.value.trim();
+  const notes = notesInput.value.trim();
+
+  const paymentRadio = document.querySelector('input[name="paymentMethod"]:checked');
+  const paymentMethod = paymentRadio ? paymentRadio.value : 'UPI on Delivery';
+
+  if (!name || rawPhone.length < 10 || !street) {
+    showToast('Please provide your name, 10-digit WhatsApp phone, and address');
+    return;
+  }
+
+  // Calculate totals
   let subtotal = 0;
   let itemsList = '';
   const orderItems = [];
@@ -471,36 +951,109 @@ function checkoutWhatsApp() {
 
   const deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : FLAT_DELIVERY_FEE;
   const grandTotal = subtotal + deliveryFee;
+  const fullAddress = `${street}${landmark ? ', Near ' + landmark : ''}, ${locality}, Ujjain`;
 
-  // Asynchronously log inquiry into TCJ Admin Tracker
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `<span class="animate-spin mr-2">◌</span> Preparing Order...`;
+
   try {
-    fetch('/api/orders', {
+    const orderPayload = {
+      customerName: name,
+      phone: rawPhone,
+      address: fullAddress,
+      addressDetails: {
+        street,
+        locality,
+        landmark,
+        fullAddress
+      },
+      items: orderItems,
+      subtotal,
+      deliveryFee,
+      total: grandTotal,
+      paymentMethod,
+      isGuest: state.checkoutMode === 'guest',
+      customerId: state.customer ? state.customer.id : null,
+      notes: notes,
+      source: state.checkoutMode === 'guest' ? 'Guest Checkout (No Login)' : 'VIP Member Checkout'
+    };
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (state.customerToken) headers['x-customer-token'] = state.customerToken;
+
+    const res = await fetch('/api/orders', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        customerName: 'WhatsApp Patron',
-        items: orderItems,
-        subtotal: subtotal,
-        deliveryFee: deliveryFee,
-        total: grandTotal,
-        source: 'Storefront Bag Checkout',
-      }),
-    }).catch(() => {});
-  } catch (e) {}
+      headers,
+      body: JSON.stringify(orderPayload)
+    });
+    const data = await res.json();
+    const orderId = (data.order && data.order.id) || ('TCJ-ORD-' + Date.now().toString().slice(-4));
 
-  const message = 
-    `*TCJ GOURMET STORE — ORDER REQUEST* 🍫📦\n` +
-    `Hello Tapish! I would like to order the following from TCJ Ujjain:\n\n` +
-    `*ITEMS ORDERED:*\n${itemsList}\n` +
-    `*Subtotal:* ₹${subtotal}\n` +
-    `*Ujjain Delivery:* ${deliveryFee === 0 ? 'FREE (Orders above ₹' + FREE_DELIVERY_THRESHOLD + ')' : '₹' + FLAT_DELIVERY_FEE}\n` +
-    `*GRAND TOTAL:* ₹${grandTotal}\n\n` +
-    `📍 *My Ujjain Delivery Address / Location:*\n` +
-    `[Please type your complete address or share live location]\n\n` +
-    `*Payment Mode:* UPI / Cash on Delivery`;
+    // Clear cart
+    state.cart = [];
+    saveCart();
+    updateCartUI();
+    closeCheckoutModal();
+    toggleCartDrawer(false);
 
-  const waUrl = `https://wa.me/${TCJ_PHONE}?text=${encodeURIComponent(message)}`;
-  window.open(waUrl, '_blank');
+    // Format WhatsApp message
+    const waMessage = 
+      `*TCJ GOURMET STORE — NEW ORDER* 🍫📦\n` +
+      `*Order ID:* #${orderId}\n` +
+      `*Customer:* ${name} (+91 ${rawPhone})\n` +
+      `*Checkout Type:* ${state.checkoutMode === 'guest' ? 'Guest Checkout' : 'VIP Club Member'}\n\n` +
+      `*ITEMS ORDERED:*\n${itemsList}\n` +
+      `*Subtotal:* ₹${subtotal}\n` +
+      `*Ujjain Delivery:* ${deliveryFee === 0 ? 'FREE (Orders above ₹' + FREE_DELIVERY_THRESHOLD + ')' : '₹' + FLAT_DELIVERY_FEE}\n` +
+      `*GRAND TOTAL:* ₹${grandTotal}\n\n` +
+      `📍 *DELIVERY ADDRESS (UJJAIN):*\n` +
+      `${fullAddress}\n` +
+      (notes ? `*Delivery Instructions:* "${notes}"\n` : '') +
+      `*Payment Mode:* ${paymentMethod}\n\n` +
+      `Please confirm my doorstep delivery (25–45 mins)!`;
+
+    const waUrl = `https://wa.me/${TCJ_PHONE}?text=${encodeURIComponent(waMessage)}`;
+
+    // Show order success modal
+    const succModal = document.getElementById('order-success-modal');
+    const succId = document.getElementById('success-order-id');
+    const succTotal = document.getElementById('success-order-total');
+    const succAddr = document.getElementById('success-order-address');
+    const succLink = document.getElementById('success-whatsapp-link');
+
+    if (succId) succId.textContent = orderId;
+    if (succTotal) succTotal.textContent = `₹${grandTotal} (${paymentMethod})`;
+    if (succAddr) succAddr.textContent = fullAddress;
+    if (succLink) succLink.href = waUrl;
+
+    if (succModal) succModal.classList.remove('hidden');
+
+    // Automatically trigger WhatsApp window
+    window.open(waUrl, '_blank');
+
+    showToast(`Order #${orderId} confirmed!`, 'success');
+
+  } catch (err) {
+    showToast('Order creation failed: ' + err.message);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = `<span>CONFIRM &amp; ORDER ON WHATSAPP</span><span>💬</span>`;
+  }
+}
+
+function closeOrderSuccessModal() {
+  const modal = document.getElementById('order-success-modal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function openAccountFromSuccess() {
+  closeOrderSuccessModal();
+  if (state.customer) {
+    toggleAccountDrawer(true);
+    loadCustomerOrders();
+  } else {
+    toggleCustomerAuthModal(true);
+  }
 }
 
 function orderSingleItemWhatsApp(productName, price) {
@@ -510,7 +1063,10 @@ function orderSingleItemWhatsApp(productName, price) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        customerName: 'WhatsApp Patron',
+        customerName: state.customer ? state.customer.name : 'WhatsApp Patron',
+        customerId: state.customer ? state.customer.id : null,
+        phone: state.customer ? state.customer.phone : '',
+        address: state.customer && state.customer.addresses && state.customer.addresses[0] ? state.customer.addresses[0].street + ', ' + state.customer.addresses[0].locality + ', Ujjain' : 'Instant 1-Click Inquiry',
         items: [{ title: productName, price, quantity: 1 }],
         subtotal: price,
         deliveryFee: 0,
@@ -524,6 +1080,7 @@ function orderSingleItemWhatsApp(productName, price) {
     `*TCJ GOURMET STORE — INSTANT REQUEST* 🍫✨\n` +
     `Hello Tapish! I'd like to order:\n` +
     `• 1x ${productName} (₹${price})\n\n` +
+    (state.customer ? `*Customer:* ${state.customer.name} (VIP Member)\n` : '') +
     `Please confirm instant availability & delivery time in Ujjain!`;
 
   const waUrl = `https://wa.me/${TCJ_PHONE}?text=${encodeURIComponent(message)}`;

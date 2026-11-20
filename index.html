@@ -95,6 +95,18 @@
         0
       </span>
     </button>
+
+    <!-- VIP Account / Profile Trigger -->
+    <button 
+      id="account-btn"
+      onclick="handleAccountClick()"
+      class="relative px-3 sm:px-3.5 h-10 sm:h-11 rounded-2xl bg-[#151312]/90 backdrop-blur-md border border-[#D6A65B]/40 hover:border-[#D6A65B] flex items-center gap-1.5 text-xs font-bold text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all group"
+      aria-label="VIP Account"
+      title="VIP Account & Orders"
+    >
+      <span id="account-btn-icon" class="text-base">👤</span>
+      <span id="account-btn-label" class="hidden sm:inline font-mono tracking-wider text-[11px] text-[#D6A65B]">VIP</span>
+    </button>
   </div>
 
   <!-- ============================================================== -->
@@ -1076,15 +1088,19 @@
       </div>
 
       <button 
-        onclick="checkoutWhatsApp()" 
-        class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2"
+        onclick="openCheckoutModal()" 
+        class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#D6A65B]/20 hover:scale-[1.02] active:scale-95 transition-all"
       >
-        <span>ORDER ON WHATSAPP</span>
-        <span>💬</span>
+        <span>PROCEED TO CHECKOUT</span>
+        <span>→</span>
       </button>
-      <p class="text-[10px] text-center text-[#706860] mt-2">
-        Instant order confirmation via Tapish Verma (+91 62683 44816)
-      </p>
+      <div class="flex items-center justify-center gap-2.5 mt-2.5 text-[10px] text-[#A49B91]">
+        <span>⚡ 1-Click Guest</span>
+        <span>&bull;</span>
+        <span>👑 VIP Member Perks</span>
+        <span>&bull;</span>
+        <span>📍 Ujjain 25-45m</span>
+      </div>
     </div>
 
   </aside>
@@ -1111,6 +1127,10 @@
       <a href="#candy-experience-section" onclick="toggleNavDrawer(false)" class="text-pink-400">Candy Special 🍭</a>
       <a href="#chocolate-experience-section" onclick="toggleNavDrawer(false)" class="hover:text-[#D6A65B] transition-colors">Dubai Chocolate 👑</a>
       <a href="#store-section" onclick="toggleNavDrawer(false)" class="hover:text-[#D6A65B] transition-colors">Visit Flagship Store 📍</a>
+      <button type="button" onclick="toggleNavDrawer(false); handleAccountClick();" class="text-left text-[#D6A65B] flex items-center justify-between py-1 hover:brightness-110">
+        <span>VIP Account &amp; Orders 👑</span>
+        <span class="text-[10px] bg-[#D6A65B]/20 border border-[#D6A65B]/30 px-2 py-0.5 rounded-full text-[#D6A65B]">Manage</span>
+      </button>
     </nav>
 
     <div class="mt-auto pt-6 border-t border-[#D6A65B]/15 space-y-3">
@@ -1171,6 +1191,439 @@
       </div>
     </div>
   </div>
+
+  <!-- ============================================================== -->
+  <!-- 18. CUSTOMER AUTH MODAL (SIGN IN / SIGN UP)                   -->
+  <!-- ============================================================== -->
+  <div id="customer-auth-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-md border border-[#D6A65B]/35 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="toggleCustomerAuthModal(false)" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
+        ✕
+      </button>
+
+      <div class="text-center mb-6">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D6A65B]/10 border border-[#D6A65B]/30 text-[#D6A65B] text-xs font-semibold mb-2">
+          <span>👑</span>
+          <span>TCJ VIP Gourmet Club</span>
+        </span>
+        <h3 id="auth-modal-title" class="font-editorial text-2xl font-bold text-[#F5EBDD]">Welcome to TCJ</h3>
+        <p class="text-xs text-[#A49B91] mt-1">Unlock 1-click address checkout, order history, and VIP drops.</p>
+      </div>
+
+      <!-- Auth Tabs -->
+      <div class="grid grid-cols-2 p-1 bg-[#0c0b0a] rounded-xl border border-[#D6A65B]/20 mb-5">
+        <button id="auth-tab-login" onclick="switchAuthTab('login')" class="py-2 text-xs font-bold rounded-lg transition-all text-[#080808] bg-[#D6A65B]">
+          Sign In
+        </button>
+        <button id="auth-tab-signup" onclick="switchAuthTab('signup')" class="py-2 text-xs font-bold rounded-lg transition-all text-[#A49B91] hover:text-[#F5EBDD]">
+          Join VIP Club
+        </button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="customer-login-form" onsubmit="handleCustomerLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1.5">Mobile Number / Email</label>
+          <input type="text" id="login-identifier" required placeholder="e.g. 9876543210 or email"
+                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1.5">Password</label>
+          <input type="password" id="login-password" required placeholder="••••••••"
+                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+        </div>
+
+        <div id="login-form-error" class="hidden text-xs text-rose-400 p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/30"></div>
+
+        <button type="submit" id="btn-login-submit" class="btn-gold w-full py-3 rounded-xl text-xs font-bold shadow-lg shadow-[#D6A65B]/20">
+          Sign In to VIP Account
+        </button>
+
+        <div class="text-center pt-2">
+          <button type="button" onclick="continueAsGuestFromAuth()" class="text-xs text-[#A49B91] hover:text-[#D6A65B] underline">
+            Continue without login (Guest Checkout) →
+          </button>
+        </div>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="customer-signup-form" onsubmit="handleCustomerSignupSubmit(event)" class="space-y-3.5 hidden">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Full Name *</label>
+          <input type="text" id="signup-name" required placeholder="e.g. Yash Gadwal"
+                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">WhatsApp Mobile *</label>
+            <input type="tel" id="signup-phone" required placeholder="10-digit number" maxlength="10"
+                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Email (Optional)</label>
+            <input type="email" id="signup-email" placeholder="you@domain.com"
+                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Create Password *</label>
+          <input type="password" id="signup-password" required placeholder="At least 6 characters" minlength="6"
+                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Ujjain Delivery Address *</label>
+          <input type="text" id="signup-address" required placeholder="Flat/House No, Building, Street"
+                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Ujjain Locality</label>
+            <select id="signup-locality" class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3 py-2.5 text-xs text-[#F5EBDD] focus:outline-none focus:border-[#D6A65B]">
+              <option value="Freeganj">Freeganj</option>
+              <option value="Nanakheda">Nanakheda</option>
+              <option value="Mahakal Marg">Mahakal Marg</option>
+              <option value="Sethi Nagar">Sethi Nagar</option>
+              <option value="Rishi Nagar">Rishi Nagar</option>
+              <option value="Indira Nagar">Indira Nagar</option>
+              <option value="Madhav Nagar">Madhav Nagar</option>
+              <option value="Dewas Road">Dewas Road</option>
+              <option value="Other Ujjain Area">Other Area (Ujjain)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Landmark</label>
+            <input type="text" id="signup-landmark" placeholder="Near Tower, Mandir etc"
+                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+          </div>
+        </div>
+
+        <div id="signup-form-error" class="hidden text-xs text-rose-400 p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/30"></div>
+
+        <button type="submit" id="btn-signup-submit" class="btn-gold w-full py-3 rounded-xl text-xs font-bold shadow-lg shadow-[#D6A65B]/20">
+          Create VIP Account &amp; Save Address
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 19. DUAL CHECKOUT MODAL (GUEST VS VIP LOGIN & ADDRESS)         -->
+  <!-- ============================================================== -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-xl border border-[#D6A65B]/35 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
+        ✕
+      </button>
+
+      <!-- Step 1: Decision Mode (Shown if customer not logged in yet) -->
+      <div id="checkout-choice-view" class="space-y-5">
+        <div class="text-center">
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#D6A65B]/10 border border-[#D6A65B]/30 text-[#D6A65B] text-xs font-semibold mb-2">
+            <span>🛍️</span>
+            <span>Choose Checkout Style</span>
+          </span>
+          <h3 class="font-editorial text-2xl font-bold text-[#F5EBDD]">How would you like to order?</h3>
+          <p class="text-xs text-[#A49B91] mt-1">Select your preferred checkout method below.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          
+          <!-- Option A: Buy Without Login (Guest) -->
+          <div onclick="selectCheckoutMode('guest')" class="p-5 rounded-2xl bg-[#0e0c0b] hover:bg-[#161311] border border-[#D6A65B]/30 hover:border-[#D6A65B] cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between group space-y-3">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-3">
+                ⚡
+              </div>
+              <h4 class="font-editorial text-base font-bold text-[#F5EBDD] group-hover:text-[#D6A65B]">Buy without Login</h4>
+              <p class="text-xs text-[#A49B91] mt-1.5 leading-relaxed">
+                Instant Guest Checkout. Just enter your delivery address and receive WhatsApp confirmation. Zero password needed.
+              </p>
+            </div>
+            <button type="button" class="btn-secondary w-full py-2 rounded-xl text-xs font-bold border border-[#D6A65B]/30 group-hover:bg-[#D6A65B] group-hover:text-black transition-colors">
+              Continue as Guest →
+            </button>
+          </div>
+
+          <!-- Option B: Buy with Login (VIP Member) -->
+          <div onclick="selectCheckoutMode('member')" class="p-5 rounded-2xl bg-gradient-to-br from-[#181410] to-[#0d0c0a] hover:from-[#221c17] hover:to-[#141210] border border-[#D6A65B]/40 hover:border-[#D6A65B] cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between group space-y-3 shadow-xl">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-[#D6A65B]/20 text-[#D6A65B] flex items-center justify-center text-xl mb-3">
+                👑
+              </div>
+              <h4 class="font-editorial text-base font-bold text-[#D6A65B]">Sign In &amp; Buy</h4>
+              <p class="text-xs text-[#A49B91] mt-1.5 leading-relaxed">
+                Auto-fill your saved Ujjain address with 1-click, earn VIP rewards, and track real-time delivery status.
+              </p>
+            </div>
+            <button type="button" class="btn-gold w-full py-2 rounded-xl text-xs font-bold shadow-md">
+              Sign In / Join VIP Club →
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Order Snapshot -->
+        <div class="p-3.5 rounded-xl bg-[#090807] border border-[#D6A65B]/15 flex items-center justify-between text-xs">
+          <span class="text-[#A49B91]">Bag Total (<span id="checkout-choice-count">0 items</span>)</span>
+          <span id="checkout-choice-total" class="font-mono font-bold text-sm text-[#D6A65B]">₹0</span>
+        </div>
+      </div>
+
+      <!-- Step 2: Address & Details Form View -->
+      <div id="checkout-form-view" class="hidden space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-[#D6A65B]/20">
+          <div>
+            <span id="checkout-badge-mode" class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#D6A65B]/15 text-[#D6A65B] border border-[#D6A65B]/30">
+              Guest Checkout
+            </span>
+            <h3 class="font-editorial text-xl font-bold text-[#F5EBDD] mt-1">Delivery &amp; Concierge Details</h3>
+          </div>
+          <button type="button" onclick="backToCheckoutChoice()" id="btn-back-to-choice" class="text-xs text-[#A49B91] hover:text-[#D6A65B] flex items-center gap-1">
+            <span>← Change Option</span>
+          </button>
+        </div>
+
+        <!-- Saved Addresses Dropdown if Member -->
+        <div id="member-saved-address-container" class="hidden p-3 rounded-xl bg-[#120f0d] border border-[#D6A65B]/30 space-y-2">
+          <div class="flex items-center justify-between text-xs font-semibold text-[#D6A65B]">
+            <span class="flex items-center gap-1">👑 <span>Saved VIP Delivery Address</span></span>
+            <span id="member-name-tag" class="text-[11px] text-[#A49B91]">Logged in</span>
+          </div>
+          <select id="member-address-select" onchange="handleSavedAddressSelect(this.value)" class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-lg px-3 py-2 text-xs text-[#F5EBDD]">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <form id="checkout-address-form" onsubmit="handleCheckoutFormSubmit(event)" class="space-y-3.5">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Full Name *</label>
+              <input type="text" id="order-cust-name" required placeholder="e.g. Yash Gadwal"
+                     class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">WhatsApp Phone *</label>
+              <input type="tel" id="order-cust-phone" required placeholder="10-digit mobile" maxlength="10"
+                     class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Delivery Address (House/Flat No, Street) *</label>
+            <input type="text" id="order-cust-street" required placeholder="e.g. Flat 302, Royal Palms, Dewas Road"
+                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Ujjain Locality *</label>
+              <select id="order-cust-locality" class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3 py-2.5 text-xs text-[#F5EBDD] focus:outline-none focus:border-[#D6A65B]">
+                <option value="Freeganj">Freeganj</option>
+                <option value="Nanakheda">Nanakheda</option>
+                <option value="Mahakal Marg">Mahakal Marg</option>
+                <option value="Sethi Nagar">Sethi Nagar</option>
+                <option value="Rishi Nagar">Rishi Nagar</option>
+                <option value="Indira Nagar">Indira Nagar</option>
+                <option value="Madhav Nagar">Madhav Nagar</option>
+                <option value="Dewas Road">Dewas Road</option>
+                <option value="Other Ujjain Area">Other Area (Ujjain)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Landmark (Optional)</label>
+              <input type="text" id="order-cust-landmark" placeholder="Near Tower, Mandir etc"
+                     class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Special Concierge Instructions</label>
+            <input type="text" id="order-cust-notes" placeholder="e.g. Ring bell twice, keep chocolates cool..."
+                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+          </div>
+
+          <!-- Payment Method Selector -->
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1.5">Payment Method</label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="p-3 rounded-xl bg-[#090807] border border-[#D6A65B]/30 flex items-center gap-2 cursor-pointer hover:border-[#D6A65B]">
+                <input type="radio" name="paymentMethod" value="UPI on Delivery" checked class="text-[#D6A65B]">
+                <div class="text-xs">
+                  <span class="font-bold text-[#F5EBDD] block">UPI on Delivery</span>
+                  <span class="text-[10px] text-[#A49B91]">GPay, PhonePe, Paytm QR</span>
+                </div>
+              </label>
+              <label class="p-3 rounded-xl bg-[#090807] border border-[#D6A65B]/30 flex items-center gap-2 cursor-pointer hover:border-[#D6A65B]">
+                <input type="radio" name="paymentMethod" value="Cash on Delivery" class="text-[#D6A65B]">
+                <div class="text-xs">
+                  <span class="font-bold text-[#F5EBDD] block">Cash on Delivery</span>
+                  <span class="text-[10px] text-[#A49B91]">Pay cash to rider</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Order Total Banner -->
+          <div class="p-3.5 rounded-xl bg-[#110e0c] border border-[#D6A65B]/20 space-y-1 text-xs">
+            <div class="flex justify-between text-[#A49B91]">
+              <span>Subtotal</span>
+              <span id="form-subtotal" class="font-mono text-[#F5EBDD]">₹0</span>
+            </div>
+            <div class="flex justify-between text-[#A49B91]">
+              <span>Ujjain Delivery (25–45 min)</span>
+              <span id="form-delivery-fee" class="font-mono text-[#A8B77A]">₹49</span>
+            </div>
+            <div class="flex justify-between font-bold text-sm text-[#F5EBDD] pt-1.5 border-t border-[#D6A65B]/15">
+              <span>Payable Total</span>
+              <span id="form-grand-total" class="font-mono text-[#D6A65B] text-base">₹0</span>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-order" class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold shadow-xl shadow-[#D6A65B]/25 flex items-center justify-center gap-2">
+            <span>CONFIRM &amp; ORDER ON WHATSAPP</span>
+            <span>💬</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 20. ORDER CONFIRMATION / SUCCESS MODAL                        -->
+  <!-- ============================================================== -->
+  <div id="order-success-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-md border border-emerald-500/40 relative text-center space-y-5 shadow-2xl">
+      <div class="w-16 h-16 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center text-3xl">
+        ✨
+      </div>
+
+      <div>
+        <span class="text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+          Order Logged Successfully
+        </span>
+        <h3 class="font-editorial text-2xl font-bold text-[#F5EBDD] mt-2">Delicacies on the Way!</h3>
+        <p class="text-xs text-[#A49B91] mt-1">Our concierge is preparing your viral treats for Ujjain local delivery.</p>
+      </div>
+
+      <!-- Order Details Pill -->
+      <div class="p-4 rounded-xl bg-[#0a0908] border border-[#D6A65B]/20 text-left space-y-2 text-xs">
+        <div class="flex justify-between items-center">
+          <span class="text-[#A49B91]">Order Number:</span>
+          <span id="success-order-id" class="font-mono font-bold text-[#D6A65B]">TCJ-ORD-1001</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[#A49B91]">Delivery Estimate:</span>
+          <span class="text-emerald-400 font-semibold">25–45 Mins in Ujjain</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[#A49B91]">Payable Amount:</span>
+          <span id="success-order-total" class="font-mono font-bold text-sm text-[#F5EBDD]">₹0</span>
+        </div>
+        <div class="pt-2 border-t border-[#D6A65B]/15 text-[11px] text-[#A49B91]">
+          <span class="text-[#706860] block">Delivery Location:</span>
+          <span id="success-order-address" class="text-[#F5EBDD] font-medium block truncate"></span>
+        </div>
+      </div>
+
+      <!-- Big WhatsApp Button -->
+      <a id="success-whatsapp-link" href="#" target="_blank" class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold shadow-xl shadow-[#D6A65B]/30 flex items-center justify-center gap-2">
+        <span>Open WhatsApp Concierge Confirmation</span>
+        <span>💬</span>
+      </a>
+
+      <div class="flex items-center justify-center gap-3 pt-1">
+        <button type="button" onclick="closeOrderSuccessModal()" class="text-xs text-[#A49B91] hover:text-[#D6A65B]">
+          Continue Browsing
+        </button>
+        <span class="text-[#333]">&bull;</span>
+        <button type="button" onclick="openAccountFromSuccess()" class="text-xs text-[#D6A65B] hover:underline">
+          View My Orders
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 21. CUSTOMER ACCOUNT & ORDER HISTORY DRAWER                    -->
+  <!-- ============================================================== -->
+  <div id="account-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleAccountDrawer(false)"></div>
+  <aside id="account-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0e0d0c] border-l border-[#D6A65B]/25 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-[#D6A65B]/15 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-[#D6A65B]/20 border border-[#D6A65B]/40 flex items-center justify-center text-sm font-bold text-[#D6A65B]">
+          👑
+        </div>
+        <div>
+          <h3 id="drawer-cust-name" class="font-editorial text-base font-bold text-[#F5EBDD]">VIP Patron</h3>
+          <span id="drawer-cust-phone" class="text-[11px] font-mono text-[#D6A65B]">+91 ••••• •••••</span>
+        </div>
+      </div>
+      <button onclick="toggleAccountDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white">
+        ✕
+      </button>
+    </div>
+
+    <!-- Content Area -->
+    <div class="flex-grow overflow-y-auto p-5 space-y-6">
+      
+      <!-- VIP Member Card -->
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-[#181410] to-[#0c0b0a] border border-[#D6A65B]/30 space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-[#D6A65B] uppercase tracking-wider">Gourmet Connoisseur</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/30">Active Member</span>
+        </div>
+        <p class="text-xs text-[#A49B91] leading-relaxed">
+          Enjoy priority concierge packaging, instant address checkout, and early access to rare imported snack drops in Ujjain.
+        </p>
+      </div>
+
+      <!-- Saved Delivery Address -->
+      <div class="space-y-2.5">
+        <div class="flex items-center justify-between">
+          <h4 class="font-editorial text-sm font-bold text-[#F5EBDD]">Saved Delivery Address</h4>
+          <span class="text-[10px] text-[#A49B91]">Ujjain Doorstep</span>
+        </div>
+        <div id="drawer-address-card" class="p-3.5 rounded-xl bg-[#090807] border border-[#D6A65B]/15 text-xs text-[#F5EBDD] space-y-1">
+          <!-- Populated dynamically -->
+          <span class="text-[#706860]">No address saved yet.</span>
+        </div>
+      </div>
+
+      <!-- Order History -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="font-editorial text-sm font-bold text-[#F5EBDD]">Recent Orders &amp; Inquiries</h4>
+          <span id="drawer-orders-count" class="text-xs font-mono text-[#D6A65B]">0 Orders</span>
+        </div>
+
+        <div id="drawer-orders-list" class="space-y-3">
+          <!-- Injected dynamically via app.js -->
+          <div class="py-8 text-center text-xs text-[#706860]">
+            Loading your gourmet orders...
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 bg-[#080808] border-t border-[#D6A65B]/20 flex items-center justify-between">
+      <button onclick="handleCustomerLogout()" class="px-4 py-2 rounded-xl text-xs font-semibold text-rose-400 hover:bg-rose-950/30 border border-rose-500/20 transition-colors">
+        Sign Out
+      </button>
+      <button onclick="toggleAccountDrawer(false); toggleCartDrawer(true);" class="btn-gold px-4 py-2 rounded-xl text-xs font-bold">
+        View Cart
+      </button>
+    </div>
+  </aside>
 
   <!-- Toast Notification Container -->
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none"></div>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "CUST-1002",
+    "name": "Aarav Mehta",
+    "phone": "9926611206",
+    "email": "aarav.1795191635635@gmail.com",
+    "password": "securePass123",
+    "vipTier": "Gourmet Connoisseur",
+    "addresses": [
+      {
+        "id": "addr-1",
+        "label": "Home",
+        "street": "B-202, Silver Crest Apartments, Dewas Road",
+        "landmark": "Opp. Bharat Mata Mandir",
+        "locality": "Freeganj",
+        "city": "Ujjain",
+        "pincode": "456001",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-11-20T16:20:35.662Z"
+  },
+  {
+    "id": "CUST-1001",
+    "name": "Yash Gadwal",
+    "phone": "9876543210",
+    "email": "yash@theconveniencejunction.com",
+    "password": "password123",
+    "vipTier": "Gourmet Connoisseur",
+    "addresses": [
+      {
+        "id": "addr-1",
+        "label": "Home",
+        "street": "B-14, Shanti Nagar, Near Mahakal Mandir",
+        "landmark": "Near Tower Square",
+        "locality": "Freeganj",
+        "city": "Ujjain",
+        "pincode": "456001",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-11-20T16:00:00.000Z"
+  }
+]
