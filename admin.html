@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCJ Luxury Admin | The Convenience Junction</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tcjGold: '#D6A65B',
+            tcjGoldHover: '#E5BA73',
+            tcjEmerald: '#0b1d16',
+            tcjDark: '#080808',
+            tcjCard: '#12100e',
+            tcjBorder: 'rgba(214, 166, 91, 0.18)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Admin Styles -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="bg-[#080808] text-[#F5EBDD] min-h-screen flex flex-col font-sans selection:bg-[#D6A65B] selection:text-black">
+
+  <!-- ============================================================== -->
+  <!-- 1. AUTHENTICATION GATE (Passcode Protected) -->
+  <!-- ============================================================== -->
+  <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
+    <div class="admin-card w-full max-w-md p-8 rounded-2xl relative border border-[#D6A65B]/30 shadow-2xl">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#D6A65B]/10 border border-[#D6A65B]/30 mb-4 text-[#D6A65B]">
+          <i data-lucide="shield-check" class="w-7 h-7"></i>
+        </div>
+        <h1 class="font-editorial text-2xl font-bold tracking-wider text-[#D6A65B] uppercase">The Convenience Junction</h1>
+        <p class="text-xs uppercase tracking-widest text-[#A49B91] mt-1 font-medium">Gourmet Concierge &bull; Admin Portal</p>
+      </div>
+
+      <form id="login-form" class="space-y-5">
+        <div>
+          <label for="passcode-input" class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-2">Master Passcode</label>
+          <div class="relative">
+            <input type="password" id="passcode-input" autocomplete="current-password" required
+                   class="admin-input pr-12 text-center text-lg tracking-widest font-mono"
+                   placeholder="Enter passcode...">
+            <button type="button" id="toggle-pwd-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#A49B91] hover:text-[#D6A65B] transition-colors">
+              <i data-lucide="eye" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="login-error" class="hidden p-3 rounded-lg bg-red-950/60 border border-red-500/30 text-red-200 text-xs flex items-center gap-2">
+          <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
+          <span id="login-error-text">Invalid master passcode.</span>
+        </div>
+
+        <button type="submit" id="login-btn" class="w-full btn-gold-admin py-3">
+          <i data-lucide="lock" class="w-4 h-4"></i>
+          <span>Access Management Portal</span>
+        </button>
+      </form>
+
+      <div class="mt-6 pt-5 border-t border-[#D6A65B]/10 text-center">
+        <p class="text-[11px] text-[#706860]">
+          Default credential: <span class="font-mono text-[#D6A65B]">tcj2026</span>
+        </p>
+        <a href="/" class="inline-flex items-center gap-1 text-xs text-[#A49B91] hover:text-[#D6A65B] mt-3 transition-colors">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Back to Public Storefront</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 2. MAIN ADMIN PORTAL APP -->
+  <!-- ============================================================== -->
+  <div id="admin-app" class="hidden flex-1 flex flex-col min-h-screen">
+    
+    <!-- Top Navigation Bar -->
+    <header class="admin-glass sticky top-0 z-40 px-4 lg:px-8 py-3.5 flex items-center justify-between border-b border-[#D6A65B]/20">
+      <div class="flex items-center gap-4">
+        <button id="mobile-menu-toggle" class="lg:hidden p-2 text-[#A49B91] hover:text-[#D6A65B] rounded-lg">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#D6A65B]/10 border border-[#D6A65B]/30 flex items-center justify-center text-[#D6A65B] font-editorial font-bold text-lg">
+            TCJ
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-editorial text-lg font-bold tracking-wide text-[#F5EBDD]">The Convenience Junction</span>
+              <span class="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#D6A65B]/15 text-[#D6A65B] border border-[#D6A65B]/30">Admin</span>
+            </div>
+            <p class="text-[11px] text-[#A49B91] hidden sm:block">Luxury Imports &amp; Artisanal Delicacies</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-4">
+        <!-- Live Store Indicator -->
+        <div id="store-status-pill" class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="store-status-text">Store Open</span>
+        </div>
+
+        <!-- View Store Button -->
+        <a href="/" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#D6A65B]/30 bg-[#141210] hover:bg-[#1f1c19] text-[#F5EBDD] hover:text-[#D6A65B] text-xs font-medium transition-all">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>View Storefront</span>
+        </a>
+
+        <!-- Logout Button -->
+        <button id="logout-btn" title="Sign Out" class="p-2 text-[#A49B91] hover:text-red-400 hover:bg-red-950/30 rounded-lg transition-colors border border-transparent hover:border-red-500/20">
+          <i data-lucide="log-out" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Shell: Sidebar + Panels -->
+    <div class="flex-1 flex overflow-hidden">
+      
+      <!-- Sidebar -->
+      <aside id="admin-sidebar" class="w-64 bg-[#0d0c0b] border-r border-[#D6A65B]/15 flex flex-col justify-between fixed lg:static inset-y-0 left-0 z-30 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+        <div class="p-4 space-y-1.5 overflow-y-auto">
+          <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-[#706860]">Navigation</div>
+          
+          <button data-tab="overview" class="nav-tab-btn active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#D6A65B] bg-[#D6A65B]/10 border border-[#D6A65B]/30">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span>Overview &amp; Metrics</span>
+          </button>
+
+          <button data-tab="products" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#A49B91] hover:text-[#F5EBDD] hover:bg-[#171513]">
+            <div class="flex items-center gap-3">
+              <i data-lucide="package" class="w-4 h-4"></i>
+              <span>Delicacies Catalog</span>
+            </div>
+            <span id="badge-products-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#1e1a17] text-[#D6A65B]">0</span>
+          </button>
+
+          <button data-tab="orders" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#A49B91] hover:text-[#F5EBDD] hover:bg-[#171513]">
+            <div class="flex items-center gap-3">
+              <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              <span>Orders &amp; WhatsApp</span>
+            </div>
+            <span id="badge-orders-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/20">0</span>
+          </button>
+
+          <button data-tab="categories" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#A49B91] hover:text-[#F5EBDD] hover:bg-[#171513]">
+            <div class="flex items-center gap-3">
+              <i data-lucide="layers" class="w-4 h-4"></i>
+              <span>Aisles &amp; Categories</span>
+            </div>
+            <span id="badge-categories-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#1e1a17] text-[#A49B91]">0</span>
+          </button>
+
+          <div class="pt-4 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-[#706860]">System</div>
+
+          <button data-tab="settings" class="nav-tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#A49B91] hover:text-[#F5EBDD] hover:bg-[#171513]">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+            <span>Store Settings &amp; Fees</span>
+          </button>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-[#D6A65B]/15 bg-[#0a0908]">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-[#D6A65B]/20 flex items-center justify-center text-[#D6A65B]">
+              <i data-lucide="crown" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-semibold text-[#F5EBDD] truncate">TCJ Concierge</p>
+              <p id="concierge-phone-display" class="text-[11px] font-mono text-[#A49B91] truncate">+91 62683 44816</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Sidebar Backdrop on Mobile -->
+      <div id="sidebar-backdrop" class="fixed inset-0 bg-black/60 z-20 hidden lg:hidden"></div>
+
+      <!-- Main Tab Workspace -->
+      <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <!-- ============================================================== -->
+        <!-- TAB 1: OVERVIEW & DASHBOARD -->
+        <!-- ============================================================== -->
+        <section id="panel-overview" class="admin-tab-panel space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#F5EBDD]">Executive Storefront Overview</h2>
+              <p class="text-xs sm:text-sm text-[#A49B91] mt-1">Live metrics, inventory health, and recent customer concierge inquiries.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <button id="btn-refresh-dashboard" class="btn-secondary-admin text-xs">
+                <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
+                <span>Sync Data</span>
+              </button>
+              <button id="btn-quick-add-prod" class="btn-gold-admin text-xs">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                <span>Add Delicacy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="admin-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#A49B91]">Delicacies Catalog</span>
+                <div class="w-9 h-9 rounded-xl bg-[#D6A65B]/10 text-[#D6A65B] flex items-center justify-center">
+                  <i data-lucide="boxes" class="w-5 h-5"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span id="kpi-total-products" class="text-3xl font-bold font-mono text-[#F5EBDD]">0</span>
+                <span class="text-xs text-[#A49B91]">delicacies</span>
+              </div>
+              <div class="mt-2 text-xs flex items-center gap-1 text-emerald-400">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                <span id="kpi-instock-products">0 in stock</span>
+              </div>
+            </div>
+
+            <div class="admin-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#A49B91]">Stock Health</span>
+                <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                  <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span id="kpi-outofstock-products" class="text-3xl font-bold font-mono text-amber-400">0</span>
+                <span class="text-xs text-[#A49B91]">out of stock</span>
+              </div>
+              <div class="mt-2 text-xs text-[#A49B91]">
+                <span id="kpi-stock-ratio">0%</span> operational availability
+              </div>
+            </div>
+
+            <div class="admin-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#A49B91]">Inquiries &amp; Orders</span>
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                  <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span id="kpi-total-orders" class="text-3xl font-bold font-mono text-[#F5EBDD]">0</span>
+                <span class="text-xs text-[#A49B91]">inquiries logged</span>
+              </div>
+              <div class="mt-2 text-xs flex items-center gap-1 text-[#D6A65B]">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                <span id="kpi-pending-orders">0 pending action</span>
+              </div>
+            </div>
+
+            <div class="admin-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#A49B91]">Logged Order Value</span>
+                <div class="w-9 h-9 rounded-xl bg-[#D6A65B]/10 text-[#D6A65B] flex items-center justify-center">
+                  <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span id="kpi-order-value" class="text-3xl font-bold font-mono text-[#D6A65B]">₹0</span>
+              </div>
+              <div class="mt-2 text-xs text-[#A49B91]">
+                Via WhatsApp Concierge
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Orders and Catalog Snapshot Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left 2 Cols: Recent Orders -->
+            <div class="lg:col-span-2 admin-card p-6 rounded-2xl space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-editorial text-lg font-bold text-[#F5EBDD]">Recent Concierge Inquiries</h3>
+                  <p class="text-xs text-[#A49B91]">Direct checkouts initiated via WhatsApp from the public storefront.</p>
+                </div>
+                <button data-tab-switch="orders" class="text-xs text-[#D6A65B] hover:underline flex items-center gap-1">
+                  <span>View All</span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+              <div id="overview-recent-orders-list" class="divide-y divide-[#D6A65B]/10 overflow-hidden">
+                <!-- Dynamically rendered -->
+                <div class="py-8 text-center text-sm text-[#A49B91]">Loading inquiries...</div>
+              </div>
+            </div>
+
+            <!-- Right 1 Col: Quick Category & Stock Health -->
+            <div class="admin-card p-6 rounded-2xl space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="font-editorial text-lg font-bold text-[#F5EBDD]">Aisle Breakdown</h3>
+                <span class="text-xs font-mono text-[#D6A65B]" id="overview-category-count">6 Aisles</span>
+              </div>
+              <p class="text-xs text-[#A49B91]">Product count distributed across curated departments.</p>
+
+              <div id="overview-category-breakdown" class="space-y-3 pt-2">
+                <!-- Dynamically rendered -->
+              </div>
+
+              <div class="pt-4 border-t border-[#D6A65B]/15">
+                <div class="p-4 rounded-xl bg-[#0c0b0a] border border-[#D6A65B]/15 space-y-2">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-[#D6A65B]">
+                    <i data-lucide="zap" class="w-4 h-4"></i>
+                    <span>Instant Live Sync</span>
+                  </div>
+                  <p class="text-[11px] text-[#A49B91] leading-relaxed">
+                    Changes made to stock, pricing, or products immediately reflect on the live storefront when customers view or refresh.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================================== -->
+        <!-- TAB 2: DELICACIES CATALOG (CRUD) -->
+        <!-- ============================================================== -->
+        <section id="panel-products" class="admin-tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#F5EBDD]">Delicacies Catalog</h2>
+              <p class="text-xs sm:text-sm text-[#A49B91] mt-1">Manage, modify, restock, or add rare gourmet delicacies and pricing.</p>
+            </div>
+            <button id="btn-add-product" class="btn-gold-admin text-sm">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Add New Delicacy</span>
+            </button>
+          </div>
+
+          <!-- Filter & Search Toolbar -->
+          <div class="admin-card p-4 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+            <div class="flex-1 relative">
+              <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#A49B91]"></i>
+              <input type="text" id="prod-search-input" placeholder="Search by title, origin, tag, or SKU..."
+                     class="admin-input pl-10 text-xs sm:text-sm">
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <select id="prod-category-filter" class="admin-input w-auto text-xs py-2">
+                <option value="all">All Aisles</option>
+                <!-- Dynamically populated -->
+              </select>
+
+              <select id="prod-stock-filter" class="admin-input w-auto text-xs py-2">
+                <option value="all">All Stock Status</option>
+                <option value="in-stock">In Stock Only</option>
+                <option value="out-of-stock">Sold Out Only</option>
+              </select>
+
+              <button id="prod-reset-filters" class="btn-secondary-admin text-xs py-2 px-3" title="Clear Filters">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <span class="hidden sm:inline">Reset</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Table Card -->
+          <div class="admin-card rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs sm:text-sm">
+                <thead class="bg-[#0e0d0c] border-b border-[#D6A65B]/20 text-[#A49B91] uppercase tracking-wider text-[11px] font-semibold">
+                  <tr>
+                    <th class="py-3.5 px-4">Item &amp; Origin</th>
+                    <th class="py-3.5 px-4">Aisle</th>
+                    <th class="py-3.5 px-4">Price (₹)</th>
+                    <th class="py-3.5 px-4">MRP (₹)</th>
+                    <th class="py-3.5 px-4">Badge</th>
+                    <th class="py-3.5 px-4 text-center">In Stock</th>
+                    <th class="py-3.5 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="products-table-body" class="divide-y divide-[#D6A65B]/10">
+                  <!-- Dynamically rendered -->
+                  <tr>
+                    <td colspan="7" class="py-12 text-center text-[#A49B91]">Loading delicacies...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Table Footer -->
+            <div class="p-4 bg-[#0c0b0a] border-t border-[#D6A65B]/15 flex items-center justify-between text-xs text-[#A49B91]">
+              <span id="products-count-label">Showing 0 delicacies</span>
+              <span class="font-mono text-[11px]">Real-time REST API Persistence</span>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================================== -->
+        <!-- TAB 3: ORDERS & WHATSAPP LOGS -->
+        <!-- ============================================================== -->
+        <section id="panel-orders" class="admin-tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#F5EBDD]">Customer Inquiries &amp; Orders</h2>
+              <p class="text-xs sm:text-sm text-[#A49B91] mt-1">Review checkout inquiries sent via WhatsApp, customer delivery notes, and status.</p>
+            </div>
+            <button id="btn-refresh-orders" class="btn-secondary-admin text-sm">
+              <i data-lucide="rotate-cw" class="w-4 h-4"></i>
+              <span>Refresh Orders</span>
+            </button>
+          </div>
+
+          <!-- Order Status Summary Filter -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button class="order-status-filter-btn active px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#D6A65B]/20 text-[#D6A65B] border border-[#D6A65B]/40" data-status="all">
+              All Inquiries (<span id="count-all-orders">0</span>)
+            </button>
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#A49B91] hover:text-[#F5EBDD] border border-[#D6A65B]/15" data-status="Pending">
+              Pending (<span id="count-pending-orders">0</span>)
+            </button>
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#A49B91] hover:text-[#F5EBDD] border border-[#D6A65B]/15" data-status="Contacted">
+              Contacted (<span id="count-contacted-orders">0</span>)
+            </button>
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#A49B91] hover:text-[#F5EBDD] border border-[#D6A65B]/15" data-status="Dispatched">
+              Dispatched (<span id="count-dispatched-orders">0</span>)
+            </button>
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#A49B91] hover:text-[#F5EBDD] border border-[#D6A65B]/15" data-status="Delivered">
+              Delivered (<span id="count-delivered-orders">0</span>)
+            </button>
+          </div>
+
+          <!-- Orders Container -->
+          <div id="orders-cards-container" class="space-y-4">
+            <!-- Dynamically populated -->
+            <div class="admin-card p-12 text-center text-[#A49B91] rounded-2xl">
+              Loading orders...
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================================== -->
+        <!-- TAB 4: CATEGORIES & AISLES -->
+        <!-- ============================================================== -->
+        <section id="panel-categories" class="admin-tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#F5EBDD]">Aisles &amp; Departments</h2>
+              <p class="text-xs sm:text-sm text-[#A49B91] mt-1">Organize storefront navigation filters, aisle icons, and showcase badges.</p>
+            </div>
+            <button id="btn-add-category" class="btn-gold-admin text-sm">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Add New Aisle</span>
+            </button>
+          </div>
+
+          <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dynamically rendered -->
+            <div class="admin-card p-8 text-center text-[#A49B91] rounded-2xl col-span-full">
+              Loading aisles...
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================================== -->
+        <!-- TAB 5: STORE SETTINGS -->
+        <!-- ============================================================== -->
+        <section id="panel-settings" class="admin-tab-panel hidden space-y-6">
+          <div>
+            <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#F5EBDD]">Store Configuration &amp; Policies</h2>
+            <p class="text-xs sm:text-sm text-[#A49B91] mt-1">Control top live announcement banners, delivery fee rules, WhatsApp concierge, and security passcode.</p>
+          </div>
+
+          <form id="settings-form" class="space-y-6">
+            
+            <!-- Store Operating Status -->
+            <div class="admin-card p-6 rounded-2xl space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-editorial text-lg font-bold text-[#F5EBDD]">Store Availability</h3>
+                  <p class="text-xs text-[#A49B91]">Toggle whether the store is accepting live orders and inquiries.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="setting-store-open">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Top Announcement Bar -->
+            <div class="admin-card p-6 rounded-2xl space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-editorial text-lg font-bold text-[#F5EBDD]">Top Announcement Banner</h3>
+                  <p class="text-xs text-[#A49B91]">Display a luxury ticker across the storefront for offers or store hours.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="setting-announcement-enabled">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-2">Banner Announcement Text</label>
+                <input type="text" id="setting-announcement-text" class="admin-input" placeholder="e.g. ✨ Rare Japanese KitKat & Craft Sodas Just Restocked...">
+              </div>
+            </div>
+
+            <!-- Concierge & Delivery Pricing -->
+            <div class="admin-card p-6 rounded-2xl space-y-4">
+              <h3 class="font-editorial text-lg font-bold text-[#F5EBDD]">Concierge &amp; Delivery Rules</h3>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-2">WhatsApp Concierge Phone (With Country Code)</label>
+                  <input type="text" id="setting-phone" class="admin-input font-mono" placeholder="916268344816" required>
+                  <p class="text-[11px] text-[#706860] mt-1">Incoming orders from storefront are directed here.</p>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-2">Store Email Address</label>
+                  <input type="email" id="setting-email" class="admin-input" placeholder="concierge@theconveniencejunction.com">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-2">Free Delivery Threshold (₹)</label>
+                  <input type="number" id="setting-free-delivery" class="admin-input font-mono" placeholder="799" min="0">
+                  <p class="text-[11px] text-[#706860] mt-1">Orders at or above this value get complimentary delivery.</p>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-2">Standard Delivery Charge (₹)</label>
+                  <input type="number" id="setting-delivery-fee" class="admin-input font-mono" placeholder="49" min="0">
+                  <p class="text-[11px] text-[#706860] mt-1">Applied when cart total is below the free threshold.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Admin Passcode Update -->
+            <div class="admin-card p-6 rounded-2xl space-y-4">
+              <h3 class="font-editorial text-lg font-bold text-[#F5EBDD]">Admin Security</h3>
+              <p class="text-xs text-[#A49B91]">Update the master passcode required to access this portal.</p>
+              
+              <div class="max-w-sm">
+                <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-2">New Admin Passcode</label>
+                <input type="text" id="setting-passcode" class="admin-input font-mono text-center tracking-widest" placeholder="Leave blank to keep current">
+                <p class="text-[11px] text-[#706860] mt-1">Enter a new passcode to change, or leave blank to retain existing.</p>
+              </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+              <button type="submit" id="btn-save-settings" class="btn-gold-admin px-8 py-3">
+                <i data-lucide="check" class="w-4 h-4"></i>
+                <span>Save All Settings</span>
+              </button>
+            </div>
+          </form>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- 3. MODALS -->
+  <!-- ============================================================== -->
+
+  <!-- Modal: Product (Create / Edit) -->
+  <div id="modal-product" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden overflow-y-auto">
+    <div class="admin-card w-full max-w-2xl rounded-2xl p-6 sm:p-8 my-8 relative border border-[#D6A65B]/30 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-[#D6A65B]/20 mb-6">
+        <div>
+          <h3 id="modal-product-title" class="font-editorial text-xl font-bold text-[#F5EBDD]">Add New Delicacy</h3>
+          <p class="text-xs text-[#A49B91]">Fill in product details, pricing, origins, and stock status.</p>
+        </div>
+        <button type="button" id="modal-product-close" class="text-[#A49B91] hover:text-[#D6A65B] p-1.5 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="product-form" class="space-y-4">
+        <input type="hidden" id="prod-form-id">
+        <input type="hidden" id="prod-form-is-edit" value="false">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Delicacy Name *</label>
+            <input type="text" id="prod-form-title" class="admin-input" placeholder="e.g. Tomoe River Matcha Soda" required>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Aisle / Category *</label>
+            <select id="prod-form-category" class="admin-input" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Selling Price (₹) *</label>
+            <input type="number" id="prod-form-price" class="admin-input font-mono" placeholder="299" min="1" required>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Original MRP (₹)</label>
+            <input type="number" id="prod-form-mrp" class="admin-input font-mono" placeholder="349" min="1">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Weight / Volume</label>
+            <input type="text" id="prod-form-weight" class="admin-input" placeholder="e.g. 330ml">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Rating (1-5)</label>
+            <input type="number" id="prod-form-rating" class="admin-input font-mono" step="0.1" min="1" max="5" value="4.8">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Origin Country / City</label>
+            <input type="text" id="prod-form-origin" class="admin-input" placeholder="e.g. Kyoto, Japan">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Badge / Highlight</label>
+            <input type="text" id="prod-form-badge" class="admin-input" placeholder="e.g. Bestseller, Rare Import, Limited">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Image URL or Upload</label>
+          <div class="flex gap-2">
+            <input type="text" id="prod-form-image" class="admin-input flex-1 font-mono text-xs" placeholder="assets/mockup/... or https://...">
+            <label class="btn-secondary-admin text-xs cursor-pointer flex items-center gap-1.5 whitespace-nowrap">
+              <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+              <span>Upload</span>
+              <input type="file" id="prod-form-file-upload" accept="image/*" class="hidden">
+            </label>
+          </div>
+          <div id="image-preview-container" class="mt-2 hidden flex items-center gap-3 p-2 rounded-lg bg-[#0e0c0b] border border-[#D6A65B]/15">
+            <img id="image-preview" src="" alt="Preview" class="w-12 h-12 object-cover rounded border border-[#D6A65B]/20">
+            <span class="text-xs text-[#A49B91]" id="image-preview-name">Image selected</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Description &amp; Tasting Notes</label>
+          <textarea id="prod-form-description" rows="3" class="admin-input" placeholder="Describe flavor profile, artisanal source, and pairings..."></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Search Tags (Comma-separated)</label>
+          <input type="text" id="prod-form-tags" class="admin-input" placeholder="e.g. matcha, sparkling, japanese, vegan">
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0e0c0b] border border-[#D6A65B]/15 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-semibold text-[#F5EBDD] block">In Stock &amp; Orderable</span>
+            <span class="text-[11px] text-[#A49B91]">When disabled, product displays 'Sold Out' on the public storefront.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="prod-form-instock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#D6A65B]/15">
+          <button type="button" id="modal-product-cancel" class="btn-secondary-admin">Cancel</button>
+          <button type="submit" id="modal-product-submit" class="btn-gold-admin">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span id="modal-product-btn-text">Save Delicacy</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Category (Create) -->
+  <div id="modal-category" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
+    <div class="admin-card w-full max-w-md rounded-2xl p-6 sm:p-8 relative border border-[#D6A65B]/30">
+      <div class="flex items-center justify-between pb-4 border-b border-[#D6A65B]/20 mb-6">
+        <div>
+          <h3 class="font-editorial text-xl font-bold text-[#F5EBDD]">Add Store Aisle</h3>
+          <p class="text-xs text-[#A49B91]">Create a new product department or category.</p>
+        </div>
+        <button type="button" id="modal-category-close" class="text-[#A49B91] hover:text-[#D6A65B] p-1.5 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="category-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Aisle Identifier (ID) *</label>
+          <input type="text" id="cat-form-id" class="admin-input font-mono lowercase" placeholder="e.g. coffee" required>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Display Name *</label>
+          <input type="text" id="cat-form-name" class="admin-input" placeholder="e.g. Rare Coffees &amp; Brews" required>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Icon (Emoji or text)</label>
+            <input type="text" id="cat-form-icon" class="admin-input text-center text-lg" placeholder="☕">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#A49B91] uppercase tracking-wider mb-1.5">Badge (Optional)</label>
+            <input type="text" id="cat-form-badge" class="admin-input" placeholder="e.g. Curated">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#D6A65B]/15">
+          <button type="button" id="modal-category-cancel" class="btn-secondary-admin">Cancel</button>
+          <button type="submit" class="btn-gold-admin">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Create Aisle</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Delete Confirmation -->
+  <div id="modal-confirm" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
+    <div class="admin-card w-full max-w-sm rounded-2xl p-6 relative border border-red-500/30 text-center space-y-4">
+      <div class="w-12 h-12 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 mx-auto flex items-center justify-center">
+        <i data-lucide="trash-2" class="w-6 h-6"></i>
+      </div>
+      <h3 class="font-editorial text-lg font-bold text-[#F5EBDD]">Confirm Deletion</h3>
+      <p id="confirm-modal-text" class="text-xs text-[#A49B91]">Are you sure you want to permanently remove this delicacy?</p>
+      
+      <div class="flex items-center justify-center gap-3 pt-2">
+        <button type="button" id="confirm-modal-cancel" class="btn-secondary-admin text-xs">Cancel</button>
+        <button type="button" id="confirm-modal-proceed" class="px-5 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white font-semibold text-xs transition-colors shadow-lg shadow-red-900/30">
+          Delete Item
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none"></div>
+
+  <!-- Admin JavaScript -->
+  <script src="js/admin.js"></script>
+</body>
+</html>

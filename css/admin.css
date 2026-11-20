@@ -1,0 +1,172 @@
+/* TCJ Admin Luxury Theme */
+:root {
+  --tcj-gold: #D6A65B;
+  --tcj-gold-hover: #E5BA73;
+  --tcj-gold-dark: #BA8537;
+  --tcj-emerald: #0b1d16;
+  --tcj-dark: #080808;
+  --tcj-card: #12100e;
+  --tcj-card-hover: #191614;
+  --tcj-border: rgba(214, 166, 91, 0.18);
+  --tcj-border-focus: rgba(214, 166, 91, 0.5);
+  --tcj-text-primary: #F5EBDD;
+  --tcj-text-muted: #A49B91;
+}
+
+body {
+  background-color: var(--tcj-dark);
+  color: var(--tcj-text-primary);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Glass & Card Surfaces */
+.admin-card {
+  background: linear-gradient(180deg, #151312 0%, #0d0c0b 100%);
+  border: 1px solid var(--tcj-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.admin-card:hover {
+  border-color: rgba(214, 166, 91, 0.35);
+}
+
+.admin-glass {
+  background: rgba(18, 16, 14, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--tcj-border);
+}
+
+/* Luxury Form Inputs */
+.admin-input {
+  background-color: #0c0b0a;
+  border: 1px solid var(--tcj-border);
+  color: var(--tcj-text-primary);
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.admin-input:focus {
+  outline: none;
+  border-color: var(--tcj-gold);
+  box-shadow: 0 0 0 2px rgba(214, 166, 91, 0.2);
+}
+
+.admin-input::placeholder {
+  color: #635b54;
+}
+
+/* Luxury Buttons */
+.btn-gold-admin {
+  background: linear-gradient(135deg, #E5BA73 0%, #D6A65B 50%, #BA8537 100%);
+  color: #080808;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 15px rgba(214, 166, 91, 0.25);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-gold-admin:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(214, 166, 91, 0.4);
+}
+
+.btn-secondary-admin {
+  background-color: #1a1715;
+  border: 1px solid var(--tcj-border);
+  color: var(--tcj-text-primary);
+  font-weight: 600;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary-admin:hover {
+  background-color: #24201c;
+  border-color: rgba(214, 166, 91, 0.35);
+  color: #fff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b2520;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tcj-gold);
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #25201c;
+  transition: .3s;
+  border-radius: 24px;
+  border: 1px solid rgba(214, 166, 91, 0.2);
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #A49B91;
+  transition: .3s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #0b3b28;
+  border-color: #10b981;
+}
+input:checked + .slider:before {
+  transform: translateX(20px);
+  background-color: #34d399;
+}
+
+/* Toast */
+#admin-toast {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}

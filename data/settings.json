@@ -1,0 +1,17 @@
+{
+  "storeName": "TCJ — The Gourmet Store",
+  "founder": "Tapish Verma",
+  "phone": "916268344816",
+  "adminPasscode": "tcj2026",
+  "freeDeliveryThreshold": 799,
+  "flatDeliveryFee": 49,
+  "announcement": {
+    "enabled": true,
+    "text": "✨ Fresh Dubai Chocolates & Takis Restocked Today!"
+  },
+  "isStoreOpen": true,
+  "deliveryTimeEstimate": "25–45 Mins",
+  "address": "TCJ Flagship Boutique, Freeganj / Mahakal Marg, Ujjain, Madhya Pradesh",
+  "currency": "₹",
+  "instagram": "@theconveniencejunction"
+}

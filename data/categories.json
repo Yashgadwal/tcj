@@ -1,0 +1,50 @@
+[
+  {
+    "id": "all",
+    "name": "All Creations",
+    "subtitle": "Complete Global Collection",
+    "badge": "Curated",
+    "icon": "✨",
+    "image": "assets/mockup/food-dubai-chocolate.png"
+  },
+  {
+    "id": "dubai-specials",
+    "name": "Dubai Specials",
+    "subtitle": "Viral Pistachio & Kataifi Bars",
+    "badge": "👑 Viral #1",
+    "icon": "🍫",
+    "image": "assets/mockup/food-dubai-chocolate.png"
+  },
+  {
+    "id": "korean-ramen",
+    "name": "Korean Ramen",
+    "subtitle": "Fiery Buldak Carbonara & 2X",
+    "badge": "🔥 TikTok Viral",
+    "icon": "🍜",
+    "image": "assets/mockup/food-buldak-ramen.png"
+  },
+  {
+    "id": "imported-drinks",
+    "name": "Imported Drinks",
+    "subtitle": "Prime Hydration, Monster & Ramune",
+    "badge": "⚡ Logan & KSI",
+    "icon": "🥤",
+    "image": "assets/mockup/food-prime-drink.png"
+  },
+  {
+    "id": "international-snacks",
+    "name": "International Snacks",
+    "subtitle": "Takis Fuego, Cheetos & Gourmet Lay's",
+    "badge": "🌶️ Crunch Alert",
+    "icon": "🥨",
+    "image": "assets/mockup/food-takis.png"
+  },
+  {
+    "id": "candies-sweets",
+    "name": "Candies & Sweets",
+    "subtitle": "Lotus Biscoff, Milka & Pocky",
+    "badge": "🍯 Sweet Tooth",
+    "icon": "🍬",
+    "image": "assets/mockup/cat-food-spreads.png"
+  }
+]

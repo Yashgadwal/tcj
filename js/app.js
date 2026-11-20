@@ -11,9 +11,10 @@ const state = {
   wishlist: []
 };
 
-const TCJ_PHONE = '916268344816';
-const FREE_DELIVERY_THRESHOLD = 799;
-const FLAT_DELIVERY_FEE = 49;
+let TCJ_PHONE = '916268344816';
+let FREE_DELIVERY_THRESHOLD = 799;
+let FLAT_DELIVERY_FEE = 49;
+let STORE_IS_OPEN = true;
 
 function initApp() {
   initThemeManager();
@@ -22,6 +23,68 @@ function initApp() {
   renderProducts();
   updateCartUI();
   updateStoreStatus();
+  syncLiveStoreData();
+}
+
+async function syncLiveStoreData() {
+  try {
+    const [prodRes, catRes, setRes] = await Promise.all([
+      fetch('/api/products').catch(() => null),
+      fetch('/api/categories').catch(() => null),
+      fetch('/api/settings').catch(() => null),
+    ]);
+
+    if (setRes && setRes.ok) {
+      const settings = await setRes.json();
+      if (settings) {
+        if (settings.conciergePhone) TCJ_PHONE = settings.conciergePhone;
+        if (settings.freeDeliveryAbove !== undefined) FREE_DELIVERY_THRESHOLD = settings.freeDeliveryAbove;
+        if (settings.deliveryFee !== undefined) FLAT_DELIVERY_FEE = settings.deliveryFee;
+        if (settings.storeOpen !== undefined) STORE_IS_OPEN = settings.storeOpen;
+
+        const banner = document.getElementById('announcement-banner');
+        const bannerText = document.getElementById('announcement-text');
+        if (banner && bannerText && settings.announcement) {
+          if (settings.announcement.enabled && settings.announcement.text) {
+            bannerText.textContent = settings.announcement.text;
+            banner.classList.remove('hidden');
+          } else {
+            banner.classList.add('hidden');
+          }
+        }
+        updateCartUI();
+      }
+    }
+
+    if (catRes && catRes.ok) {
+      const cats = await catRes.json();
+      if (Array.isArray(cats) && cats.length > 0 && typeof TCJ_CATEGORIES !== 'undefined') {
+        TCJ_CATEGORIES.length = 0;
+        cats.forEach(c => TCJ_CATEGORIES.push(c));
+        renderCategoryPills();
+      }
+    }
+
+    if (prodRes && prodRes.ok) {
+      const prods = await prodRes.json();
+      if (Array.isArray(prods) && prods.length > 0 && typeof TCJ_PRODUCTS !== 'undefined') {
+        TCJ_PRODUCTS.length = 0;
+        prods.forEach(p => {
+          TCJ_PRODUCTS.push({
+            ...p,
+            name: p.name || p.title,
+            country: p.country || p.origin || 'Imported Exclusive',
+            originalPrice: p.originalPrice || p.mrp,
+            weight: p.weight || p.netWeight || '',
+            inStock: p.inStock !== false,
+          });
+        });
+        renderProducts();
+      }
+    }
+  } catch (err) {
+    console.log('Using local catalog cache');
+  }
 }
 
 if (document.readyState !== 'loading') {
@@ -143,9 +206,12 @@ function renderProducts() {
         <div class="card-3d-inner luxury-card rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full relative group">
           
           <!-- Top Badges & Origin -->
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#32180F] text-[#D6A65B] border border-[#D6A65B]/30">
-              ${prod.badge}
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+              prod.inStock === false
+                ? 'bg-red-950/80 text-red-300 border border-red-500/40'
+                : 'bg-[#32180F] text-[#D6A65B] border border-[#D6A65B]/30'
+            }">
+              ${prod.inStock === false ? 'Sold Out' : prod.badge}
             </span>
             <span class="text-[11px] font-medium text-[#A49B91] flex items-center gap-1">
               ${prod.country}
@@ -162,7 +228,7 @@ function renderProducts() {
               src="${prod.image}" 
               alt="${prod.name}" 
               loading="lazy" 
-              class="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] group-hover:scale-108 transition-transform duration-500" 
+              class="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] group-hover:scale-108 transition-transform duration-500 ${prod.inStock === false ? 'grayscale opacity-60' : ''}" 
             />
           </div>
 
@@ -202,14 +268,24 @@ function renderProducts() {
               </div>
 
               <div class="flex items-center gap-1.5">
-                <button 
-                  onclick="addToCart('${prod.id}')"
-                  class="btn-gold px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1"
-                  aria-label="Add to cart"
-                >
-                  <span>Bag</span>
-                  <span class="text-sm">+</span>
-                </button>
+                ${prod.inStock !== false ? `
+                  <button 
+                    onclick="addToCart('${prod.id}')"
+                    class="btn-gold px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1"
+                    aria-label="Add to cart"
+                  >
+                    <span>Bag</span>
+                    <span class="text-sm">+</span>
+                  </button>
+                ` : `
+                  <button 
+                    disabled
+                    class="px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold bg-[#1b1816] text-[#706860] border border-[#2b2724] cursor-not-allowed"
+                    title="Currently Sold Out"
+                  >
+                    Sold Out
+                  </button>
+                `}
                 <button 
                   onclick="orderSingleItemWhatsApp('${prod.name}', ${prod.price})"
                   class="p-2 rounded-xl bg-[#1B100D] hover:bg-[#251511] text-[#A8B77A] border border-[#A8B77A]/30 transition-all hover:scale-105"
@@ -239,6 +315,11 @@ function renderProducts() {
 function addToCart(productId) {
   const prod = TCJ_PRODUCTS.find(p => p.id === productId);
   if (!prod) return;
+
+  if (prod.inStock === false) {
+    showToast(`${prod.name} is currently sold out`);
+    return;
+  }
 
   const existing = state.cart.find(i => i.id === productId);
   if (existing) {
@@ -371,25 +452,48 @@ function checkoutWhatsApp() {
 
   let subtotal = 0;
   let itemsList = '';
+  const orderItems = [];
 
   state.cart.forEach(item => {
     const prod = TCJ_PRODUCTS.find(p => p.id === item.id);
     if (prod) {
       const linePrice = prod.price * item.quantity;
       subtotal += linePrice;
-      itemsList += `• ${item.quantity}x ${prod.name} (${prod.weight}) — ₹${linePrice}\n`;
+      itemsList += `• ${item.quantity}x ${prod.name} (${prod.weight || ''}) — ₹${linePrice}\n`;
+      orderItems.push({
+        id: prod.id,
+        title: prod.name,
+        price: prod.price,
+        quantity: item.quantity,
+      });
     }
   });
 
   const deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : FLAT_DELIVERY_FEE;
   const grandTotal = subtotal + deliveryFee;
 
+  // Asynchronously log inquiry into TCJ Admin Tracker
+  try {
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customerName: 'WhatsApp Patron',
+        items: orderItems,
+        subtotal: subtotal,
+        deliveryFee: deliveryFee,
+        total: grandTotal,
+        source: 'Storefront Bag Checkout',
+      }),
+    }).catch(() => {});
+  } catch (e) {}
+
   const message = 
     `*TCJ GOURMET STORE — ORDER REQUEST* 🍫📦\n` +
     `Hello Tapish! I would like to order the following from TCJ Ujjain:\n\n` +
     `*ITEMS ORDERED:*\n${itemsList}\n` +
     `*Subtotal:* ₹${subtotal}\n` +
-    `*Ujjain Delivery:* ${deliveryFee === 0 ? 'FREE (Orders above ₹799)' : '₹49'}\n` +
+    `*Ujjain Delivery:* ${deliveryFee === 0 ? 'FREE (Orders above ₹' + FREE_DELIVERY_THRESHOLD + ')' : '₹' + FLAT_DELIVERY_FEE}\n` +
     `*GRAND TOTAL:* ₹${grandTotal}\n\n` +
     `📍 *My Ujjain Delivery Address / Location:*\n` +
     `[Please type your complete address or share live location]\n\n` +
@@ -400,6 +504,22 @@ function checkoutWhatsApp() {
 }
 
 function orderSingleItemWhatsApp(productName, price) {
+  // Asynchronously log 1-click inquiry into TCJ Admin Tracker
+  try {
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customerName: 'WhatsApp Patron',
+        items: [{ title: productName, price, quantity: 1 }],
+        subtotal: price,
+        deliveryFee: 0,
+        total: price,
+        source: 'Instant 1-Click WhatsApp',
+      }),
+    }).catch(() => {});
+  } catch (e) {}
+
   const message = 
     `*TCJ GOURMET STORE — INSTANT REQUEST* 🍫✨\n` +
     `Hello Tapish! I'd like to order:\n` +
