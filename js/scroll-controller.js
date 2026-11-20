@@ -457,7 +457,7 @@
               heatText.textContent = 'BULDAK CARBONARA HEAT (Level 3)';
               heatText.className = 'text-orange-500 font-bold';
             } else {
-              heatText.textContent = '🔥 2X NUCLEAR FIRE RUSH (Level 5)';
+              heatText.textContent = ' 2X NUCLEAR FIRE RUSH (Level 5)';
               heatText.className = 'text-rose-500 font-black animate-pulse';
             }
           }

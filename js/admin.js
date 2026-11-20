@@ -434,7 +434,7 @@
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs">
             <span class="text-[#F5EBDD] flex items-center gap-1.5">
-              <span>${cat.icon || '✦'}</span>
+              <span>${cat.icon ? '' : '•'}</span>
               <span>${escapeHtml(cat.name)}</span>
             </span>
             <span class="font-mono text-[11px] text-[#A49B91]">${count} items (${pct}%)</span>
@@ -762,11 +762,11 @@
                   <h4 class="font-editorial text-base font-bold text-[#F5EBDD]">${escapeHtml(o.customerName || 'Gourmet Patron')}</h4>
                   ${o.isGuest === false || o.customerId ? `
                     <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#b88a44]/15 text-[#b88a44] border border-[#b88a44]/30 flex items-center gap-1">
-                      <span>👑</span> VIP Member
+                      <svg class="w-3.5 h-3.5 inline-block mr-1 text-[#b88a44]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l4 4 5-7 5 7 4-4v11H3V7z"/><line x1="3" y1="21" x2="21" y2="21"/></svg> VIP Member
                     </span>
                   ` : `
                     <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25 flex items-center gap-1">
-                      <span>⚡</span> Guest Order
+                      <svg class="w-3.5 h-3.5 inline-block mr-1 text-amber-500 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg> Guest Order
                     </span>
                   `}
                   <span class="text-[10px] px-2.5 py-0.5 rounded-full font-semibold border ${getStatusBadgeClass(o.status)}">${escapeHtml(o.status || 'Pending')}</span>
@@ -813,7 +813,7 @@
                 <p class="text-xs text-[#F5EBDD] mt-1 leading-relaxed">${escapeHtml(o.customerAddress || 'Pick-up / Store Concierge')}</p>
                 ${o.addressDetails && o.addressDetails.locality ? `
                   <div class="mt-1 flex items-center gap-1.5 text-[10px]">
-                    <span class="px-2 py-0.5 rounded bg-[#181512] text-[#A8B77A] border border-[#A8B77A]/20">📍 ${escapeHtml(o.addressDetails.locality)}</span>
+                    <span class="px-2 py-0.5 rounded bg-[#181512] text-[#A8B77A] border border-[#A8B77A]/20"><svg class="w-3.5 h-3.5 inline-block mr-1 text-[#b88a44]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${escapeHtml(o.addressDetails.locality)}</span>
                     ${o.addressDetails.landmark ? `<span class="text-[#A49B91]">Near ${escapeHtml(o.addressDetails.landmark)}</span>` : ''}
                   </div>
                 ` : ''}
@@ -897,7 +897,7 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#b88a44]/15">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-full bg-[#1e1914] border border-[#b88a44]/30 flex items-center justify-center font-bold text-base text-[#b88a44]">
-                👑
+                
               </div>
               <div>
                 <div class="flex items-center gap-2">
@@ -947,7 +947,7 @@
         <div class="admin-card p-5 rounded-2xl flex flex-col justify-between space-y-4">
           <div class="flex items-start justify-between">
             <div class="flex items-center gap-3">
-              <span class="text-3xl">${cat.icon || '✦'}</span>
+              <span class="text-xl text-[#b88a44]">${cat.icon || '•'}</span>
               <div>
                 <h4 class="font-editorial text-lg font-bold text-[#F5EBDD]">${escapeHtml(cat.name)}</h4>
                 <span class="text-[11px] font-mono text-[#b88a44]">ID: ${escapeHtml(cat.id)}</span>
@@ -988,7 +988,7 @@
     e.preventDefault();
     const id = el.catFormId.value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
     const name = el.catFormName.value.trim();
-    const icon = el.catFormIcon.value.trim() || '✦';
+    const icon = el.catFormIcon.value.trim() || '•';
     const badge = el.catFormBadge.value.trim() || undefined;
 
     if (!id || !name) return;

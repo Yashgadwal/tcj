@@ -190,8 +190,8 @@ function renderProducts() {
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="col-span-full py-16 text-center">
-        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#151312] border border-[#b88a44]/20 flex items-center justify-center text-2xl">
-          🔍
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#f7f1e8] border border-[#eadcc8] flex items-center justify-center text-[#173c2d]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
         <h3 class="font-editorial text-xl text-[#F5EBDD]">No Flavours Found</h3>
         <p class="text-sm text-[#A49B91] mt-1">Try another search keyword or select a different category.</p>
@@ -242,7 +242,7 @@ function renderProducts() {
           <div class="mt-4 flex-grow flex flex-col justify-between">
             <div>
               <div class="flex items-center gap-2 mb-1">
-                <span class="text-xs text-[#b88a44]">★★★★★</span>
+                <span class="inline-flex items-center text-[#b88a44]"><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg></span>
                 <span class="text-[11px] font-semibold text-[#173c2d]">${prod.rating}</span>
                 <span class="text-[11px] text-[#8c827a]">(${prod.reviewsCount})</span>
               </div>
@@ -281,7 +281,7 @@ function renderProducts() {
                     aria-label="Buy Now"
                     title="Buy Now with Instant Guest or VIP Member Checkout"
                   >
-                    <span>⚡ Buy Now</span>
+                    <span class="inline-flex items-center gap-1"><svg class="w-3.5 h-3.5 inline-block fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg><span>Buy Now</span></span>
                   </button>
                   <button 
                     onclick="addToCart('${prod.id}')"
@@ -289,7 +289,7 @@ function renderProducts() {
                     title="Add to Shopping Bag"
                     aria-label="Add to cart"
                   >
-                    <span>+ Bag</span>
+                    <span class="inline-flex items-center gap-1"><svg class="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span>Bag</span></span>
                   </button>
                 ` : `
                   <button 
@@ -473,7 +473,7 @@ function updateCartUI() {
     const pct = Math.min(100, Math.round((subtotal / FREE_DELIVERY_THRESHOLD) * 100));
     freeShippingBar.style.width = `${pct}%`;
     if (subtotal >= FREE_DELIVERY_THRESHOLD) {
-      freeShippingText.innerHTML = `<span class="text-[#A8B77A] font-bold">✨ Unlocked FREE Ujjain Doorstep Delivery!</span>`;
+      freeShippingText.innerHTML = `<span class="text-[#A8B77A] font-bold inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#b88a44] inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg><span>Unlocked FREE Ujjain Doorstep Delivery!</span></span>`;
     } else {
       const remaining = FREE_DELIVERY_THRESHOLD - subtotal;
       freeShippingText.innerHTML = `Add <span class="font-bold text-[#b88a44]">₹${remaining}</span> more for <span class="text-[#A8B77A]">FREE Delivery</span> in Ujjain`;
@@ -519,11 +519,11 @@ function renderAccountButton() {
 
   if (state.customer) {
     const firstName = state.customer.name.split(' ')[0] || 'VIP';
-    icon.textContent = '👑';
+    icon.innerHTML = '<svg class="w-4 h-4 inline-block text-[#b88a44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l4 4 5-7 5 7 4-4v11H3V7z"/><line x1="3" y1="21" x2="21" y2="21"/></svg>';
     label.textContent = `Hi, ${firstName}`;
     btn.classList.add('border-[#b88a44]', 'bg-[#1e1914]');
   } else {
-    icon.textContent = '👤';
+    icon.innerHTML = '<svg class="w-4 h-4 inline-block text-[#b88a44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>';
     label.textContent = 'VIP / Sign In';
     btn.classList.remove('border-[#b88a44]', 'bg-[#1e1914]');
   }
@@ -602,7 +602,7 @@ async function handleCustomerLoginSubmit(e) {
 
     toggleCustomerAuthModal(false);
     renderAccountButton();
-    showToast(`Welcome back, ${data.customer.name}! 👑`);
+    showToast(`Welcome back, ${data.customer.name}!`);
 
     // If customer was trying to checkout, resume checkout flow
     if (state.returnToCheckoutAfterAuth) {
@@ -653,7 +653,7 @@ async function handleCustomerSignupSubmit(e) {
 
     toggleCustomerAuthModal(false);
     renderAccountButton();
-    showToast(`Welcome to TCJ VIP Club, ${data.customer.name}! 👑`);
+    showToast(`Welcome to TCJ VIP Club, ${data.customer.name}!`);
 
     if (state.returnToCheckoutAfterAuth) {
       state.returnToCheckoutAfterAuth = false;
@@ -677,7 +677,7 @@ function continueAsGuestFromAuth() {
     openCheckoutModal();
     selectCheckoutMode('guest');
   } else {
-    showToast('Add a treat to your bag first or tap ⚡ Buy Now on any product!');
+    showToast('Add a treat to your bag first or tap Buy Now on any product!');
   }
 }
 
@@ -712,7 +712,7 @@ function toggleAccountDrawer(open) {
         if (defAddr) {
           addrCard.innerHTML = `
             <div class="font-semibold text-[#b88a44] flex items-center gap-1.5">
-              <span>📍</span><span>${defAddr.label || 'Home'} (${defAddr.locality || 'Freeganj'})</span>
+              <span class="inline-flex"><svg class="w-4 h-4 text-[#b88a44] inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span><span>${defAddr.label || 'Home'} (${defAddr.locality || 'Freeganj'})</span>
             </div>
             <div class="text-[#F5EBDD] mt-0.5">${defAddr.street || ''}</div>
             ${defAddr.landmark ? `<div class="text-[#A49B91] text-[11px]">Landmark: Near ${defAddr.landmark}</div>` : ''}
@@ -761,7 +761,7 @@ async function loadCustomerOrders() {
     if (orders.length === 0) {
       container.innerHTML = `
         <div class="py-8 text-center text-xs text-[#706860] border border-[#b88a44]/10 rounded-xl bg-[#090807] p-4">
-          <span class="text-2xl block mb-2">🍫</span>
+          <svg class="w-8 h-8 text-[#b88a44] mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
           No orders logged yet. Check out viral snacks from the collection!
         </div>
       `;
@@ -792,7 +792,7 @@ async function loadCustomerOrders() {
           <div class="pt-2 border-t border-[#b88a44]/10 flex items-center justify-between">
             <span class="font-mono font-bold text-[#F5EBDD]">₹${ord.total}</span>
             <a href="${waLink}" target="_blank" class="text-[11px] text-emerald-400 hover:underline flex items-center gap-1">
-              <span>Track via WhatsApp 💬</span>
+              <span class="inline-flex items-center gap-1.5"><span>Track via WhatsApp</span><svg class="w-4 h-4 inline-block fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg></span>
             </a>
           </div>
         </div>
@@ -877,7 +877,7 @@ function selectCheckoutMode(mode) {
     }
 
     if (badgeMode) {
-      badgeMode.textContent = '👑 VIP Member Checkout';
+      badgeMode.textContent = 'VIP Member Checkout';
       badgeMode.className = 'text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#b88a44]/20 text-[#b88a44] border border-[#b88a44]/40';
     }
 
@@ -906,7 +906,7 @@ function selectCheckoutMode(mode) {
   } else {
     // Guest Mode
     if (badgeMode) {
-      badgeMode.textContent = '⚡ Guest Checkout (No Login)';
+      badgeMode.textContent = 'Guest Checkout (No Login)';
       badgeMode.className = 'text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30';
     }
     if (memberContainer) memberContainer.classList.add('hidden');
@@ -1035,7 +1035,7 @@ async function handleCheckoutFormSubmit(e) {
 
     // Format WhatsApp message
     const waMessage = 
-      `*TCJ GOURMET STORE — NEW ORDER* 🍫📦\n` +
+      `*TCJ GOURMET STORE — NEW ORDER*\n` +
       `*Order ID:* #${orderId}\n` +
       `*Customer:* ${name} (+91 ${rawPhone})\n` +
       `*Checkout Type:* ${state.checkoutMode === 'guest' ? 'Guest Checkout' : 'VIP Club Member'}\n\n` +
@@ -1043,7 +1043,7 @@ async function handleCheckoutFormSubmit(e) {
       `*Subtotal:* ₹${subtotal}\n` +
       `*Ujjain Delivery:* ${deliveryFee === 0 ? 'FREE (Orders above ₹' + FREE_DELIVERY_THRESHOLD + ')' : '₹' + FLAT_DELIVERY_FEE}\n` +
       `*GRAND TOTAL:* ₹${grandTotal}\n\n` +
-      `📍 *DELIVERY ADDRESS (UJJAIN):*\n` +
+      `*DELIVERY ADDRESS (UJJAIN):*\n` +
       `${fullAddress}\n` +
       (notes ? `*Delivery Instructions:* "${notes}"\n` : '') +
       `*Payment Mode:* ${paymentMethod}\n\n` +
@@ -1074,7 +1074,7 @@ async function handleCheckoutFormSubmit(e) {
     showToast('Order creation failed: ' + err.message);
   } finally {
     submitBtn.disabled = false;
-    submitBtn.innerHTML = `<span>CONFIRM &amp; ORDER ON WHATSAPP</span><span>💬</span>`;
+    submitBtn.innerHTML = `<span class="inline-flex items-center gap-2"><span>CONFIRM &amp; ORDER ON WHATSAPP</span><svg class="w-4 h-4 inline-block fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg></span>`;
   }
 }
 
@@ -1114,7 +1114,7 @@ function orderSingleItemWhatsApp(productName, price) {
   } catch (e) {}
 
   const message = 
-    `*TCJ GOURMET STORE — INSTANT REQUEST* 🍫✨\n` +
+    `*TCJ GOURMET STORE — INSTANT REQUEST*\n` +
     `Hello Tapish! I'd like to order:\n` +
     `• 1x ${productName} (₹${price})\n\n` +
     (state.customer ? `*Customer:* ${state.customer.name} (VIP Member)\n` : '') +
@@ -1154,7 +1154,7 @@ function openProductModal(productId) {
         </h3>
 
         <div class="flex items-center gap-2 my-2 text-xs font-semibold">
-          <span class="text-[#b88a44]">★★★★★</span>
+          <span class="inline-flex items-center text-[#b88a44]"><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg></span>
           <span class="text-[#173c2d]">${prod.rating}</span>
           <span class="text-[#8c827a]">(${prod.reviewsCount}+ verified foodies)</span>
         </div>
@@ -1167,7 +1167,7 @@ function openProductModal(productId) {
         <div class="flex flex-wrap gap-1.5 my-3">
           ${(prod.tags || []).map(t => `
             <span class="px-2.5 py-1 rounded-md bg-[#f7f1e8] text-[#173c2d] text-[11px] font-medium border border-[#eadcc8]">
-              ✓ ${t}
+              <span class="inline-flex items-center mr-1"><svg class="w-3.5 h-3.5 inline-block text-emerald-600 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>${t}
             </span>
           `).join('')}
         </div>
@@ -1184,13 +1184,13 @@ function openProductModal(productId) {
               onclick="buyNowSingleProduct('${prod.id}'); closeProductModal();" 
               class="btn-green px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:shadow-md active:scale-95 transition-all flex items-center gap-1.5"
             >
-              <span>⚡ Buy Now</span>
+              <span class="inline-flex items-center gap-1"><svg class="w-3.5 h-3.5 inline-block fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg><span>Buy Now</span></span>
             </button>
             <button 
               onclick="addToCart('${prod.id}'); closeProductModal();" 
               class="btn-secondary px-4 py-2.5 rounded-xl font-bold text-xs border border-[#eadcc8] hover:border-[#b88a44] transition-all flex items-center gap-1.5 active:scale-95"
             >
-              <span>Add to Bag 🛍️</span>
+              <span class="inline-flex items-center gap-1"><svg class="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span>Add to Bag</span></span>
             </button>
           </div>
         </div>
@@ -1278,7 +1278,7 @@ function showToast(msg) {
 
   const toast = document.createElement('div');
   toast.className = 'bg-[#173c2d] text-[#fffdf8] px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2 mb-2 transform translate-y-3 opacity-0 transition-all duration-300 border border-[#b88a44]/40 pointer-events-auto';
-  toast.innerHTML = `<span class="text-[#b88a44]">✨</span><span>${msg}</span>`;
+  toast.innerHTML = `<span class="text-[#b88a44] inline-flex items-center mr-1.5"><svg class="w-3.5 h-3.5 text-[#b88a44] inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg></span><span>${msg}</span>`;
 
   container.appendChild(toast);
   setTimeout(() => {
@@ -1333,8 +1333,8 @@ function toggleHeroAudio() {
 
   vid.muted = !vid.muted;
   btn.innerHTML = vid.muted 
-    ? `<span class="text-xs">🔇 Sound Muted</span>`
-    : `<span class="text-xs text-[#b88a44]">🔊 Sound On</span>`;
+    ? `<span class="text-xs inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Sound Muted</span>`
+    : `<span class="text-xs text-[#b88a44] inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Sound On</span>`;
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1349,8 +1349,8 @@ function toggleDrinksAudio() {
 
   vid.muted = !vid.muted;
   btn.innerHTML = vid.muted 
-    ? `<span class="text-xs">🔇 Sound Muted</span>`
-    : `<span class="text-xs text-sky-400">🔊 Sound On</span>`;
+    ? `<span class="text-xs inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Sound Muted</span>`
+    : `<span class="text-xs text-sky-400 inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Sound On</span>`;
 }
 
 function toggleDrinksPlay() {
@@ -1362,10 +1362,10 @@ function toggleDrinksPlay() {
 
   if (vid.paused) {
     vid.play();
-    btn.innerHTML = `<span class="text-xs text-sky-400">⏸ Pause</span>`;
+    btn.innerHTML = `<span class="text-xs text-sky-400 inline-flex items-center"><svg class="w-3 h-3 inline mr-1 fill-current" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</span>`;
   } else {
     vid.pause();
-    btn.innerHTML = `<span class="text-xs">▶ Play Video</span>`;
+    btn.innerHTML = `<span class="text-xs inline-flex items-center"><svg class="w-3 h-3 inline mr-1 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Video</span>`;
   }
 }
 
@@ -1381,8 +1381,8 @@ function toggleSnacksAudio() {
 
   vid.muted = !vid.muted;
   btn.innerHTML = vid.muted 
-    ? `<span class="text-xs">🔇 Sound Muted</span>`
-    : `<span class="text-xs text-orange-400">🔊 Sound On</span>`;
+    ? `<span class="text-xs inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Sound Muted</span>`
+    : `<span class="text-xs text-orange-400 inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Sound On</span>`;
 }
 
 function toggleSnacksPlay() {
@@ -1394,7 +1394,7 @@ function toggleSnacksPlay() {
 
   if (vid.paused) {
     vid.play();
-    btn.innerHTML = `<span class="text-xs text-orange-400">⏸ Pause</span>`;
+    btn.innerHTML = `<span class="text-xs text-orange-400 inline-flex items-center"><svg class="w-3 h-3 inline mr-1 fill-current" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</span>`;
   } else {
     vid.pause();
     btn.innerHTML = `<span class="text-xs">▶ Play Video</span>`;
@@ -1410,8 +1410,8 @@ function toggleCandyAudio() {
 
   vid.muted = !vid.muted;
   btn.innerHTML = vid.muted 
-    ? `<span class="text-xs">🔇 Sound Muted</span>` 
-    : `<span class="text-xs text-pink-400">🔊 Sound On</span>`;
+    ? `<span class="text-xs inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Sound Muted</span>` 
+    : `<span class="text-xs text-pink-400 inline-flex items-center"><svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Sound On</span>`;
 }
 
 function toggleCandyPlay() {
@@ -1423,7 +1423,7 @@ function toggleCandyPlay() {
 
   if (vid.paused) {
     vid.play();
-    btn.innerHTML = `<span class="text-xs text-pink-400">⏸ Pause</span>`;
+    btn.innerHTML = `<span class="text-xs text-pink-400 inline-flex items-center"><svg class="w-3 h-3 inline mr-1 fill-current" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</span>`;
   } else {
     vid.pause();
     btn.innerHTML = `<span class="text-xs">▶ Play Video</span>`;
