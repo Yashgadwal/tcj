@@ -264,9 +264,10 @@
       }
     };
 
+    const pinTarget = container.querySelector('.chocolate-canvas-container') || container;
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: container,
+        trigger: pinTarget,
         start: 'top top',
         end: '+=2200',
         pin: true,
@@ -396,9 +397,10 @@
       }
     };
 
+    const pinTarget = container.querySelector('.drinks-canvas-container') || container;
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: container,
+        trigger: pinTarget,
         start: 'top top',
         end: '+=2200',
         pin: true,
@@ -584,9 +586,10 @@
       }
     };
 
+    const pinTarget = container.querySelector('.snacks-canvas-container') || container;
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: container,
+        trigger: pinTarget,
         start: 'top top',
         end: '+=2200',
         pin: true,
@@ -764,9 +767,10 @@
       }
     };
 
+    const pinTarget = container.querySelector('.candy-canvas-container') || container;
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: container,
+        trigger: pinTarget,
         start: 'top top',
         end: '+=2200',
         pin: true,

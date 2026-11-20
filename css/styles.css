@@ -94,19 +94,21 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Luxury Glass Cards */
+/* Luxury Cards - ShubhMewa Signature Clean White Aesthetic */
 .luxury-card {
-  background: rgba(21, 19, 18, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #ffffff !important;
+  border: 1px solid #eadcc8 !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 2px 8px rgba(23, 60, 45, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  color: #1a1a1a !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .luxury-card:hover {
-  background: rgba(28, 24, 22, 0.85);
-  border-color: var(--border-gold);
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(214, 166, 91, 0.12);
+  background: #ffffff !important;
+  border-color: #b88a44 !important;
+  box-shadow: 0 14px 32px -4px rgba(23, 60, 45, 0.12), 0 4px 14px -2px rgba(184, 138, 68, 0.16) !important;
+  transform: translateY(-2px) !important;
 }
 
 /* Pinned Scroll Canvas Wrappers (Chocolate, Drinks, Snacks & Candy) */
@@ -149,153 +151,151 @@ body {
   filter: contrast(102%) brightness(98%);
 }
 
-/* Luxury Buttons - ShubhMewa Aesthetic */
+/* Luxury Buttons - ShubhMewa Clean Aesthetic */
 .btn-green,
-.btn-primary {
-  background: linear-gradient(135deg, #20503e 0%, #173c2d 50%, #0f281e 100%);
+.btn-primary,
+.btn-buy-now {
+  background: #173c2d !important;
   color: #fffdf8 !important;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  border: 1px solid rgba(184, 138, 68, 0.35);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 18px rgba(23, 60, 45, 0.35);
-  position: relative;
-  overflow: hidden;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border: 1px solid #173c2d !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 2px 6px rgba(23, 60, 45, 0.2) !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-green:hover,
-.btn-primary:hover {
-  background: linear-gradient(135deg, #28634d 0%, #1c4937 50%, #143729 100%);
-  border-color: #b88a44;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(23, 60, 45, 0.5), 0 0 15px rgba(184, 138, 68, 0.25);
+.btn-primary:hover,
+.btn-buy-now:hover {
+  background: #123024 !important;
+  border-color: #b88a44 !important;
+  color: #fffdf8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(23, 60, 45, 0.3) !important;
 }
 
 .btn-green:active,
-.btn-primary:active {
-  transform: translateY(1px);
+.btn-primary:active,
+.btn-buy-now:active {
+  transform: translateY(1px) scale(0.97) !important;
 }
 
 .btn-gold {
-  background: linear-gradient(135deg, #d4a85c 0%, #b88a44 50%, #996e2e 100%);
+  background: linear-gradient(135deg, #c4964e 0%, #b88a44 50%, #9e7232 100%) !important;
   color: #ffffff !important;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: 1px solid rgba(184, 138, 68, 0.4);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 18px rgba(184, 138, 68, 0.3);
-  position: relative;
-  overflow: hidden;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border: 1px solid #b88a44 !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 2px 8px rgba(184, 138, 68, 0.25) !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-gold:hover {
-  background: linear-gradient(135deg, #e0bb72 0%, #c99a4e 50%, #aa7a33 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(184, 138, 68, 0.45);
+  background: linear-gradient(135deg, #d4a85c 0%, #c99a4e 50%, #aa7a33 100%) !important;
+  border-color: #173c2d !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(184, 138, 68, 0.35) !important;
 }
 
 .btn-gold:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.97) !important;
 }
 
-.btn-cream {
-  background: #fffdf8;
+.btn-secondary,
+.btn-cream,
+.btn-add-bag {
+  background: #ffffff !important;
   color: #173c2d !important;
-  border: 1px solid #eadcc8;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  transition: all 0.25s ease;
+  border: 1px solid rgba(23, 60, 45, 0.35) !important;
+  border-radius: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-cream:hover {
-  background: #f7f1e8;
-  border-color: #b88a44;
+.btn-secondary:hover,
+.btn-cream:hover,
+.btn-add-bag:hover {
+  background: #fffdf8 !important;
+  border-color: #b88a44 !important;
   color: #b88a44 !important;
-  transform: translateY(-2px);
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(184, 138, 68, 0.15) !important;
 }
 
-.btn-cyan {
-  background: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0284C7 100%);
-  color: #080808;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
-  position: relative;
-  overflow: hidden;
+.btn-secondary:active,
+.btn-cream:active,
+.btn-add-bag:active {
+  transform: translateY(1px) scale(0.97) !important;
 }
 
-.btn-cyan:hover {
-  background: linear-gradient(135deg, #BAE6FD 0%, #7DD3FC 50%, #38BDF8 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.45);
-}
-
-.btn-cyan:active {
-  transform: translateY(1px);
-}
-
-.btn-candy {
-  background: linear-gradient(135deg, #F472B6 0%, #EC4899 50%, #A855F7 100%);
-  color: #FFFFFF;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-candy:hover {
-  background: linear-gradient(135deg, #F9A8D4 0%, #F472B6 50%, #C084FC 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(236, 72, 153, 0.45);
-}
-
-.btn-candy:active {
-  transform: translateY(1px);
-}
-
+/* Re-mapped legacy classes to elegant ShubhMewa green/gold */
+.btn-cyan,
+.btn-candy,
 .btn-snack {
-  background: linear-gradient(135deg, #FB923C 0%, #EF4444 50%, #B91C1C 100%);
-  color: #FFFFFF;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
-  position: relative;
-  overflow: hidden;
+  background: #173c2d !important;
+  color: #fffdf8 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border: 1px solid #173c2d !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 2px 6px rgba(23, 60, 45, 0.2) !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.btn-cyan:hover,
+.btn-candy:hover,
 .btn-snack:hover {
-  background: linear-gradient(135deg, #FDBA74 0%, #F87171 50%, #DC2626 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.5);
-}
-
-.btn-snack:active {
-  transform: translateY(1px);
+  background: #123024 !important;
+  border-color: #b88a44 !important;
+  color: #fffdf8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(23, 60, 45, 0.3) !important;
 }
 
 .btn-luxury-outline {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(214, 166, 91, 0.4);
-  color: #F5EBDD;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  background: #ffffff !important;
+  border: 1px solid #173c2d !important;
+  color: #173c2d !important;
+  border-radius: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  transition: all 0.25s ease !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-luxury-outline:hover {
-  background: rgba(214, 166, 91, 0.12);
-  border-color: #D6A65B;
-  color: #FFF0D4;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(214, 166, 91, 0.18);
+  background: #173c2d !important;
+  border-color: #173c2d !important;
+  color: #fffdf8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(23, 60, 45, 0.2) !important;
 }
 
 /* 3D Perspective Card Tilt */

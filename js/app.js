@@ -209,32 +209,32 @@ function renderProducts() {
   container.innerHTML = filtered.map(prod => {
     return `
       <div class="product-card-3d card-3d-wrap">
-        <div class="card-3d-inner luxury-card rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full relative group">
+        <div class="card-3d-inner group bg-white rounded-2xl border border-[#eadcc8] hover:border-[#b88a44] p-5 sm:p-6 flex flex-col justify-between h-full relative transition-all duration-300 shadow-xs hover:shadow-md">
           
           <!-- Top Badges & Origin -->
+          <div class="flex items-center justify-between mb-3">
             <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
               prod.inStock === false
                 ? 'bg-red-950/80 text-red-300 border border-red-500/40'
-                : 'bg-[#32180F] text-[#b88a44] border border-[#b88a44]/30'
+                : 'bg-[#173c2d]/10 text-[#173c2d] border border-[#173c2d]/20'
             }">
               ${prod.inStock === false ? 'Sold Out' : prod.badge}
             </span>
-            <span class="text-[11px] font-medium text-[#A49B91] flex items-center gap-1">
+            <span class="text-[11px] font-semibold text-[#6b6b6b] flex items-center gap-1">
               ${prod.country}
             </span>
           </div>
 
-          <!-- Product Image with Floating Glow -->
+          <!-- Product Image with Clean Ivory Surface -->
           <div 
             onclick="openProductModal('${prod.id}')"
-            class="relative w-full aspect-square rounded-xl bg-[#0c0b0a] border border-[#b88a44]/10 overflow-hidden flex items-center justify-center p-4 cursor-pointer group-hover:border-[#b88a44]/30 transition-all"
+            class="relative w-full aspect-square rounded-xl bg-[#fffdf8] border border-[#eadcc8]/60 overflow-hidden flex items-center justify-center p-4 cursor-pointer group-hover:border-[#b88a44]/50 transition-colors"
           >
-            <div class="absolute inset-0 bg-radial from-[#b88a44]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <img 
               src="${prod.image}" 
               alt="${prod.name}" 
               loading="lazy" 
-              class="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] group-hover:scale-108 transition-transform duration-500 ${prod.inStock === false ? 'grayscale opacity-60' : ''}" 
+              class="max-h-full max-w-full object-contain filter drop-shadow-sm group-hover:scale-105 transition-transform duration-300 ${prod.inStock === false ? 'grayscale opacity-60' : ''}" 
             />
           </div>
 
@@ -243,16 +243,16 @@ function renderProducts() {
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="text-xs text-[#b88a44]">★★★★★</span>
-                <span class="text-[11px] font-semibold text-[#F5EBDD]">${prod.rating}</span>
-                <span class="text-[11px] text-[#706860]">(${prod.reviewsCount})</span>
+                <span class="text-[11px] font-semibold text-[#173c2d]">${prod.rating}</span>
+                <span class="text-[11px] text-[#8c827a]">(${prod.reviewsCount})</span>
               </div>
               <h3 
                 onclick="openProductModal('${prod.id}')"
-                class="font-editorial text-base sm:text-lg font-bold text-[#F5EBDD] leading-snug cursor-pointer hover:text-[#b88a44] transition-colors line-clamp-2"
+                class="font-editorial text-base sm:text-lg font-bold text-[#173c2d] leading-snug cursor-pointer hover:text-[#b88a44] transition-colors line-clamp-2"
               >
                 ${prod.name}
               </h3>
-              <p class="text-xs text-[#A49B91] mt-1.5 line-clamp-2 leading-relaxed">
+              <p class="text-xs text-[#6b6b6b] mt-1.5 line-clamp-2 leading-relaxed">
                 ${prod.description}
               </p>
             </div>
@@ -260,24 +260,24 @@ function renderProducts() {
             <!-- Tags -->
             <div class="flex flex-wrap gap-1.5 mt-3">
               ${(prod.tags || []).slice(0, 2).map(tag => `
-                <span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#1B100D] text-[#A8B77A] border border-[#A8B77A]/20">
+                <span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#f7f1e8] text-[#173c2d] border border-[#eadcc8]">
                   ${tag}
                 </span>
               `).join('')}
             </div>
 
             <!-- Pricing and CTAs -->
-            <div class="mt-5 pt-4 border-t border-[#b88a44]/15 flex items-center justify-between gap-2">
-              <div>
-                <span class="font-mono text-xl sm:text-2xl font-bold text-[#b88a44]">₹${prod.price}</span>
-                ${prod.originalPrice ? `<span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹${prod.originalPrice}</span>` : ''}
+            <div class="mt-5 pt-4 border-t border-[#eadcc8]/60 flex items-center justify-between gap-2">
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-[#173c2d]">₹${prod.price}</span>
+                ${prod.originalPrice ? `<span class="font-mono text-xs text-[#8c827a] line-through ml-1.5">₹${prod.originalPrice}</span>` : ''}
               </div>
 
               <div class="flex items-center gap-1.5">
                 ${prod.inStock !== false ? `
                   <button 
                     onclick="buyNowSingleProduct('${prod.id}')"
-                    class="btn-gold px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1 shadow-md shadow-[#b88a44]/15 hover:scale-105 active:scale-95 transition-all"
+                    class="btn-green flex items-center justify-center gap-1 py-2 px-3 sm:px-3.5 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all shadow-xs hover:shadow-md active:scale-95"
                     aria-label="Buy Now"
                     title="Buy Now with Instant Guest or VIP Member Checkout"
                   >
@@ -285,7 +285,7 @@ function renderProducts() {
                   </button>
                   <button 
                     onclick="addToCart('${prod.id}')"
-                    class="btn-cream px-2.5 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1"
+                    class="btn-secondary flex items-center justify-center gap-1 py-2 px-2.5 sm:px-3 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all shadow-xs active:scale-95"
                     title="Add to Shopping Bag"
                     aria-label="Add to cart"
                   >
@@ -294,7 +294,7 @@ function renderProducts() {
                 ` : `
                   <button 
                     disabled
-                    class="px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold bg-[#1b1816] text-[#706860] border border-[#2b2724] cursor-not-allowed"
+                    class="px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold bg-[#f7f1e8] text-[#8c827a] border border-[#eadcc8] cursor-not-allowed"
                     title="Currently Sold Out"
                   >
                     Sold Out
@@ -437,24 +437,24 @@ function updateCartUI() {
     subtotal += lineTotal;
 
     return `
-      <div class="flex items-center gap-3 p-3.5 rounded-xl bg-[#111111] border border-[#b88a44]/15 mb-3">
+      <div class="flex items-center gap-3 p-3.5 rounded-xl bg-white border border-[#eadcc8] mb-3 shadow-xs">
         <img 
           src="${prod.image}" 
           alt="${prod.name}" 
-          class="w-16 h-16 object-contain rounded-lg bg-[#080808] p-1 border border-[#b88a44]/10 flex-shrink-0"
+          class="w-16 h-16 object-contain rounded-lg bg-[#fffdf8] p-1 border border-[#eadcc8]/60 flex-shrink-0"
         />
         <div class="flex-grow min-w-0">
-          <h4 class="font-editorial text-xs sm:text-sm font-bold text-[#F5EBDD] truncate leading-tight">${prod.name}</h4>
-          <span class="text-[11px] text-[#A49B91]">${prod.weight} • ${prod.country}</span>
-          <div class="font-mono text-xs font-bold text-[#b88a44] mt-1">₹${prod.price}</div>
+          <h4 class="font-editorial text-xs sm:text-sm font-bold text-[#173c2d] truncate leading-tight">${prod.name}</h4>
+          <span class="text-[11px] text-[#6b6b6b]">${prod.weight} • ${prod.country}</span>
+          <div class="font-mono text-xs font-bold text-[#173c2d] mt-1">₹${prod.price}</div>
         </div>
         <div class="flex flex-col items-end gap-1 flex-shrink-0">
-          <div class="flex items-center gap-1.5 bg-[#1B100D] px-2 py-1 rounded-lg border border-[#b88a44]/20">
-            <button onclick="updateCartQuantity('${item.id}', -1)" class="text-xs text-[#A49B91] hover:text-white px-1 font-bold">−</button>
-            <span class="font-mono text-xs font-bold text-[#F5EBDD] px-1">${item.quantity}</span>
-            <button onclick="updateCartQuantity('${item.id}', 1)" class="text-xs text-[#A49B91] hover:text-white px-1 font-bold">+</button>
+          <div class="flex items-center gap-1.5 bg-[#f7f1e8] px-2 py-1 rounded-lg border border-[#eadcc8]">
+            <button onclick="updateCartQuantity('${item.id}', -1)" class="text-xs text-[#173c2d] hover:text-[#b88a44] px-1 font-bold">−</button>
+            <span class="font-mono text-xs font-bold text-[#173c2d] px-1">${item.quantity}</span>
+            <button onclick="updateCartQuantity('${item.id}', 1)" class="text-xs text-[#173c2d] hover:text-[#b88a44] px-1 font-bold">+</button>
           </div>
-          <button onclick="removeFromCart('${item.id}')" class="text-[10px] text-[#706860] hover:text-rose-400 transition-colors mt-0.5">
+          <button onclick="removeFromCart('${item.id}')" class="text-[10px] text-[#8c827a] hover:text-rose-500 transition-colors mt-0.5 font-medium">
             Remove
           </button>
         </div>
@@ -1137,58 +1137,58 @@ function openProductModal(productId) {
 
   body.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-      <div class="flex items-center justify-center p-8 bg-[#0c0b0a] rounded-2xl border border-[#b88a44]/20">
-        <img src="${prod.image}" alt="${prod.name}" class="max-h-64 w-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]" />
+      <div class="flex items-center justify-center p-8 bg-[#fffdf8] rounded-2xl border border-[#eadcc8]/60">
+        <img src="${prod.image}" alt="${prod.name}" class="max-h-64 w-auto object-contain drop-shadow-md" />
       </div>
 
       <div>
         <div class="flex items-center gap-2 mb-2">
-          <span class="px-2.5 py-0.5 rounded-full bg-[#32180F] text-[#b88a44] text-xs font-bold uppercase border border-[#b88a44]/30">
+          <span class="px-2.5 py-0.5 rounded-full bg-[#173c2d]/10 text-[#173c2d] text-xs font-bold uppercase border border-[#173c2d]/20">
             ${prod.badge}
           </span>
-          <span class="text-xs text-[#A49B91] font-medium">${prod.country} • ${prod.weight}</span>
+          <span class="text-xs text-[#6b6b6b] font-medium">${prod.country} • ${prod.weight}</span>
         </div>
 
-        <h3 class="font-editorial text-xl sm:text-2xl font-bold text-[#F5EBDD] leading-tight">
+        <h3 class="font-editorial text-xl sm:text-2xl font-bold text-[#173c2d] leading-tight">
           ${prod.name}
         </h3>
 
         <div class="flex items-center gap-2 my-2 text-xs font-semibold">
           <span class="text-[#b88a44]">★★★★★</span>
-          <span class="text-[#F5EBDD]">${prod.rating}</span>
-          <span class="text-[#706860]">(${prod.reviewsCount}+ verified foodies)</span>
+          <span class="text-[#173c2d]">${prod.rating}</span>
+          <span class="text-[#8c827a]">(${prod.reviewsCount}+ verified foodies)</span>
         </div>
 
-        <p class="text-xs sm:text-sm text-[#A49B91] leading-relaxed my-3 font-normal">
+        <p class="text-xs sm:text-sm text-[#574F47] leading-relaxed my-3 font-normal">
           ${prod.description}
         </p>
 
         <!-- Tags -->
         <div class="flex flex-wrap gap-1.5 my-3">
           ${(prod.tags || []).map(t => `
-            <span class="px-2.5 py-1 rounded-md bg-[#1B100D] text-[#A8B77A] text-[11px] font-medium border border-[#A8B77A]/20">
+            <span class="px-2.5 py-1 rounded-md bg-[#f7f1e8] text-[#173c2d] text-[11px] font-medium border border-[#eadcc8]">
               ✓ ${t}
             </span>
           `).join('')}
         </div>
 
         <!-- Pricing & Action -->
-        <div class="pt-4 border-t border-[#b88a44]/15 flex items-center justify-between gap-3 mt-4">
-          <div>
-            <span class="font-mono text-2xl font-bold text-[#b88a44]">₹${prod.price}</span>
-            ${prod.originalPrice ? `<span class="font-mono text-sm text-[#706860] line-through ml-2">₹${prod.originalPrice}</span>` : ''}
+        <div class="pt-4 border-t border-[#eadcc8]/60 flex items-center justify-between gap-3 mt-4">
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-mono text-2xl font-bold text-[#173c2d]">₹${prod.price}</span>
+            ${prod.originalPrice ? `<span class="font-mono text-sm text-[#8c827a] line-through ml-2">₹${prod.originalPrice}</span>` : ''}
           </div>
 
           <div class="flex items-center gap-2">
             <button 
               onclick="buyNowSingleProduct('${prod.id}'); closeProductModal();" 
-              class="btn-gold px-4 py-2.5 rounded-xl text-xs font-bold shadow-lg shadow-[#b88a44]/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5"
+              class="btn-green px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:shadow-md active:scale-95 transition-all flex items-center gap-1.5"
             >
               <span>⚡ Buy Now</span>
             </button>
             <button 
               onclick="addToCart('${prod.id}'); closeProductModal();" 
-              class="btn-cream px-4 py-2.5 rounded-xl font-bold text-xs border border-[#eadcc8] hover:border-[#b88a44] transition-all flex items-center gap-1.5 active:scale-95"
+              class="btn-secondary px-4 py-2.5 rounded-xl font-bold text-xs border border-[#eadcc8] hover:border-[#b88a44] transition-all flex items-center gap-1.5 active:scale-95"
             >
               <span>Add to Bag 🛍️</span>
             </button>
@@ -1435,11 +1435,12 @@ function toggleCandyPlay() {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function initThemeManager() {
   let savedTheme = localStorage.getItem('tcj_theme');
-  if (!savedTheme) {
+  // Always enforce Light theme as the permanent ShubhMewa standard
+  if (!savedTheme || savedTheme === 'dark') {
     savedTheme = 'light';
     try { localStorage.setItem('tcj_theme', 'light'); } catch (e) {}
   }
-  applyTheme(savedTheme);
+  applyTheme('light');
 }
 
 function applyTheme(theme) {
