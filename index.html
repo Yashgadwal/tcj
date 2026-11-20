@@ -33,7 +33,7 @@
   </script>
 
   <!-- Google Fonts & Custom Luxury Styles -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=3.1">
   <link rel="icon" href="assets/tcj-official-logo.png" type="image/png">
 
 
@@ -102,10 +102,10 @@
       onclick="handleAccountClick()"
       class="relative px-3 sm:px-3.5 h-10 sm:h-11 rounded-2xl bg-[#151312]/90 backdrop-blur-md border border-[#D6A65B]/40 hover:border-[#D6A65B] flex items-center gap-1.5 text-xs font-bold text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all group"
       aria-label="VIP Account"
-      title="VIP Account & Orders"
+      title="VIP Account, Login & Orders"
     >
       <span id="account-btn-icon" class="text-base">👤</span>
-      <span id="account-btn-label" class="hidden sm:inline font-mono tracking-wider text-[11px] text-[#D6A65B]">VIP</span>
+      <span id="account-btn-label" class="font-mono tracking-wider text-[11px] text-[#D6A65B]">VIP / Sign In</span>
     </button>
   </div>
 
@@ -232,8 +232,8 @@
           <div class="mt-4 pt-3 border-t border-sky-400/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-sky-400">₹349</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('prime-hydration-blue-raz')" class="btn-cyan px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Prime Hydration Blue Raz', 349)" class="p-1.5 rounded-lg bg-[#151312] text-sky-400 border border-sky-400/30">💬</button>
+              <button onclick="buyNowSingleProduct('prime-hydration-blue-raz')" class="btn-cyan px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('prime-hydration-blue-raz')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-sky-400 border border-sky-400/30 text-xs font-bold hover:bg-[#1a2530] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -254,8 +254,8 @@
           <div class="mt-4 pt-3 border-t border-amber-400/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-amber-400">₹299</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('monster-energy-mango-loco')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Monster Energy Mango Loco', 299)" class="p-1.5 rounded-lg bg-[#151312] text-amber-400 border border-amber-400/30">💬</button>
+              <button onclick="buyNowSingleProduct('monster-energy-mango-loco')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('monster-energy-mango-loco')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-amber-400 border border-amber-400/30 text-xs font-bold hover:bg-[#251e16] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -276,8 +276,8 @@
           <div class="mt-4 pt-3 border-t border-pink-400/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-pink-400">₹249</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('hata-kosen-ramune')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Hata Kosen Ramune', 249)" class="p-1.5 rounded-lg bg-[#151312] text-pink-400 border border-pink-400/30">💬</button>
+              <button onclick="buyNowSingleProduct('hata-kosen-ramune')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('hata-kosen-ramune')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-pink-400 border border-pink-400/30 text-xs font-bold hover:bg-[#251620] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -298,8 +298,8 @@
           <div class="mt-4 pt-3 border-t border-rose-400/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-rose-400">₹199</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('dr-pepper-classic')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Dr Pepper Classic', 199)" class="p-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-400/30">💬</button>
+              <button onclick="buyNowSingleProduct('dr-pepper-classic')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('dr-pepper-classic')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-400/30 text-xs font-bold hover:bg-[#251515] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -387,8 +387,8 @@
           <div class="mt-4 pt-3 border-t border-orange-500/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-orange-400">₹249</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('takis-fuego')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Takis Fuego', 249)" class="p-1.5 rounded-lg bg-[#151312] text-orange-400 border border-orange-500/30">💬</button>
+              <button onclick="buyNowSingleProduct('takis-fuego')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('takis-fuego')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-orange-400 border border-orange-500/30 text-xs font-bold hover:bg-[#251810] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -409,8 +409,8 @@
           <div class="mt-4 pt-3 border-t border-rose-500/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-rose-400">₹329</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('cheetos-flamin-hot')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Cheetos Flamin Hot', 329)" class="p-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-500/30">💬</button>
+              <button onclick="buyNowSingleProduct('cheetos-flamin-hot')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('cheetos-flamin-hot')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-500/30 text-xs font-bold hover:bg-[#251518] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -431,8 +431,8 @@
           <div class="mt-4 pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-[#D6A65B]">₹220</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('lays-imported-gourmet')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Lays Gourmet Spanish Truffle', 220)" class="p-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30">💬</button>
+              <button onclick="buyNowSingleProduct('lays-imported-gourmet')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('lays-imported-gourmet')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 text-xs font-bold hover:bg-[#252016] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -453,8 +453,8 @@
           <div class="mt-4 pt-3 border-t border-red-600/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-red-400">₹299</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('samyang-buldak-2x-spicy')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Samyang Buldak 2X Spicy', 299)" class="p-1.5 rounded-lg bg-[#151312] text-red-400 border border-red-600/30">💬</button>
+              <button onclick="buyNowSingleProduct('samyang-buldak-2x-spicy')" class="btn-snack px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('samyang-buldak-2x-spicy')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-red-400 border border-red-600/30 text-xs font-bold hover:bg-[#251515] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -542,8 +542,8 @@
           <div class="mt-4 pt-3 border-t border-pink-500/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-pink-400">₹229</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('haribo-goldbaren')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Haribo Goldbären Gummy Bears', 229)" class="p-1.5 rounded-lg bg-[#151312] text-pink-400 border border-pink-500/30">💬</button>
+              <button onclick="buyNowSingleProduct('haribo-goldbaren')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('haribo-goldbaren')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-pink-400 border border-pink-500/30 text-xs font-bold hover:bg-[#251520] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -564,8 +564,8 @@
           <div class="mt-4 pt-3 border-t border-purple-500/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-purple-400">₹199</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('skittles-wild-berry')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Skittles Wild Berry', 199)" class="p-1.5 rounded-lg bg-[#151312] text-purple-400 border border-purple-500/30">💬</button>
+              <button onclick="buyNowSingleProduct('skittles-wild-berry')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('skittles-wild-berry')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-purple-400 border border-purple-500/30 text-xs font-bold hover:bg-[#201525] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -586,8 +586,8 @@
           <div class="mt-4 pt-3 border-t border-fuchsia-500/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-fuchsia-400">₹299</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('nerds-gummy-clusters')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Nerds Gummy Clusters', 299)" class="p-1.5 rounded-lg bg-[#151312] text-fuchsia-400 border border-fuchsia-500/30">💬</button>
+              <button onclick="buyNowSingleProduct('nerds-gummy-clusters')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('nerds-gummy-clusters')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-fuchsia-400 border border-fuchsia-500/30 text-xs font-bold hover:bg-[#251525] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -608,8 +608,8 @@
           <div class="mt-4 pt-3 border-t border-rose-500/15 flex items-center justify-between">
             <span class="font-mono text-lg font-bold text-rose-400">₹249</span>
             <div class="flex items-center gap-1.5">
-              <button onclick="addToCart('sour-patch-kids-watermelon')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold">Bag +</button>
-              <button onclick="orderSingleItemWhatsApp('Sour Patch Kids Watermelon', 249)" class="p-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-500/30">💬</button>
+              <button onclick="buyNowSingleProduct('sour-patch-kids-watermelon')" class="btn-candy px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
+              <button onclick="addToCart('sour-patch-kids-watermelon')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-rose-400 border border-rose-500/30 text-xs font-bold hover:bg-[#25151a] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -709,8 +709,8 @@
                 <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹899</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <button onclick="addToCart('dubai-knafeh-chocolate')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
-                <button onclick="orderSingleItemWhatsApp('Dubai Knafeh Pistachio Chocolate', 699)" class="p-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 hover:bg-[#D6A65B]/10 transition-colors" title="Order on WhatsApp">💬</button>
+                <button onclick="buyNowSingleProduct('dubai-knafeh-chocolate')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all">⚡ Buy Now</button>
+                <button onclick="addToCart('dubai-knafeh-chocolate')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 text-xs font-bold hover:bg-[#251e16] transition-all" title="Add to Bag">Bag +</button>
               </div>
             </div>
           </div>
@@ -734,8 +734,8 @@
                 <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹750</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <button onclick="addToCart('dubai-pistachio-cream-jar')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
-                <button onclick="orderSingleItemWhatsApp('Artisan Pistachio Kunafa Cream Jar', 599)" class="p-1.5 rounded-lg bg-[#151312] text-[#A8B77A] border border-[#A8B77A]/30 hover:bg-[#A8B77A]/10 transition-colors" title="Order on WhatsApp">💬</button>
+                <button onclick="buyNowSingleProduct('dubai-pistachio-cream-jar')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all">⚡ Buy Now</button>
+                <button onclick="addToCart('dubai-pistachio-cream-jar')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#A8B77A] border border-[#A8B77A]/30 text-xs font-bold hover:bg-[#1a2516] transition-all" title="Add to Bag">Bag +</button>
               </div>
             </div>
           </div>
@@ -759,8 +759,8 @@
                 <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹949</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <button onclick="addToCart('dubai-dark-knafeh')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
-                <button onclick="orderSingleItemWhatsApp('Dubai 70% Dark Sea Salt Knafeh', 749)" class="p-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 hover:bg-[#D6A65B]/10 transition-colors" title="Order on WhatsApp">💬</button>
+                <button onclick="buyNowSingleProduct('dubai-dark-knafeh')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all">⚡ Buy Now</button>
+                <button onclick="addToCart('dubai-dark-knafeh')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 text-xs font-bold hover:bg-[#251e16] transition-all" title="Add to Bag">Bag +</button>
               </div>
             </div>
           </div>
@@ -784,8 +784,8 @@
                 <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹899</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <button onclick="addToCart('dubai-white-berry')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md">Bag +</button>
-                <button onclick="orderSingleItemWhatsApp('Dubai White Belgian Wild Berry Kadayif', 699)" class="p-1.5 rounded-lg bg-[#151312] text-rose-300 border border-rose-400/30 hover:bg-rose-400/10 transition-colors" title="Order on WhatsApp">💬</button>
+                <button onclick="buyNowSingleProduct('dubai-white-berry')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all">⚡ Buy Now</button>
+                <button onclick="addToCart('dubai-white-berry')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-rose-300 border border-rose-400/30 text-xs font-bold hover:bg-[#25151b] transition-all" title="Add to Bag">Bag +</button>
               </div>
             </div>
           </div>
@@ -1629,9 +1629,9 @@
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none"></div>
 
   <!-- Scripts -->
-  <script src="js/products.js"></script>
-  <script src="js/scroll-controller.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/products.js?v=3.1"></script>
+  <script src="js/scroll-controller.js?v=3.1"></script>
+  <script src="js/app.js?v=3.1"></script>
 
 </body>
 </html>

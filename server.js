@@ -300,6 +300,27 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, { success: true, message: 'Customer signed out' });
   }
 
+  // --- ADMIN CUSTOMERS API ---
+  if (reqPath === '/api/admin/customers' && req.method === 'GET') {
+    if (!isAuthorized(req)) return sendJson(res, 401, { error: 'Unauthorized' });
+    const customers = readJson('customers.json', []);
+    const orders = readJson('orders.json', []);
+    // Sanitize customer records (hide passwords) and compute order stats
+    const safeCustomers = customers.map(c => {
+      const { password, ...safe } = c;
+      const custOrders = orders.filter(o => 
+        (o.customerId && o.customerId === c.id) || 
+        (o.phone && o.phone.replace(/\D/g, '').slice(-10) === c.phone)
+      );
+      return {
+        ...safe,
+        orderCount: custOrders.length,
+        totalSpent: custOrders.reduce((sum, o) => sum + (Number(o.total) || 0), 0)
+      };
+    });
+    return sendJson(res, 200, safeCustomers);
+  }
+
   // --- PRODUCTS API ---
   if (reqPath === '/api/products' && req.method === 'GET') {
     const products = readJson('products.json', []);
@@ -635,7 +656,7 @@ const server = http.createServer(async (req, res) => {
         'Content-Type': contentType,
         'Accept-Ranges': 'bytes',
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': ext === '.mp4' ? 'no-cache' : 'public, max-age=3600'
+        'Cache-Control': (ext === '.html' || ext === '.js' || ext === '.css' || ext === '.json') ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400'
       });
 
       fs.createReadStream(fullPath).pipe(res);

@@ -1,5 +1,47 @@
 [
   {
+    "id": "CUST-1004",
+    "name": "Aarav Mehta",
+    "phone": "9926921052",
+    "email": "aarav.1795193069218@gmail.com",
+    "password": "securePass123",
+    "vipTier": "Gourmet Connoisseur",
+    "addresses": [
+      {
+        "id": "addr-1",
+        "label": "Home",
+        "street": "B-202, Silver Crest Apartments, Dewas Road",
+        "landmark": "Opp. Bharat Mata Mandir",
+        "locality": "Freeganj",
+        "city": "Ujjain",
+        "pincode": "456001",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-11-20T16:44:29.244Z"
+  },
+  {
+    "id": "CUST-1003",
+    "name": "Aarav Mehta",
+    "phone": "9926757415",
+    "email": "aarav.1795192515314@gmail.com",
+    "password": "securePass123",
+    "vipTier": "Gourmet Connoisseur",
+    "addresses": [
+      {
+        "id": "addr-1",
+        "label": "Home",
+        "street": "B-202, Silver Crest Apartments, Dewas Road",
+        "landmark": "Opp. Bharat Mata Mandir",
+        "locality": "Freeganj",
+        "city": "Ujjain",
+        "pincode": "456001",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-11-20T16:35:15.341Z"
+  },
+  {
     "id": "CUST-1002",
     "name": "Aarav Mehta",
     "phone": "9926611206",

@@ -12,6 +12,7 @@
     products: [],
     categories: [],
     orders: [],
+    customers: [],
     settings: {},
     currentTab: 'overview',
     orderStatusFilter: 'all',
@@ -40,6 +41,7 @@
     conciergePhoneDisplay: document.getElementById('concierge-phone-display'),
     badgeProductsCount: document.getElementById('badge-products-count'),
     badgeOrdersCount: document.getElementById('badge-orders-count'),
+    badgeCustomersCount: document.getElementById('badge-customers-count'),
     badgeCategoriesCount: document.getElementById('badge-categories-count'),
 
     // Tabs & Panels
@@ -48,6 +50,7 @@
       overview: document.getElementById('panel-overview'),
       products: document.getElementById('panel-products'),
       orders: document.getElementById('panel-orders'),
+      customers: document.getElementById('panel-customers'),
       categories: document.getElementById('panel-categories'),
       settings: document.getElementById('panel-settings'),
     },
@@ -84,6 +87,13 @@
     countContactedOrders: document.getElementById('count-contacted-orders'),
     countDispatchedOrders: document.getElementById('count-dispatched-orders'),
     countDeliveredOrders: document.getElementById('count-delivered-orders'),
+
+    // VIP Customers Elements
+    btnRefreshCustomers: document.getElementById('btn-refresh-customers'),
+    statTotalVipCustomers: document.getElementById('stat-total-vip-customers'),
+    statTotalVipOrders: document.getElementById('stat-total-vip-orders'),
+    statTotalVipSpent: document.getElementById('stat-total-vip-spent'),
+    customersListContainer: document.getElementById('customers-list-container'),
 
     // Categories Elements
     btnAddCategory: document.getElementById('btn-add-category'),
@@ -280,11 +290,12 @@
   // --- Data Loading & Synchronization ---
   async function loadAllData() {
     try {
-      const [products, categories, orders, settings] = await Promise.all([
+      const [products, categories, orders, settings, customers] = await Promise.all([
         api('/api/products'),
         api('/api/categories'),
         api('/api/orders'),
         api('/api/settings'),
+        api('/api/admin/customers').catch(() => []),
       ]);
 
       state.products = (products || []).map(p => ({
@@ -313,11 +324,13 @@
         status: o.status || 'Pending',
       }));
       state.settings = settings || {};
+      state.customers = customers || [];
 
       renderHeaderAndPills();
       renderDashboard();
       renderProductsTable();
       renderOrdersList();
+      renderCustomersList();
       renderCategoriesGrid();
       populateSettingsForm();
       populateCategoryDropdowns();
@@ -351,6 +364,7 @@
     // Sidebar Badges
     el.badgeProductsCount.textContent = state.products.length;
     el.badgeOrdersCount.textContent = state.orders.length;
+    if (el.badgeCustomersCount) el.badgeCustomersCount.textContent = state.customers.length;
     el.badgeCategoriesCount.textContent = state.categories.length;
   }
 
@@ -744,14 +758,25 @@
                 #${(o.id || '').slice(-4).toUpperCase()}
               </div>
               <div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2">
                   <h4 class="font-editorial text-base font-bold text-[#F5EBDD]">${escapeHtml(o.customerName || 'Gourmet Patron')}</h4>
+                  ${o.isGuest === false || o.customerId ? `
+                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#D6A65B]/15 text-[#D6A65B] border border-[#D6A65B]/30 flex items-center gap-1">
+                      <span>👑</span> VIP Member
+                    </span>
+                  ` : `
+                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25 flex items-center gap-1">
+                      <span>⚡</span> Guest Order
+                    </span>
+                  `}
                   <span class="text-[10px] px-2.5 py-0.5 rounded-full font-semibold border ${getStatusBadgeClass(o.status)}">${escapeHtml(o.status || 'Pending')}</span>
                 </div>
-                <div class="text-[11px] text-[#A49B91] flex items-center gap-2 mt-0.5">
-                  <span class="font-mono">${escapeHtml(o.customerPhone || '-')}</span>
+                <div class="text-[11px] text-[#A49B91] flex flex-wrap items-center gap-2 mt-0.5">
+                  <span class="font-mono text-[#F5EBDD]">${escapeHtml(o.customerPhone || '-')}</span>
                   &bull;
                   <span>${formatTimestamp(o.createdAt)}</span>
+                  &bull;
+                  <span class="px-2 py-0.5 rounded bg-[#1e1914] text-[10px] text-[#D6A65B] border border-[#D6A65B]/20">${escapeHtml(o.paymentMode || 'UPI on Delivery')}</span>
                 </div>
               </div>
             </div>
@@ -784,8 +809,14 @@
 
             <div class="space-y-3 bg-[#0d0c0a] p-3.5 rounded-xl border border-[#D6A65B]/10 flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860]">Delivery Address</span>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860]">Delivery Address (Ujjain Doorstep)</span>
                 <p class="text-xs text-[#F5EBDD] mt-1 leading-relaxed">${escapeHtml(o.customerAddress || 'Pick-up / Store Concierge')}</p>
+                ${o.addressDetails && o.addressDetails.locality ? `
+                  <div class="mt-1 flex items-center gap-1.5 text-[10px]">
+                    <span class="px-2 py-0.5 rounded bg-[#181512] text-[#A8B77A] border border-[#A8B77A]/20">📍 ${escapeHtml(o.addressDetails.locality)}</span>
+                    ${o.addressDetails.landmark ? `<span class="text-[#A49B91]">Near ${escapeHtml(o.addressDetails.landmark)}</span>` : ''}
+                  </div>
+                ` : ''}
                 ${o.deliveryNotes ? `<p class="text-[11px] text-amber-300/80 mt-1.5 italic">Note: "${escapeHtml(o.deliveryNotes)}"</p>` : ''}
               </div>
 
@@ -819,6 +850,92 @@
     } catch (err) {
       showToast('Failed to update status: ' + err.message, 'error');
     }
+  }
+
+  // --- Tab: VIP Patrons & Members ---
+  function renderCustomersList() {
+    if (!el.customersListContainer) return;
+
+    const customers = state.customers || [];
+    if (el.badgeCustomersCount) el.badgeCustomersCount.textContent = customers.length;
+    if (el.statTotalVipCustomers) el.statTotalVipCustomers.textContent = customers.length;
+
+    const totalPatronOrders = customers.reduce((sum, c) => sum + (c.orderCount || 0), 0);
+    const totalPatronSpent = customers.reduce((sum, c) => sum + (c.totalSpent || 0), 0);
+
+    if (el.statTotalVipOrders) el.statTotalVipOrders.textContent = totalPatronOrders;
+    if (el.statTotalVipSpent) el.statTotalVipSpent.textContent = `₹${totalPatronSpent.toLocaleString('en-IN')}`;
+
+    if (customers.length === 0) {
+      el.customersListContainer.innerHTML = `
+        <div class="admin-card p-12 text-center text-[#A49B91] rounded-2xl">
+          <i data-lucide="users" class="w-10 h-10 mx-auto mb-3 opacity-40 text-[#D6A65B]"></i>
+          <p class="font-medium">No VIP patrons registered yet</p>
+          <p class="text-xs text-[#706860] mt-1">When customers join the VIP Gourmet Club on the storefront, their accounts appear here in real-time.</p>
+        </div>
+      `;
+      if (window.lucide) lucide.createIcons();
+      return;
+    }
+
+    el.customersListContainer.innerHTML = customers.map(c => {
+      const addrs = c.addresses || [];
+      const cleanPhone = (c.phone || '').replace(/\D/g, '');
+      const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+        `Hello ${c.name}, greetings from TCJ Concierge! We are delighted to have you in our VIP Gourmet Club.`
+      )}`;
+
+      const addrsHtml = addrs.length > 0 ? addrs.map(a => `
+        <div class="p-2.5 rounded-lg bg-[#0a0908] border border-[#D6A65B]/10 text-xs">
+          <span class="font-bold text-[#D6A65B] text-[10px] uppercase">${escapeHtml(a.label || 'Home')}</span>
+          <p class="text-[#F5EBDD] mt-0.5">${escapeHtml(a.street || '')}${a.landmark ? ', Near ' + escapeHtml(a.landmark) : ''}, ${escapeHtml(a.locality || '')}, Ujjain</p>
+        </div>
+      `).join('') : '<span class="text-xs text-[#706860]">No saved address</span>';
+
+      return `
+        <div class="admin-card p-5 sm:p-6 rounded-2xl space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D6A65B]/15">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-[#1e1914] border border-[#D6A65B]/30 flex items-center justify-center font-bold text-base text-[#D6A65B]">
+                👑
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="font-editorial text-base font-bold text-[#F5EBDD]">${escapeHtml(c.name)}</h4>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#D6A65B]/20 text-[#D6A65B] border border-[#D6A65B]/40 font-bold">${c.id || 'VIP'}</span>
+                </div>
+                <div class="text-[11px] text-[#A49B91] flex flex-wrap items-center gap-2 mt-0.5">
+                  <span class="font-mono text-[#F5EBDD]">+91 ${escapeHtml(c.phone)}</span>
+                  ${c.email ? `&bull; <span>${escapeHtml(c.email)}</span>` : ''}
+                  &bull;
+                  <span>Joined ${formatTimestamp(c.createdAt)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="text-right hidden sm:block">
+                <span class="text-[10px] text-[#706860] uppercase block">Lifetime Value</span>
+                <span class="font-mono text-xs font-bold text-[#D6A65B]">₹${Number(c.totalSpent || 0).toLocaleString('en-IN')} (${c.orderCount || 0} orders)</span>
+              </div>
+              <a href="${waLink}" target="_blank" class="btn-gold-admin text-xs py-1.5 px-3 gap-1.5">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                <span>WhatsApp VIP</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860] block mb-2">Saved Delivery Locations (Ujjain Doorstep)</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              ${addrsHtml}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (window.lucide) lucide.createIcons();
   }
 
   // --- Tab 4: Categories & Aisles ---
@@ -1166,6 +1283,18 @@
         showToast('Failed to refresh orders: ' + e.message, 'error');
       }
     });
+
+    if (el.btnRefreshCustomers) {
+      el.btnRefreshCustomers.addEventListener('click', async () => {
+        try {
+          state.customers = (await api('/api/admin/customers')) || [];
+          renderCustomersList();
+          showToast('VIP Patrons refreshed', 'info');
+        } catch (e) {
+          showToast('Failed to refresh patrons: ' + e.message, 'error');
+        }
+      });
+    }
 
     el.orderStatusFilterBtns.forEach(btn => {
       btn.addEventListener('click', () => {

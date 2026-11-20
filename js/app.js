@@ -276,12 +276,20 @@ function renderProducts() {
               <div class="flex items-center gap-1.5">
                 ${prod.inStock !== false ? `
                   <button 
+                    onclick="buyNowSingleProduct('${prod.id}')"
+                    class="btn-gold px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1 shadow-md shadow-[#D6A65B]/15 hover:scale-105 active:scale-95 transition-all"
+                    aria-label="Buy Now"
+                    title="Buy Now with Instant Guest or VIP Member Checkout"
+                  >
+                    <span>⚡ Buy Now</span>
+                  </button>
+                  <button 
                     onclick="addToCart('${prod.id}')"
-                    class="btn-gold px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1"
+                    class="px-2.5 py-2 rounded-xl bg-[#1a1715] hover:bg-[#25201c] text-[#F5EBDD] border border-[#D6A65B]/25 hover:border-[#D6A65B]/60 text-xs font-bold transition-all active:scale-95 flex items-center gap-1"
+                    title="Add to Shopping Bag"
                     aria-label="Add to cart"
                   >
-                    <span>Bag</span>
-                    <span class="text-sm">+</span>
+                    <span>+ Bag</span>
                   </button>
                 ` : `
                   <button 
@@ -292,14 +300,6 @@ function renderProducts() {
                     Sold Out
                   </button>
                 `}
-                <button 
-                  onclick="orderSingleItemWhatsApp('${prod.name}', ${prod.price})"
-                  class="p-2 rounded-xl bg-[#1B100D] hover:bg-[#251511] text-[#A8B77A] border border-[#A8B77A]/30 transition-all hover:scale-105"
-                  title="Direct WhatsApp Order"
-                  aria-label="WhatsApp Order"
-                >
-                  💬
-                </button>
               </div>
             </div>
 
@@ -313,6 +313,40 @@ function renderProducts() {
   if (typeof window.attach3DTiltListeners === 'function') {
     window.attach3DTiltListeners();
   }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INSTANT BUY NOW (DIRECT TO DUAL CHECKOUT MODAL)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function buyNowSingleProduct(productId) {
+  const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === productId);
+  if (!prod) {
+    showToast('Product not found in catalog');
+    return;
+  }
+
+  if (prod.inStock === false) {
+    showToast(`${prod.name} is currently sold out`);
+    return;
+  }
+
+  // Ensure item is in cart
+  const existing = state.cart.find(i => i.id === productId);
+  if (existing) {
+    if (existing.quantity < 1) existing.quantity = 1;
+  } else {
+    state.cart.push({ id: productId, quantity: 1 });
+  }
+
+  saveCart();
+  updateCartUI();
+
+  // Close overlays
+  closeProductModal();
+  toggleCartDrawer(false);
+
+  // Directly open dual checkout modal
+  openCheckoutModal();
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -486,11 +520,11 @@ function renderAccountButton() {
   if (state.customer) {
     const firstName = state.customer.name.split(' ')[0] || 'VIP';
     icon.textContent = '👑';
-    label.textContent = firstName;
+    label.textContent = `Hi, ${firstName}`;
     btn.classList.add('border-[#D6A65B]', 'bg-[#1e1914]');
   } else {
     icon.textContent = '👤';
-    label.textContent = 'VIP';
+    label.textContent = 'VIP / Sign In';
     btn.classList.remove('border-[#D6A65B]', 'bg-[#1e1914]');
   }
 }
@@ -638,9 +672,12 @@ async function handleCustomerSignupSubmit(e) {
 
 function continueAsGuestFromAuth() {
   toggleCustomerAuthModal(false);
-  if (state.returnToCheckoutAfterAuth) {
-    state.returnToCheckoutAfterAuth = false;
+  state.returnToCheckoutAfterAuth = false;
+  if (state.cart.length > 0) {
+    openCheckoutModal();
     selectCheckoutMode('guest');
+  } else {
+    showToast('Add a treat to your bag first or tap ⚡ Buy Now on any product!');
   }
 }
 
@@ -1144,16 +1181,16 @@ function openProductModal(productId) {
 
           <div class="flex items-center gap-2">
             <button 
-              onclick="addToCart('${prod.id}'); closeProductModal();" 
-              class="btn-gold px-4 py-2.5 rounded-xl text-xs font-bold"
+              onclick="buyNowSingleProduct('${prod.id}'); closeProductModal();" 
+              class="btn-gold px-4 py-2.5 rounded-xl text-xs font-bold shadow-lg shadow-[#D6A65B]/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5"
             >
-              Add to Bag 🛒
+              <span>⚡ Buy Now</span>
             </button>
             <button 
-              onclick="orderSingleItemWhatsApp('${prod.name}', ${prod.price})" 
-              class="px-4 py-2.5 rounded-xl bg-[#1B100D] hover:bg-[#251511] text-[#A8B77A] font-bold text-xs border border-[#A8B77A]/30 transition-all"
+              onclick="addToCart('${prod.id}'); closeProductModal();" 
+              class="px-4 py-2.5 rounded-xl bg-[#1a1715] hover:bg-[#25201c] text-[#F5EBDD] font-bold text-xs border border-[#D6A65B]/30 hover:border-[#D6A65B]/60 transition-all flex items-center gap-1.5 active:scale-95"
             >
-              WhatsApp 💬
+              <span>Add to Bag 🛍️</span>
             </button>
           </div>
         </div>
