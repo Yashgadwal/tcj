@@ -1,25 +1,37 @@
-/* TCJ Gourmet Store - Dark Luxury Design System */
+/* TCJ Gourmet Store - ShubhMewa Luxury Design System */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #080808;
-  --bg-secondary: #111111;
-  --bg-card: #151312;
-  --bg-card-hover: #1c1816;
-  --choco-brown: #32180F;
-  --deep-cocoa: #1B100D;
-  --gold-accent: #D6A65B;
-  --gold-light: #F3CA85;
-  --gold-dark: #A17534;
-  --cream-text: #F5EBDD;
-  --secondary-text: #A49B91;
-  --muted-text: #706860;
-  --pistachio-accent: #A8B77A;
-  --pistachio-dark: #64733D;
+  /* ShubhMewa Design Tokens */
+  --background: #fffdf8;
+  --foreground: #1a1a1a;
+  --primary: #173c2d;
+  --accent: #b88a44;
+  --cream-warm: #f7f1e8;
+  --cream-soft: #eadcc8;
+  --text-muted: #6b6b6b;
+
+  /* Surfaces & Functional Tokens */
+  --bg-primary: #fffdf8;
+  --bg-secondary: #f7f1e8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fffdf8;
+  --brand-green: #173c2d;
+  --brand-green-hover: #123024;
+  --brand-gold: #b88a44;
+  --brand-gold-hover: #c99a4e;
+  --brand-gold-light: #e0bb72;
+  --gold-accent: #b88a44;
+  --gold-light: #e0bb72;
+  --gold-dark: #996e2e;
+  --cream-text: #1a1a1a;
+  --secondary-text: #4a4a4a;
+  --muted-text: #6b6b6b;
+  --border-subtle: #eadcc8;
+  --border-gold: rgba(184, 138, 68, 0.4);
+  --border-green: rgba(23, 60, 45, 0.25);
+  --pistachio-accent: #173c2d;
   --cyan-accent: #38BDF8;
-  --border-subtle: rgba(214, 166, 91, 0.15);
-  --border-gold: rgba(214, 166, 91, 0.35);
-  --border-cyan: rgba(56, 189, 248, 0.35);
 }
 
 * {
@@ -51,9 +63,15 @@ body {
   font-family: 'Space Grotesk', monospace;
 }
 
-/* Gold Gradient Text */
+/* Gold & Green Gradient Text (ShubhMewa) */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #FFF0D4 0%, #D6A65B 50%, #B88536 100%);
+  background: linear-gradient(135deg, #f7e3ba 0%, #b88a44 50%, #8c6326 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-green-gradient {
+  background: linear-gradient(135deg, #3d8065 0%, #173c2d 60%, #0c2018 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -131,27 +149,71 @@ body {
   filter: contrast(102%) brightness(98%);
 }
 
-/* Luxury Buttons */
+/* Luxury Buttons - ShubhMewa Aesthetic */
+.btn-green,
+.btn-primary {
+  background: linear-gradient(135deg, #20503e 0%, #173c2d 50%, #0f281e 100%);
+  color: #fffdf8 !important;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgba(184, 138, 68, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(23, 60, 45, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-green:hover,
+.btn-primary:hover {
+  background: linear-gradient(135deg, #28634d 0%, #1c4937 50%, #143729 100%);
+  border-color: #b88a44;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(23, 60, 45, 0.5), 0 0 15px rgba(184, 138, 68, 0.25);
+}
+
+.btn-green:active,
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
 .btn-gold {
-  background: linear-gradient(135deg, #E5BA73 0%, #D6A65B 50%, #BA8537 100%);
-  color: #080808;
+  background: linear-gradient(135deg, #d4a85c 0%, #b88a44 50%, #996e2e 100%);
+  color: #ffffff !important;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  border: 1px solid rgba(184, 138, 68, 0.4);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(214, 166, 91, 0.25);
+  box-shadow: 0 4px 18px rgba(184, 138, 68, 0.3);
   position: relative;
   overflow: hidden;
 }
 
 .btn-gold:hover {
-  background: linear-gradient(135deg, #F3CA85 0%, #E5BA73 50%, #C99544 100%);
+  background: linear-gradient(135deg, #e0bb72 0%, #c99a4e 50%, #aa7a33 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(214, 166, 91, 0.4);
+  box-shadow: 0 8px 28px rgba(184, 138, 68, 0.45);
 }
 
 .btn-gold:active {
   transform: translateY(1px);
+}
+
+.btn-cream {
+  background: #fffdf8;
+  color: #173c2d !important;
+  border: 1px solid #eadcc8;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
+}
+
+.btn-cream:hover {
+  background: #f7f1e8;
+  border-color: #b88a44;
+  color: #b88a44 !important;
+  transform: translateY(-2px);
 }
 
 .btn-cyan {
@@ -356,62 +418,70 @@ body {
 }
 
 /* ============================================================== */
-/* LUXURY LIGHT THEME SYSTEM                                      */
+/* SHUBHMEWA LUXURY LIGHT THEME SYSTEM (DEFAULT PALETTE)          */
 /* ============================================================== */
 html.light-theme,
 body.light-theme {
-  --bg-primary: #FAF8F5;
-  --bg-secondary: #F3EFEA;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #FDFCFA;
-  --choco-brown: #54331C;
-  --deep-cocoa: #3A2315;
-  --cream-text: #1A1615;
+  --bg-primary: #fffdf8;
+  --bg-secondary: #f7f1e8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fffdf8;
+  --choco-brown: #173c2d;
+  --deep-cocoa: #0f281e;
+  --cream-text: #1a1a1a;
   --secondary-text: #574F47;
-  --muted-text: #7D736A;
-  --gold-accent: #B4823A;
-  --gold-light: #CFA45B;
-  --gold-dark: #8F6224;
-  --border-subtle: rgba(180, 130, 58, 0.22);
-  --border-gold: rgba(180, 130, 58, 0.45);
-  background-color: #FAF8F5 !important;
-  color: #1A1615 !important;
+  --muted-text: #6b6b6b;
+  --gold-accent: #b88a44;
+  --gold-light: #e0bb72;
+  --gold-dark: #996e2e;
+  --border-subtle: #eadcc8;
+  --border-gold: rgba(184, 138, 68, 0.45);
+  background-color: #fffdf8 !important;
+  color: #1a1a1a !important;
 }
 
-/* Background Color Overrides */
+/* Background Color Overrides for ShubhMewa */
 .light-theme {
-  background-color: #FAF8F5 !important;
-  color: #1A1615 !important;
+  background-color: #fffdf8 !important;
+  color: #1a1a1a !important;
 }
 
-.light-theme .bg-\[\#080808\] {
-  background-color: #FAF8F5 !important;
+.light-theme .bg-\[\#080808\],
+.light-theme .bg-\[\#0a0908\],
+.light-theme .bg-\[\#0c0b0a\],
+.light-theme .bg-\[\#090807\] {
+  background-color: #fffdf8 !important;
 }
 
 .light-theme .bg-\[\#111111\],
-.light-theme .bg-\[\#12100E\] {
-  background-color: #F3EFEA !important;
-}
-
+.light-theme .bg-\[\#12100E\],
 .light-theme .bg-\[\#151312\],
-.light-theme .bg-\[\#151312\]\/80,
-.light-theme .bg-\[\#151312\]\/90,
+.light-theme .bg-\[\#141210\],
 .light-theme .bg-\[\#171412\],
 .light-theme .bg-\[\#1A1715\],
 .light-theme .bg-\[\#1F1A17\],
-.light-theme .bg-\[\#25201C\] {
-  background-color: #FFFFFF !important;
+.light-theme .bg-\[\#25201C\],
+.light-theme .bg-\[\#1e1914\],
+.light-theme .bg-\[\#0e0d0c\],
+.light-theme .bg-\[\#0e0c0b\],
+.light-theme .bg-\[\#120f0d\],
+.light-theme .bg-\[\#110e0c\] {
+  background-color: #f7f1e8 !important;
 }
 
+.light-theme .bg-\[\#151312\]\/85,
+.light-theme .bg-\[\#151312\]\/90,
+.light-theme .bg-\[\#151312\]\/80,
 .light-theme .bg-\[\#151312\]\/60 {
-  background-color: rgba(255, 255, 255, 0.85) !important;
+  background-color: rgba(255, 253, 248, 0.95) !important;
 }
 
 /* Text Color Overrides */
 .light-theme .text-\[\#F5EBDD\],
 .light-theme .text-\[\#FAF4EB\],
+.light-theme .text-\[\#fffdf8\],
 .light-theme .text-white {
-  color: #1A1615 !important;
+  color: #1a1a1a !important;
 }
 
 .light-theme .text-\[\#A49B91\],
@@ -420,192 +490,198 @@ body.light-theme {
 }
 
 .light-theme .text-\[\#706860\] {
-  color: #7D736A !important;
+  color: #6b6b6b !important;
+}
+
+.light-theme .text-\[\#D6A65B\] {
+  color: #b88a44 !important;
+}
+
+.light-theme .bg-\[\#D6A65B\] {
+  background-color: #b88a44 !important;
+  color: #ffffff !important;
+}
+
+.light-theme .bg-\[\#D6A65B\]\/10,
+.light-theme .bg-\[\#D6A65B\]\/15,
+.light-theme .bg-\[\#D6A65B\]\/20 {
+  background-color: rgba(184, 138, 68, 0.12) !important;
 }
 
 .light-theme .text-gold-gradient {
-  background: linear-gradient(135deg, #7A4E12 0%, #B4823A 50%, #D49D4A 100%) !important;
+  background: linear-gradient(135deg, #173c2d 0%, #b88a44 60%, #8c6326 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
 
 /* Border Overrides */
-.light-theme .border-\[\#D6A65B\]\/20,
-.light-theme .border-\[\#D6A65B\]\/30,
+.light-theme .border-\[\#D6A65B\]\/10,
 .light-theme .border-\[\#D6A65B\]\/15,
+.light-theme .border-\[\#D6A65B\]\/20,
+.light-theme .border-\[\#D6A65B\]\/25,
+.light-theme .border-\[\#D6A65B\]\/30,
+.light-theme .border-\[\#D6A65B\]\/35,
+.light-theme .border-\[\#D6A65B\]\/40,
 .light-theme .border-\[\#25201C\],
 .light-theme .border-white\/10 {
-  border-color: rgba(180, 130, 58, 0.22) !important;
+  border-color: #eadcc8 !important;
 }
 
-/* Header & Navigation */
-.light-theme header {
-  background: rgba(250, 248, 245, 0.94) !important;
-  border-bottom: 1px solid rgba(180, 130, 58, 0.25) !important;
-  box-shadow: 0 4px 20px -5px rgba(45, 35, 25, 0.05) !important;
+.light-theme .border-\[\#D6A65B\] {
+  border-color: #b88a44 !important;
 }
 
-.light-theme header a {
-  color: #3A332C !important;
-}
-
-.light-theme header a:hover {
-  color: #B4823A !important;
-}
-
-/* Announcement Ticker */
-.light-theme #announcement-ticker {
-  background: #F3EFEA !important;
-  border-bottom: 1px solid rgba(180, 130, 58, 0.2) !important;
-  color: #574F47 !important;
-}
-
-/* Luxury Cards */
+/* ShubhMewa Luxury Cards */
 .light-theme .luxury-card {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(180, 130, 58, 0.2) !important;
-  box-shadow: 0 10px 30px -5px rgba(45, 35, 25, 0.07), 0 0 15px -3px rgba(214, 166, 91, 0.08) !important;
+  background: #ffffff !important;
+  border-color: #eadcc8 !important;
+  box-shadow: 0 4px 20px -2px rgba(23, 60, 45, 0.06), 0 0 12px -2px rgba(184, 138, 68, 0.08) !important;
+  color: #1a1a1a !important;
 }
 
 .light-theme .luxury-card:hover {
-  background: #FFFFFF !important;
-  border-color: #B4823A !important;
-  box-shadow: 0 16px 36px -10px rgba(45, 35, 25, 0.12), 0 0 25px -4px rgba(214, 166, 91, 0.18) !important;
+  background: #fffdf8 !important;
+  border-color: #b88a44 !important;
+  box-shadow: 0 12px 30px -5px rgba(23, 60, 45, 0.12), 0 0 20px -2px rgba(184, 138, 68, 0.22) !important;
 }
 
-/* Modals & Drawers */
-.light-theme #cart-sidebar,
+/* Modals & Drawers in ShubhMewa Luxury Palette */
+.light-theme #cart-drawer,
+.light-theme #nav-drawer,
+.light-theme #account-drawer {
+  background-color: #fffdf8 !important;
+  border-color: #eadcc8 !important;
+  color: #1a1a1a !important;
+  box-shadow: 0 25px 60px -15px rgba(23, 60, 45, 0.2) !important;
+}
+
+.light-theme #cart-drawer-footer,
+.light-theme #account-drawer > div:last-child {
+  background-color: #f7f1e8 !important;
+  border-top-color: #eadcc8 !important;
+}
+
 .light-theme #search-modal > div,
-.light-theme #product-modal > div {
-  background: #FAF8F5 !important;
-  color: #1A1615 !important;
-  border-color: rgba(180, 130, 58, 0.3) !important;
-  box-shadow: 0 25px 60px -15px rgba(45, 35, 25, 0.2) !important;
+.light-theme #product-modal > div,
+.light-theme #customer-auth-modal > div,
+.light-theme #checkout-modal > div,
+.light-theme #order-success-modal > div {
+  background: #fffdf8 !important;
+  color: #1a1a1a !important;
+  border-color: #eadcc8 !important;
+  box-shadow: 0 25px 60px -15px rgba(23, 60, 45, 0.2) !important;
 }
 
-/* Scrubber Containers (Cinema Lightbox) - Canvas viewports remain dark */
+/* Scrubber Containers (Cinema Lightbox) - Canvas viewports keep deep emerald/dark framing */
 .light-theme .drinks-canvas-container,
 .light-theme .chocolate-canvas-container,
 .light-theme .snacks-canvas-container,
 .light-theme .candy-canvas-container,
-.light-theme #chocolate-experience-section {
-  background-color: #080808 !important;
+.light-theme .shopfront-canvas-container,
+.light-theme #chocolate-experience-section,
+.light-theme #drinks-experience-section,
+.light-theme #snacks-experience-section,
+.light-theme #candy-experience-section,
+.light-theme #shopfront-experience-section {
+  background-color: #08140f !important;
 }
 
 /* Dedicated Showcase rows (Mini-Shelves) under the video scrubbers */
-.light-theme #drinks-experience-section,
-.light-theme #snacks-experience-section,
-.light-theme #candy-experience-section {
-  background-color: transparent !important;
-}
-
 .light-theme #drinks-experience-section > div:last-child,
 .light-theme #snacks-experience-section > div:last-child,
-.light-theme #candy-experience-section > div:last-child {
-  background: #FAF8F5 !important;
-  border-top-color: rgba(180, 130, 58, 0.22) !important;
+.light-theme #candy-experience-section > div:last-child,
+.light-theme #chocolate-experience-section > div:last-child {
+  background: #fffdf8 !important;
+  border-top-color: #eadcc8 !important;
 }
 
 .light-theme #drinks-experience-section > div:last-child h3,
 .light-theme #snacks-experience-section > div:last-child h3,
-.light-theme #candy-experience-section > div:last-child h3 {
-  color: #1A1615 !important;
+.light-theme #candy-experience-section > div:last-child h3,
+.light-theme #chocolate-experience-section > div:last-child h3 {
+  color: #173c2d !important;
 }
 
-
-
+/* ShubhMewa Signature Royal Green Footer */
 .light-theme footer {
-  background-color: #F3EFEA !important;
-  border-top: 1px solid rgba(180, 130, 58, 0.2) !important;
+  background-color: #173c2d !important;
+  border-top: 1px solid rgba(184, 138, 68, 0.3) !important;
+  color: #fffdf8 !important;
 }
 
 .light-theme footer h4 {
-  color: #1A1615 !important;
+  color: #fffdf8 !important;
 }
 
 .light-theme footer p,
 .light-theme footer a {
-  color: #574F47 !important;
+  color: #eadcc8 !important;
 }
 
 .light-theme footer a:hover {
-  color: #B4823A !important;
-}
-
-.light-theme [id^="drinks-stage-card-"],
-.light-theme [id^="stage-card-"],
-.light-theme [id^="snacks-stage-card-"],
-.light-theme [id^="candy-stage-card-"] {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-.light-theme [id^="drinks-stage-card-"] > .luxury-card,
-.light-theme [id^="stage-card-"] > .luxury-card,
-.light-theme [id^="snacks-stage-card-"] > .luxury-card,
-.light-theme [id^="candy-stage-card-"] > .luxury-card,
-.light-theme .stage-card {
-  background: rgba(255, 255, 255, 0.94) !important;
-  color: #1A1615 !important;
-  border: 1px solid rgba(180, 130, 58, 0.35) !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.4) !important;
-}
-
-.light-theme .stage-card p,
-.light-theme [id^="drinks-stage-card-"] p,
-.light-theme [id^="stage-card-"] p,
-.light-theme [id^="snacks-stage-card-"] p,
-.light-theme [id^="candy-stage-card-"] p {
-  color: #574F47 !important;
-}
-
-.light-theme .stage-card h2,
-.light-theme [id^="drinks-stage-card-"] h2,
-.light-theme [id^="stage-card-"] h2,
-.light-theme [id^="snacks-stage-card-"] h2,
-.light-theme [id^="candy-stage-card-"] h2 {
-  color: #1A1615 !important;
+  color: #b88a44 !important;
 }
 
 /* Scrollbar for Light Theme */
 .light-theme::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #fffdf8;
 }
 
 .light-theme::-webkit-scrollbar-thumb {
-  background: #D6A65B;
-  border: 1px solid rgba(180, 130, 58, 0.3);
+  background: #b88a44;
+  border: 1px solid #eadcc8;
 }
 
-/* Hero section text preservation in Light Theme (since video is dark luxury) */
-.light-theme #hero-section h1,
-.light-theme #hero-section p,
-.light-theme #hero-section span:not(#hero-sound-toggle-btn span) {
-  color: #F5EBDD !important;
+/* ============================================================== */
+/* SHUBHMEWA DARK LUXURY EMERALD OBSIDIAN SYSTEM                  */
+/* ============================================================== */
+html.dark-theme,
+body.dark-theme {
+  --bg-primary: #0a1a13;
+  --bg-secondary: #0e221a;
+  --bg-card: #11261d;
+  --bg-card-hover: #183328;
+  --cream-text: #fffdf8;
+  --secondary-text: #a3b5aa;
+  --muted-text: #6e8477;
+  --gold-accent: #b88a44;
+  --gold-light: #e0bb72;
+  --border-subtle: rgba(184, 138, 68, 0.22);
+  --border-gold: rgba(184, 138, 68, 0.45);
+  background-color: #0a1a13 !important;
+  color: #fffdf8 !important;
 }
 
-.light-theme #hero-section .text-gold-gradient {
-  background: linear-gradient(135deg, #FFF0D4 0%, #D6A65B 50%, #B88536 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+.dark-theme .luxury-card {
+  background: #11261d !important;
+  border-color: rgba(184, 138, 68, 0.25) !important;
+  color: #fffdf8 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
 }
 
-.light-theme #hero-section #store-status-badge {
-  background: rgba(21, 19, 18, 0.8) !important;
-  border-color: rgba(214, 166, 91, 0.3) !important;
+.dark-theme .luxury-card:hover {
+  background: #183328 !important;
+  border-color: #b88a44 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(184, 138, 68, 0.2) !important;
 }
 
-.light-theme #hero-section #store-status-badge span {
-  color: #A8B77A !important;
+.dark-theme #cart-drawer,
+.dark-theme #nav-drawer,
+.dark-theme #account-drawer {
+  background-color: #0a1a13 !important;
+  border-color: rgba(184, 138, 68, 0.25) !important;
 }
 
-/* Loading Overlays always stay dark */
+.dark-theme footer {
+  background-color: #06110c !important;
+}
+
+/* Loading Overlays always stay dark emerald */
 #drinks-loading-overlay,
 #snacks-loading-overlay,
 #candy-loading-overlay,
 #chocolate-loading-overlay {
-  background-color: #080808 !important;
+  background-color: #08140f !important;
   pointer-events: none !important;
 }
 

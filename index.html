@@ -6,24 +6,42 @@
   <title>TCJ Gourmet Store — The Convenience Junction | Viral Dubai Chocolates & Global Treats | Ujjain</title>
   <meta name="description" content="Ujjain's premier destination for Viral Dubai Pistachio Knafeh Chocolates, Imported Energy Drinks, Samyang Buldak Ramen, Prime Hydration, and imported global delicacies. 25-45 min local doorstep delivery.">
 
-  <!-- Tailwind CSS CDN with Custom Dark Luxury Configuration -->
+  <!-- Tailwind CSS CDN with ShubhMewa Luxury Configuration -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
+            brand: {
+              green: '#173c2d',
+              'green-dark': '#0c1d16',
+              'green-deep': '#091410',
+              'green-light': '#20503e',
+              gold: '#b88a44',
+              'gold-light': '#d4a85c',
+              'gold-dark': '#996e2e',
+              'cream-light': '#fffdf8',
+              'cream-warm': '#f7f1e8',
+              'cream-dark': '#eadcc8',
+              muted: '#6b6b6b',
+              charcoal: '#1a1a1a'
+            },
             tcj: {
-              bg: '#080808',
-              secondary: '#111111',
-              card: '#151312',
-              choco: '#32180F',
-              cocoa: '#1B100D',
-              gold: '#D6A65B',
-              goldlight: '#F3CA85',
-              cream: '#F5EBDD',
-              textmuted: '#A49B91',
-              pistachio: '#A8B77A',
+              bg: '#fffdf8',
+              darkbg: '#0a1a13',
+              secondary: '#f7f1e8',
+              card: '#ffffff',
+              darkcard: '#11261d',
+              green: '#173c2d',
+              gold: '#b88a44',
+              goldlight: '#d4a85c',
+              cream: '#fffdf8',
+              creamwarm: '#f7f1e8',
+              creamdark: '#eadcc8',
+              textmuted: '#6b6b6b',
+              charcoal: '#1a1a1a',
+              pistachio: '#173c2d',
               cyan: '#38BDF8'
             }
           }
@@ -33,7 +51,7 @@
   </script>
 
   <!-- Google Fonts & Custom Luxury Styles -->
-  <link rel="stylesheet" href="css/styles.css?v=3.1">
+  <link rel="stylesheet" href="css/styles.css?v=3.2">
   <link rel="icon" href="assets/tcj-official-logo.png" type="image/png">
 
 
@@ -41,32 +59,52 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
-<body class="bg-[#080808] text-[#F5EBDD] antialiased selection:bg-[#D6A65B] selection:text-[#080808] relative">
+<body class="light-theme bg-[#fffdf8] text-[#1a1a1a] antialiased selection:bg-[#b88a44] selection:text-white relative">
+
+  <!-- ============================================================== -->
+  <!-- TOP LUXURY ANNOUNCEMENT BANNER (ShubhMewa Style)               -->
+  <!-- ============================================================== -->
+  <div id="announcement-banner" class="sticky top-0 z-40 bg-[#173c2d] text-[#fffdf8] border-b border-[#b88a44]/30 px-3 sm:px-6 py-2.5 text-xs font-medium tracking-wide shadow-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+        <span class="text-[#b88a44] font-bold text-sm">✨</span>
+        <span class="font-bold text-[#b88a44] tracking-wider uppercase text-[11px]">TCJ GOURMET:</span>
+        <span class="text-[11px] truncate text-[#fffdf8]">Viral Dubai Chocolates &bull; Imported Korean Buldak &bull; Prime Sips &bull; 25–45 Min Doorstep Delivery in Ujjain</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-3 text-[11px] flex-shrink-0">
+        <span class="text-[#eadcc8]/90">Free Delivery on ₹799+</span>
+        <span class="text-[#b88a44]">&bull;</span>
+        <a href="https://wa.me/916268344816" target="_blank" class="text-[#b88a44] hover:text-[#fffdf8] font-bold underline transition-colors">
+          WhatsApp: +91 62683 44816
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================== -->
   <!-- FLOATING MINIMAL ACTION CONTROLS (CART, THEME, SEARCH, MENU)   -->
   <!-- ============================================================== -->
-  <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center gap-2 sm:gap-2.5">
+  <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-50 flex items-center gap-2 sm:gap-2.5">
     <!-- Menu / Sections Drawer Button -->
     <button 
       onclick="toggleNavDrawer(true)"
-      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#151312]/85 backdrop-blur-md border border-[#D6A65B]/30 hover:border-[#D6A65B] flex flex-col justify-center items-center gap-1 shadow-2xl hover:scale-105 active:scale-95 transition-all group"
+      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#fffdf8]/90 backdrop-blur-md border border-[#eadcc8] hover:border-[#b88a44] flex flex-col justify-center items-center gap-1 shadow-xl hover:scale-105 active:scale-95 transition-all group"
       aria-label="Open Navigation Menu"
       title="Menu & Sections"
     >
-      <span class="w-4 h-0.5 bg-[#D6A65B] rounded-full group-hover:w-5 transition-all"></span>
-      <span class="w-3.5 h-0.5 bg-[#38BDF8] rounded-full group-hover:w-5 transition-all"></span>
-      <span class="w-4 h-0.5 bg-[#F5EBDD] rounded-full group-hover:w-5 transition-all"></span>
+      <span class="w-4 h-0.5 bg-[#173c2d] rounded-full group-hover:w-5 transition-all"></span>
+      <span class="w-3.5 h-0.5 bg-[#b88a44] rounded-full group-hover:w-5 transition-all"></span>
+      <span class="w-4 h-0.5 bg-[#173c2d] rounded-full group-hover:w-5 transition-all"></span>
     </button>
 
     <!-- Search Button -->
     <button 
       onclick="toggleSearch(true)"
-      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#151312]/85 backdrop-blur-md border border-[#D6A65B]/30 hover:border-[#D6A65B] flex items-center justify-center text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#fffdf8]/90 backdrop-blur-md border border-[#eadcc8] hover:border-[#b88a44] flex items-center justify-center text-[#173c2d] shadow-xl hover:scale-105 active:scale-95 transition-all"
       aria-label="Search Catalog"
       title="Search Products"
     >
-      <svg class="w-4 h-4 text-[#D6A65B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-4 h-4 text-[#173c2d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
     </button>
@@ -75,7 +113,7 @@
     <button 
       id="theme-toggle-btn"
       onclick="toggleTheme()"
-      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#151312]/85 backdrop-blur-md border border-[#D6A65B]/30 hover:border-[#D6A65B] flex items-center justify-center text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+      class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#fffdf8]/90 backdrop-blur-md border border-[#eadcc8] hover:border-[#b88a44] flex items-center justify-center text-[#173c2d] shadow-xl hover:scale-105 active:scale-95 transition-all"
       title="Toggle Light / Dark Theme"
       aria-label="Toggle Theme"
     >
@@ -85,13 +123,13 @@
     <!-- Shopping Bag Cart Trigger -->
     <button 
       onclick="toggleCartDrawer(true)"
-      class="relative px-3.5 sm:px-4 h-10 sm:h-11 rounded-2xl bg-[#151312]/90 backdrop-blur-md border border-[#D6A65B]/40 hover:border-[#D6A65B] flex items-center gap-2 text-xs font-bold text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+      class="relative px-3.5 sm:px-4 h-10 sm:h-11 rounded-2xl bg-[#fffdf8]/95 backdrop-blur-md border border-[#eadcc8] hover:border-[#b88a44] flex items-center gap-2 text-xs font-bold text-[#173c2d] shadow-xl hover:scale-105 active:scale-95 transition-all"
       aria-label="View Shopping Bag"
       title="Shopping Bag"
     >
       <span class="text-base">🛍️</span>
-      <span class="hidden sm:inline font-mono tracking-wider">BAG</span>
-      <span class="cart-count-badge hidden px-1.5 py-0.5 rounded-full bg-[#D6A65B] text-[#080808] font-black text-[10px]">
+      <span class="hidden sm:inline font-mono tracking-wider text-[#173c2d]">BAG</span>
+      <span class="cart-count-badge hidden px-1.5 py-0.5 rounded-full bg-[#173c2d] text-[#fffdf8] border border-[#b88a44]/30 font-black text-[10px]">
         0
       </span>
     </button>
@@ -100,12 +138,12 @@
     <button 
       id="account-btn"
       onclick="handleAccountClick()"
-      class="relative px-3 sm:px-3.5 h-10 sm:h-11 rounded-2xl bg-[#151312]/90 backdrop-blur-md border border-[#D6A65B]/40 hover:border-[#D6A65B] flex items-center gap-1.5 text-xs font-bold text-[#F5EBDD] shadow-2xl hover:scale-105 active:scale-95 transition-all group"
+      class="relative px-3 sm:px-3.5 h-10 sm:h-11 rounded-2xl bg-[#fffdf8]/95 backdrop-blur-md border border-[#eadcc8] hover:border-[#b88a44] flex items-center gap-1.5 text-xs font-bold text-[#173c2d] shadow-xl hover:scale-105 active:scale-95 transition-all group"
       aria-label="VIP Account"
       title="VIP Account, Login & Orders"
     >
       <span id="account-btn-icon" class="text-base">👤</span>
-      <span id="account-btn-label" class="font-mono tracking-wider text-[11px] text-[#D6A65B]">VIP / Sign In</span>
+      <span id="account-btn-label" class="font-mono tracking-wider text-[11px] text-[#b88a44] font-bold">VIP / Sign In</span>
     </button>
   </div>
 
@@ -416,10 +454,10 @@
         </div>
 
         <!-- Snack 3: Lay's Imported Gourmet -->
-        <div class="luxury-card rounded-2xl p-4 border border-[#D6A65B]/20 hover:border-[#D6A65B]/50 flex flex-col justify-between group transition-all">
+        <div class="luxury-card rounded-2xl p-4 border border-[#b88a44]/20 hover:border-[#b88a44]/50 flex flex-col justify-between group transition-all">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#2A1D17] text-[#D6A65B] border border-[#D6A65B]/30">🇪🇸 Spanish Truffle</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#2A1D17] text-[#b88a44] border border-[#b88a44]/30">🇪🇸 Spanish Truffle</span>
               <span class="text-[11px] text-[#A49B91]">🇪🇸 135g</span>
             </div>
             <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3">
@@ -428,11 +466,11 @@
             <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Lay's Imported Spanish Truffle</h4>
             <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Kettle-cooked golden crisps dusted in aromatic black truffle.</p>
           </div>
-          <div class="mt-4 pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between">
-            <span class="font-mono text-lg font-bold text-[#D6A65B]">₹220</span>
+          <div class="mt-4 pt-3 border-t border-[#b88a44]/15 flex items-center justify-between">
+            <span class="font-mono text-lg font-bold text-[#b88a44]">₹220</span>
             <div class="flex items-center gap-1.5">
               <button onclick="buyNowSingleProduct('lays-imported-gourmet')" class="btn-gold px-3 py-1.5 rounded-lg text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-sm">⚡ Buy Now</button>
-              <button onclick="addToCart('lays-imported-gourmet')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 text-xs font-bold hover:bg-[#252016] transition-all" title="Add to Bag">Bag +</button>
+              <button onclick="addToCart('lays-imported-gourmet')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#b88a44] border border-[#b88a44]/30 text-xs font-bold hover:bg-[#252016] transition-all" title="Add to Bag">Bag +</button>
             </div>
           </div>
         </div>
@@ -623,7 +661,7 @@
   <!-- ============================================================== -->
   <!-- 7. CINEMATIC SCROLL ANIMATION: DUBAI CHOCOLATE EXPERIENCE      -->
   <!-- ============================================================== -->
-  <section id="chocolate-experience-section" class="relative w-full bg-[#080808] border-t border-[#D6A65B]/15">
+  <section id="chocolate-experience-section" class="relative w-full bg-[#080808] border-t border-[#b88a44]/15">
     
     <!-- Sticky Fullscreen Media Container -->
     <div class="chocolate-canvas-container relative">
@@ -667,12 +705,12 @@
     <!-- DUBAI CHOCOLATE SHOWCASE SHELF: SIGNATURE VIRAL EDITIONS       -->
     <!-- Directly bridges the scroll animation into tangible products   -->
     <!-- ============================================================== -->
-    <div class="relative py-12 px-4 sm:px-6 lg:px-8 border-t border-[#D6A65B]/25 bg-gradient-to-b from-[#080808] via-[#1a100a] to-[#080808]">
+    <div class="relative py-12 px-4 sm:px-6 lg:px-8 border-t border-[#b88a44]/25 bg-gradient-to-b from-[#080808] via-[#1a100a] to-[#080808]">
       <div class="max-w-7xl mx-auto">
         
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#32180F] border border-[#D6A65B]/30 text-[#D6A65B] text-xs font-bold uppercase tracking-wider mb-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#32180F] border border-[#b88a44]/30 text-[#b88a44] text-xs font-bold uppercase tracking-wider mb-2">
               👑 Fresh Batch Made Daily in Ujjain
             </div>
             <h3 class="font-editorial text-2xl sm:text-3xl font-extrabold text-[#F5EBDD]">
@@ -682,7 +720,7 @@
               Chilled in temperature-controlled coolers & express delivered across Ujjain in 25–45 minutes.
             </p>
           </div>
-          <a href="https://wa.me/916268344816" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-[#D6A65B] hover:underline flex items-center gap-1 self-start sm:self-auto">
+          <a href="https://wa.me/916268344816" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-[#b88a44] hover:underline flex items-center gap-1 self-start sm:self-auto">
             <span>Inquire on WhatsApp</span>
             <span>→</span>
           </a>
@@ -691,26 +729,26 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
           <!-- 1. The Original Dubai Pistachio Knafeh -->
-          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-[#D6A65B]/30 hover:border-[#D6A65B]/70 transition-all group">
+          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-[#b88a44]/30 hover:border-[#b88a44]/70 transition-all group">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#32180F] text-[#D6A65B] border border-[#D6A65B]/30">👑 Viral #1 Bestseller</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#32180F] text-[#b88a44] border border-[#b88a44]/30">👑 Viral #1 Bestseller</span>
                 <span class="text-[11px] text-[#A49B91]">🇦🇪 200g</span>
               </div>
-              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-[#D6A65B]/15">
+              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-[#b88a44]/15">
                 <img src="assets/mockup/food-dubai-chocolate.png" alt="Dubai Knafeh Pistachio Chocolate" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_25px_rgba(214,166,91,0.25)] group-hover:scale-108 transition-transform duration-300" />
               </div>
               <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Dubai Knafeh Pistachio Chocolate</h4>
               <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Crispy roasted kataifi pastry & emerald pistachio crème in tempered Belgian milk chocolate.</p>
             </div>
-            <div class="mt-4 pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between">
+            <div class="mt-4 pt-3 border-t border-[#b88a44]/15 flex items-center justify-between">
               <div>
-                <span class="font-mono text-lg font-bold text-[#D6A65B]">₹699</span>
+                <span class="font-mono text-lg font-bold text-[#b88a44]">₹699</span>
                 <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹899</span>
               </div>
               <div class="flex items-center gap-1.5">
                 <button onclick="buyNowSingleProduct('dubai-knafeh-chocolate')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all">⚡ Buy Now</button>
-                <button onclick="addToCart('dubai-knafeh-chocolate')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 text-xs font-bold hover:bg-[#251e16] transition-all" title="Add to Bag">Bag +</button>
+                <button onclick="addToCart('dubai-knafeh-chocolate')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#b88a44] border border-[#b88a44]/30 text-xs font-bold hover:bg-[#251e16] transition-all" title="Add to Bag">Bag +</button>
               </div>
             </div>
           </div>
@@ -741,26 +779,26 @@
           </div>
 
           <!-- 3. Dubai 70% Dark Cocoa Smoked Sea Salt Knafeh -->
-          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-[#D6A65B]/30 hover:border-[#D6A65B]/70 transition-all group">
+          <div class="luxury-card rounded-2xl p-5 flex flex-col justify-between border border-[#b88a44]/30 hover:border-[#b88a44]/70 transition-all group">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#20140e] text-[#D6A65B] border border-[#D6A65B]/30">🍫 70% Dark Cocoa</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#20140e] text-[#b88a44] border border-[#b88a44]/30">🍫 70% Dark Cocoa</span>
                 <span class="text-[11px] text-[#A49B91]">🇦🇪 200g</span>
               </div>
-              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-[#D6A65B]/15">
+              <div class="relative w-full aspect-square rounded-xl bg-[#080808] p-3 flex items-center justify-center overflow-hidden mb-3 border border-[#b88a44]/15">
                 <img src="assets/mockup/food-dubai-chocolate.png" alt="Dubai 70% Dark Cocoa Knafeh" class="max-h-full object-contain rounded-lg filter drop-shadow-[0_10px_25px_rgba(214,166,91,0.25)] group-hover:scale-108 transition-transform duration-300" />
               </div>
               <h4 class="font-editorial text-sm font-bold text-[#F5EBDD] leading-tight">Dubai 70% Dark Sea Salt Knafeh</h4>
               <p class="text-[11px] text-[#A49B91] mt-1 line-clamp-2">Intense bittersweet Belgian dark cocoa with Maldon smoked sea salt flakes and roasted pistachio knafeh.</p>
             </div>
-            <div class="mt-4 pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between">
+            <div class="mt-4 pt-3 border-t border-[#b88a44]/15 flex items-center justify-between">
               <div>
-                <span class="font-mono text-lg font-bold text-[#D6A65B]">₹749</span>
+                <span class="font-mono text-lg font-bold text-[#b88a44]">₹749</span>
                 <span class="font-mono text-xs text-[#706860] line-through ml-1.5">₹949</span>
               </div>
               <div class="flex items-center gap-1.5">
                 <button onclick="buyNowSingleProduct('dubai-dark-knafeh')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all">⚡ Buy Now</button>
-                <button onclick="addToCart('dubai-dark-knafeh')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#D6A65B] border border-[#D6A65B]/30 text-xs font-bold hover:bg-[#251e16] transition-all" title="Add to Bag">Bag +</button>
+                <button onclick="addToCart('dubai-dark-knafeh')" class="px-2.5 py-1.5 rounded-lg bg-[#151312] text-[#b88a44] border border-[#b88a44]/30 text-xs font-bold hover:bg-[#251e16] transition-all" title="Add to Bag">Bag +</button>
               </div>
             </div>
           </div>
@@ -801,14 +839,14 @@
   <!-- ============================================================== -->
   <!-- 9. STORE LOCATION SECTION                                      -->
   <!-- ============================================================== -->
-  <section id="store-section" class="relative py-24 px-4 sm:px-6 lg:px-8 bg-[#080808] border-t border-[#D6A65B]/15">
+  <section id="store-section" class="relative py-24 px-4 sm:px-6 lg:px-8 bg-[#080808] border-t border-[#b88a44]/15">
     
     <div class="max-w-7xl mx-auto">
       
       <div id="store-info-content" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
         <div>
-          <span class="text-xs font-bold tracking-widest text-[#D6A65B] uppercase block mb-2">
+          <span class="text-xs font-bold tracking-widest text-[#b88a44] uppercase block mb-2">
             PHYSICAL FLAGSHIP
           </span>
           <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-[#F5EBDD] leading-tight mb-6">
@@ -822,7 +860,7 @@
           <!-- Store Details List -->
           <div class="space-y-4 mb-8">
             <div class="flex items-start gap-3">
-              <span class="text-lg text-[#D6A65B] mt-0.5">📍</span>
+              <span class="text-lg text-[#b88a44] mt-0.5">📍</span>
               <div>
                 <span class="text-xs font-bold text-[#F5EBDD] block">Store Address</span>
                 <p class="text-xs sm:text-sm text-[#A49B91] mt-0.5 leading-relaxed">
@@ -832,7 +870,7 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <span class="text-lg text-[#D6A65B] mt-0.5">⏰</span>
+              <span class="text-lg text-[#b88a44] mt-0.5">⏰</span>
               <div>
                 <span class="text-xs font-bold text-[#F5EBDD] block">Operating Hours</span>
                 <p class="text-xs sm:text-sm text-[#A49B91] mt-0.5">
@@ -843,7 +881,7 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <span class="text-lg text-[#D6A65B] mt-0.5">👤</span>
+              <span class="text-lg text-[#b88a44] mt-0.5">👤</span>
               <div>
                 <span class="text-xs font-bold text-[#F5EBDD] block">Founder & Store Manager</span>
                 <p class="text-xs sm:text-sm text-[#A49B91] mt-0.5">
@@ -853,10 +891,10 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <span class="text-lg text-[#D6A65B] mt-0.5">📱</span>
+              <span class="text-lg text-[#b88a44] mt-0.5">📱</span>
               <div>
                 <span class="text-xs font-bold text-[#F5EBDD] block">Instagram Community</span>
-                <a href="https://instagram.com/theconveniencejunction" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-[#D6A65B] hover:underline mt-0.5 block">
+                <a href="https://instagram.com/theconveniencejunction" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-[#b88a44] hover:underline mt-0.5 block">
                   @theconveniencejunction
                 </a>
               </div>
@@ -894,9 +932,9 @@
         </div>
 
         <!-- Embedded Map Card -->
-        <div class="luxury-card rounded-3xl p-6 sm:p-8 border border-[#D6A65B]/25">
-          <div class="w-full h-80 rounded-2xl bg-[#080808] border border-[#D6A65B]/15 overflow-hidden relative flex flex-col items-center justify-center p-6 text-center">
-            <div class="w-16 h-16 rounded-full bg-[#151312] border border-[#D6A65B]/30 flex items-center justify-center text-3xl mb-4">
+        <div class="luxury-card rounded-3xl p-6 sm:p-8 border border-[#b88a44]/25">
+          <div class="w-full h-80 rounded-2xl bg-[#080808] border border-[#b88a44]/15 overflow-hidden relative flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-16 h-16 rounded-full bg-[#151312] border border-[#b88a44]/30 flex items-center justify-center text-3xl mb-4">
               📍
             </div>
             <h4 class="font-editorial text-lg font-bold text-[#F5EBDD] mb-1">Ved Nagar, Nanakheda</h4>
@@ -923,11 +961,11 @@
   <!-- ============================================================== -->
   <!-- 12. FINAL CINEMATIC CALL TO ACTION                             -->
   <!-- ============================================================== -->
-  <section class="relative py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#080808] via-[#1B100D] to-[#080808] border-t border-[#D6A65B]/20 overflow-hidden text-center">
+  <section class="relative py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#080808] via-[#1B100D] to-[#080808] border-t border-[#b88a44]/20 overflow-hidden text-center">
     
     <div class="max-w-4xl mx-auto relative z-10">
       
-      <span class="text-xs font-bold tracking-widest text-[#D6A65B] uppercase block mb-3">
+      <span class="text-xs font-bold tracking-widest text-[#b88a44] uppercase block mb-3">
         THE CONVENIENCE JUNCTION • UJJAIN
       </span>
       
@@ -965,16 +1003,16 @@
   <!-- ============================================================== -->
   <!-- 13. LUXURY FOOTER                                              -->
   <!-- ============================================================== -->
-  <footer class="bg-[#050505] border-t border-[#D6A65B]/15 text-[#A49B91] py-14 px-4 sm:px-6 lg:px-8">
+  <footer class="bg-[#050505] border-t border-[#b88a44]/15 text-[#A49B91] py-14 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
       
       <!-- Brand column -->
       <div class="md:col-span-2">
         <div class="flex items-center gap-3 mb-4">
-          <img src="assets/tcj-official-logo.png" alt="TCJ Logo" class="h-10 w-auto rounded-lg border border-[#D6A65B]/20" />
+          <img src="assets/tcj-official-logo.png" alt="TCJ Logo" class="h-10 w-auto rounded-lg border border-[#b88a44]/20" />
           <div>
             <span class="font-editorial text-base font-bold text-[#F5EBDD] block leading-none">TCJ GOURMET STORE</span>
-            <span class="text-[9px] text-[#D6A65B] font-bold uppercase tracking-widest">THE CONVENIENCE JUNCTION</span>
+            <span class="text-[9px] text-[#b88a44] font-bold uppercase tracking-widest">THE CONVENIENCE JUNCTION</span>
           </div>
         </div>
         <p class="text-xs text-[#706860] max-w-md leading-relaxed">
@@ -986,13 +1024,13 @@
       <div>
         <h4 class="font-editorial text-xs font-bold text-[#F5EBDD] uppercase tracking-wider mb-3">Quick Navigation</h4>
         <ul class="space-y-2 text-xs">
-          <li><a href="#" class="hover:text-[#D6A65B] transition-colors">Home</a></li>
+          <li><a href="#" class="hover:text-[#b88a44] transition-colors">Home</a></li>
           <li><a href="#drinks-experience-section" class="hover:text-sky-400 transition-colors">Drinks Special ⚡</a></li>
           <li><a href="#snacks-experience-section" class="hover:text-orange-400 transition-colors">Snacks Special 🔥</a></li>
           <li><a href="#candy-experience-section" class="hover:text-pink-400 transition-colors">Candy Special 🍭</a></li>
-          <li><a href="#chocolate-experience-section" class="hover:text-[#D6A65B] transition-colors">Dubai Chocolate Experience</a></li>
-          <li><a href="#shopfront-experience-section" class="hover:text-[#D6A65B] transition-colors">Shop Front Walkthrough 🏪</a></li>
-          <li><a href="#store-section" class="hover:text-[#D6A65B] transition-colors">Store Location</a></li>
+          <li><a href="#chocolate-experience-section" class="hover:text-[#b88a44] transition-colors">Dubai Chocolate Experience</a></li>
+          <li><a href="#shopfront-experience-section" class="hover:text-[#b88a44] transition-colors">Shop Front Walkthrough 🏪</a></li>
+          <li><a href="#store-section" class="hover:text-[#b88a44] transition-colors">Store Location</a></li>
         </ul>
       </div>
 
@@ -1005,17 +1043,17 @@
         <p class="text-xs text-[#A8B77A] font-semibold mb-2">
           Tue–Sun: 12 PM – 10:30 PM
         </p>
-        <a href="https://wa.me/916268344816" class="text-xs text-[#D6A65B] hover:underline font-bold block">
+        <a href="https://wa.me/916268344816" class="text-xs text-[#b88a44] hover:underline font-bold block">
           WhatsApp: +91 62683 44816
         </a>
       </div>
 
     </div>
 
-    <div class="max-w-7xl mx-auto pt-8 border-t border-[#D6A65B]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#706860]">
+    <div class="max-w-7xl mx-auto pt-8 border-t border-[#b88a44]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#706860]">
       <p>© 2026 TCJ Gourmet Store (The Convenience Junction). All rights reserved.</p>
       <div class="flex items-center gap-4">
-        <a href="/admin" target="_blank" class="hover:text-[#D6A65B] transition-colors flex items-center gap-1.5 text-xs font-mono">
+        <a href="/admin" target="_blank" class="hover:text-[#b88a44] transition-colors flex items-center gap-1.5 text-xs font-mono">
           <span>🔒 Concierge Admin</span>
         </a>
         <span class="text-[#333] hidden sm:inline">&bull;</span>
@@ -1032,26 +1070,26 @@
   <!-- 14. CART DRAWER (SLIDE-OVER FROM RIGHT)                         -->
   <!-- ============================================================== -->
   <div id="cart-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleCartDrawer(false)"></div>
-  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0e0d0c] border-l border-[#D6A65B]/25 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0e0d0c] border-l border-[#b88a44]/25 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
     
     <!-- Drawer Header -->
-    <div class="p-5 border-b border-[#D6A65B]/15 flex items-center justify-between">
+    <div class="p-5 border-b border-[#b88a44]/15 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="text-lg">🛍️</span>
         <h3 class="font-editorial text-base font-bold text-[#F5EBDD]">Your Gourmet Bag</h3>
       </div>
-      <button onclick="toggleCartDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white">
+      <button onclick="toggleCartDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#b88a44]/20 flex items-center justify-center text-[#A49B91] hover:text-white">
         ✕
       </button>
     </div>
 
     <!-- Free Delivery Progress Bar -->
-    <div class="p-4 bg-[#151312] border-b border-[#D6A65B]/10">
+    <div class="p-4 bg-[#151312] border-b border-[#b88a44]/10">
       <div id="free-shipping-text" class="text-xs text-[#A49B91] mb-2 font-medium">
         Add ₹799 for FREE Delivery in Ujjain
       </div>
-      <div class="w-full h-1.5 bg-[#080808] rounded-full overflow-hidden border border-[#D6A65B]/20">
-        <div id="free-shipping-progress" class="h-full bg-gradient-to-r from-[#D6A65B] to-[#A8B77A] transition-all duration-300" style="width: 0%;"></div>
+      <div class="w-full h-1.5 bg-[#080808] rounded-full overflow-hidden border border-[#b88a44]/20">
+        <div id="free-shipping-progress" class="h-full bg-gradient-to-r from-[#b88a44] to-[#A8B77A] transition-all duration-300" style="width: 0%;"></div>
       </div>
     </div>
 
@@ -1071,7 +1109,7 @@
     </div>
 
     <!-- Cart Footer & Checkout -->
-    <div id="cart-drawer-footer" class="p-5 bg-[#080808] border-t border-[#D6A65B]/20">
+    <div id="cart-drawer-footer" class="p-5 bg-[#080808] border-t border-[#b88a44]/20">
       <div class="space-y-1.5 text-xs text-[#A49B91] mb-4">
         <div class="flex items-center justify-between">
           <span>Subtotal</span>
@@ -1081,15 +1119,15 @@
           <span>Ujjain Delivery</span>
           <span id="cart-delivery-fee" class="font-mono font-bold text-[#A8B77A]">₹49</span>
         </div>
-        <div class="flex items-center justify-between text-sm font-bold text-[#F5EBDD] pt-2 border-t border-[#D6A65B]/15">
+        <div class="flex items-center justify-between text-sm font-bold text-[#F5EBDD] pt-2 border-t border-[#b88a44]/15">
           <span>Grand Total</span>
-          <span id="cart-grand-total" class="font-mono text-base text-[#D6A65B]">₹0</span>
+          <span id="cart-grand-total" class="font-mono text-base text-[#b88a44]">₹0</span>
         </div>
       </div>
 
       <button 
         onclick="openCheckoutModal()" 
-        class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#D6A65B]/20 hover:scale-[1.02] active:scale-95 transition-all"
+        class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#b88a44]/20 hover:scale-[1.02] active:scale-95 transition-all"
       >
         <span>PROCEED TO CHECKOUT</span>
         <span>→</span>
@@ -1109,34 +1147,34 @@
   <!-- 15. MOBILE NAVIGATION DRAWER                                   -->
   <!-- ============================================================== -->
   <div id="nav-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleNavDrawer(false)"></div>
-  <aside id="nav-drawer" class="fixed top-0 left-0 h-full w-full max-w-xs bg-[#0e0d0c] border-r border-[#D6A65B]/25 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col p-6">
-    <div class="flex items-center justify-between pb-4 border-b border-[#D6A65B]/15 mb-6">
+  <aside id="nav-drawer" class="fixed top-0 left-0 h-full w-full max-w-xs bg-[#0e0d0c] border-r border-[#b88a44]/25 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col p-6">
+    <div class="flex items-center justify-between pb-4 border-b border-[#b88a44]/15 mb-6">
       <div class="flex items-center gap-2">
         <img src="assets/tcj-official-logo.png" alt="TCJ Logo" class="h-8 w-auto rounded-md" />
         <span class="font-editorial text-sm font-bold text-[#F5EBDD]">TCJ GOURMET</span>
       </div>
-      <button onclick="toggleNavDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91]">
+      <button onclick="toggleNavDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#b88a44]/20 flex items-center justify-center text-[#A49B91]">
         ✕
       </button>
     </div>
 
     <nav class="flex flex-col space-y-4 text-sm font-bold uppercase tracking-wider text-[#A49B91]">
-      <a href="#shopfront-experience-section" onclick="toggleNavDrawer(false)" class="text-[#D6A65B]">Shop Front 🏪</a>
+      <a href="#shopfront-experience-section" onclick="toggleNavDrawer(false)" class="text-[#b88a44]">Shop Front 🏪</a>
       <a href="#drinks-experience-section" onclick="toggleNavDrawer(false)" class="text-sky-400">Drinks Special ⚡</a>
       <a href="#snacks-experience-section" onclick="toggleNavDrawer(false)" class="text-orange-400">Snacks Special 🔥</a>
       <a href="#candy-experience-section" onclick="toggleNavDrawer(false)" class="text-pink-400">Candy Special 🍭</a>
-      <a href="#chocolate-experience-section" onclick="toggleNavDrawer(false)" class="hover:text-[#D6A65B] transition-colors">Dubai Chocolate 👑</a>
-      <a href="#store-section" onclick="toggleNavDrawer(false)" class="hover:text-[#D6A65B] transition-colors">Visit Flagship Store 📍</a>
-      <button type="button" onclick="toggleNavDrawer(false); handleAccountClick();" class="text-left text-[#D6A65B] flex items-center justify-between py-1 hover:brightness-110">
+      <a href="#chocolate-experience-section" onclick="toggleNavDrawer(false)" class="hover:text-[#b88a44] transition-colors">Dubai Chocolate 👑</a>
+      <a href="#store-section" onclick="toggleNavDrawer(false)" class="hover:text-[#b88a44] transition-colors">Visit Flagship Store 📍</a>
+      <button type="button" onclick="toggleNavDrawer(false); handleAccountClick();" class="text-left text-[#b88a44] flex items-center justify-between py-1 hover:brightness-110">
         <span>VIP Account &amp; Orders 👑</span>
-        <span class="text-[10px] bg-[#D6A65B]/20 border border-[#D6A65B]/30 px-2 py-0.5 rounded-full text-[#D6A65B]">Manage</span>
+        <span class="text-[10px] bg-[#b88a44]/20 border border-[#b88a44]/30 px-2 py-0.5 rounded-full text-[#b88a44]">Manage</span>
       </button>
     </nav>
 
-    <div class="mt-auto pt-6 border-t border-[#D6A65B]/15 space-y-3">
+    <div class="mt-auto pt-6 border-t border-[#b88a44]/15 space-y-3">
       <button 
         onclick="toggleTheme()" 
-        class="w-full py-2.5 px-4 rounded-xl bg-[#151312] border border-[#D6A65B]/25 flex items-center justify-between text-xs font-bold text-[#F5EBDD]"
+        class="w-full py-2.5 px-4 rounded-xl bg-[#151312] border border-[#b88a44]/25 flex items-center justify-between text-xs font-bold text-[#F5EBDD]"
       >
         <span>Theme Switcher</span>
         <span id="mobile-theme-icon">☀️ Light Theme</span>
@@ -1158,7 +1196,7 @@
   <!-- 16. SEARCH MODAL                                               -->
   <!-- ============================================================== -->
   <div id="search-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-start justify-center pt-24 px-4">
-    <div class="luxury-card rounded-2xl p-6 w-full max-w-xl border border-[#D6A65B]/30 relative">
+    <div class="luxury-card rounded-2xl p-6 w-full max-w-xl border border-[#b88a44]/30 relative">
       <div class="flex items-center justify-between mb-4">
         <h4 class="font-editorial text-sm font-bold text-[#F5EBDD]">Search Viral Flavours</h4>
         <button onclick="toggleSearch(false)" class="text-xs text-[#A49B91] hover:text-white">✕ Close</button>
@@ -1169,7 +1207,7 @@
           type="text" 
           placeholder="Search Dubai chocolate, Buldak ramen, Prime, Takis..."
           oninput="handleSearch(this.value)"
-          class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-3 text-sm text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]"
+          class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-3 text-sm text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]"
         />
         <button onclick="toggleSearch(false); setCategory('all');" class="btn-gold absolute right-2 top-2 px-4 py-1.5 rounded-lg text-xs font-bold">
           Search
@@ -1182,8 +1220,8 @@
   <!-- 17. PRODUCT QUICK VIEW MODAL                                   -->
   <!-- ============================================================== -->
   <div id="product-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-2xl border border-[#D6A65B]/35 relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
+    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-2xl border border-[#b88a44]/35 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#b88a44]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
         ✕
       </button>
       <div id="product-modal-body">
@@ -1196,13 +1234,13 @@
   <!-- 18. CUSTOMER AUTH MODAL (SIGN IN / SIGN UP)                   -->
   <!-- ============================================================== -->
   <div id="customer-auth-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-md border border-[#D6A65B]/35 relative max-h-[90vh] overflow-y-auto">
-      <button onclick="toggleCustomerAuthModal(false)" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
+    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-md border border-[#b88a44]/35 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="toggleCustomerAuthModal(false)" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#b88a44]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
         ✕
       </button>
 
       <div class="text-center mb-6">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D6A65B]/10 border border-[#D6A65B]/30 text-[#D6A65B] text-xs font-semibold mb-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#b88a44]/10 border border-[#b88a44]/30 text-[#b88a44] text-xs font-semibold mb-2">
           <span>👑</span>
           <span>TCJ VIP Gourmet Club</span>
         </span>
@@ -1211,8 +1249,8 @@
       </div>
 
       <!-- Auth Tabs -->
-      <div class="grid grid-cols-2 p-1 bg-[#0c0b0a] rounded-xl border border-[#D6A65B]/20 mb-5">
-        <button id="auth-tab-login" onclick="switchAuthTab('login')" class="py-2 text-xs font-bold rounded-lg transition-all text-[#080808] bg-[#D6A65B]">
+      <div class="grid grid-cols-2 p-1 bg-[#0c0b0a] rounded-xl border border-[#b88a44]/20 mb-5">
+        <button id="auth-tab-login" onclick="switchAuthTab('login')" class="py-2 text-xs font-bold rounded-lg transition-all text-[#080808] bg-[#b88a44]">
           Sign In
         </button>
         <button id="auth-tab-signup" onclick="switchAuthTab('signup')" class="py-2 text-xs font-bold rounded-lg transition-all text-[#A49B91] hover:text-[#F5EBDD]">
@@ -1225,23 +1263,23 @@
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1.5">Mobile Number / Email</label>
           <input type="text" id="login-identifier" required placeholder="e.g. 9876543210 or email"
-                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                 class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
         </div>
 
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1.5">Password</label>
           <input type="password" id="login-password" required placeholder="••••••••"
-                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                 class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
         </div>
 
         <div id="login-form-error" class="hidden text-xs text-rose-400 p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/30"></div>
 
-        <button type="submit" id="btn-login-submit" class="btn-gold w-full py-3 rounded-xl text-xs font-bold shadow-lg shadow-[#D6A65B]/20">
+        <button type="submit" id="btn-login-submit" class="btn-gold w-full py-3 rounded-xl text-xs font-bold shadow-lg shadow-[#b88a44]/20">
           Sign In to VIP Account
         </button>
 
         <div class="text-center pt-2">
-          <button type="button" onclick="continueAsGuestFromAuth()" class="text-xs text-[#A49B91] hover:text-[#D6A65B] underline">
+          <button type="button" onclick="continueAsGuestFromAuth()" class="text-xs text-[#A49B91] hover:text-[#b88a44] underline">
             Continue without login (Guest Checkout) →
           </button>
         </div>
@@ -1252,38 +1290,38 @@
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Full Name *</label>
           <input type="text" id="signup-name" required placeholder="e.g. Yash Gadwal"
-                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                 class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">WhatsApp Mobile *</label>
             <input type="tel" id="signup-phone" required placeholder="10-digit number" maxlength="10"
-                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                   class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
           </div>
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Email (Optional)</label>
             <input type="email" id="signup-email" placeholder="you@domain.com"
-                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                   class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
           </div>
         </div>
 
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Create Password *</label>
           <input type="password" id="signup-password" required placeholder="At least 6 characters" minlength="6"
-                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                 class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
         </div>
 
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Ujjain Delivery Address *</label>
           <input type="text" id="signup-address" required placeholder="Flat/House No, Building, Street"
-                 class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                 class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Ujjain Locality</label>
-            <select id="signup-locality" class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3 py-2.5 text-xs text-[#F5EBDD] focus:outline-none focus:border-[#D6A65B]">
+            <select id="signup-locality" class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-3 py-2.5 text-xs text-[#F5EBDD] focus:outline-none focus:border-[#b88a44]">
               <option value="Freeganj">Freeganj</option>
               <option value="Nanakheda">Nanakheda</option>
               <option value="Mahakal Marg">Mahakal Marg</option>
@@ -1298,13 +1336,13 @@
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Landmark</label>
             <input type="text" id="signup-landmark" placeholder="Near Tower, Mandir etc"
-                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                   class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-4 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
           </div>
         </div>
 
         <div id="signup-form-error" class="hidden text-xs text-rose-400 p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/30"></div>
 
-        <button type="submit" id="btn-signup-submit" class="btn-gold w-full py-3 rounded-xl text-xs font-bold shadow-lg shadow-[#D6A65B]/20">
+        <button type="submit" id="btn-signup-submit" class="btn-gold w-full py-3 rounded-xl text-xs font-bold shadow-lg shadow-[#b88a44]/20">
           Create VIP Account &amp; Save Address
         </button>
       </form>
@@ -1315,15 +1353,15 @@
   <!-- 19. DUAL CHECKOUT MODAL (GUEST VS VIP LOGIN & ADDRESS)         -->
   <!-- ============================================================== -->
   <div id="checkout-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-xl border border-[#D6A65B]/35 relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
+    <div class="luxury-card rounded-3xl p-6 sm:p-8 w-full max-w-xl border border-[#b88a44]/35 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#151312] border border-[#b88a44]/20 flex items-center justify-center text-[#A49B91] hover:text-white z-10">
         ✕
       </button>
 
       <!-- Step 1: Decision Mode (Shown if customer not logged in yet) -->
       <div id="checkout-choice-view" class="space-y-5">
         <div class="text-center">
-          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#D6A65B]/10 border border-[#D6A65B]/30 text-[#D6A65B] text-xs font-semibold mb-2">
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#b88a44]/10 border border-[#b88a44]/30 text-[#b88a44] text-xs font-semibold mb-2">
             <span>🛍️</span>
             <span>Choose Checkout Style</span>
           </span>
@@ -1334,28 +1372,28 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           
           <!-- Option A: Buy Without Login (Guest) -->
-          <div onclick="selectCheckoutMode('guest')" class="p-5 rounded-2xl bg-[#0e0c0b] hover:bg-[#161311] border border-[#D6A65B]/30 hover:border-[#D6A65B] cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between group space-y-3">
+          <div onclick="selectCheckoutMode('guest')" class="p-5 rounded-2xl bg-[#0e0c0b] hover:bg-[#161311] border border-[#b88a44]/30 hover:border-[#b88a44] cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between group space-y-3">
             <div>
               <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-3">
                 ⚡
               </div>
-              <h4 class="font-editorial text-base font-bold text-[#F5EBDD] group-hover:text-[#D6A65B]">Buy without Login</h4>
+              <h4 class="font-editorial text-base font-bold text-[#F5EBDD] group-hover:text-[#b88a44]">Buy without Login</h4>
               <p class="text-xs text-[#A49B91] mt-1.5 leading-relaxed">
                 Instant Guest Checkout. Just enter your delivery address and receive WhatsApp confirmation. Zero password needed.
               </p>
             </div>
-            <button type="button" class="btn-secondary w-full py-2 rounded-xl text-xs font-bold border border-[#D6A65B]/30 group-hover:bg-[#D6A65B] group-hover:text-black transition-colors">
+            <button type="button" class="btn-secondary w-full py-2 rounded-xl text-xs font-bold border border-[#b88a44]/30 group-hover:bg-[#b88a44] group-hover:text-black transition-colors">
               Continue as Guest →
             </button>
           </div>
 
           <!-- Option B: Buy with Login (VIP Member) -->
-          <div onclick="selectCheckoutMode('member')" class="p-5 rounded-2xl bg-gradient-to-br from-[#181410] to-[#0d0c0a] hover:from-[#221c17] hover:to-[#141210] border border-[#D6A65B]/40 hover:border-[#D6A65B] cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between group space-y-3 shadow-xl">
+          <div onclick="selectCheckoutMode('member')" class="p-5 rounded-2xl bg-gradient-to-br from-[#181410] to-[#0d0c0a] hover:from-[#221c17] hover:to-[#141210] border border-[#b88a44]/40 hover:border-[#b88a44] cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between group space-y-3 shadow-xl">
             <div>
-              <div class="w-10 h-10 rounded-xl bg-[#D6A65B]/20 text-[#D6A65B] flex items-center justify-center text-xl mb-3">
+              <div class="w-10 h-10 rounded-xl bg-[#b88a44]/20 text-[#b88a44] flex items-center justify-center text-xl mb-3">
                 👑
               </div>
-              <h4 class="font-editorial text-base font-bold text-[#D6A65B]">Sign In &amp; Buy</h4>
+              <h4 class="font-editorial text-base font-bold text-[#b88a44]">Sign In &amp; Buy</h4>
               <p class="text-xs text-[#A49B91] mt-1.5 leading-relaxed">
                 Auto-fill your saved Ujjain address with 1-click, earn VIP rewards, and track real-time delivery status.
               </p>
@@ -1368,33 +1406,33 @@
         </div>
 
         <!-- Order Snapshot -->
-        <div class="p-3.5 rounded-xl bg-[#090807] border border-[#D6A65B]/15 flex items-center justify-between text-xs">
+        <div class="p-3.5 rounded-xl bg-[#090807] border border-[#b88a44]/15 flex items-center justify-between text-xs">
           <span class="text-[#A49B91]">Bag Total (<span id="checkout-choice-count">0 items</span>)</span>
-          <span id="checkout-choice-total" class="font-mono font-bold text-sm text-[#D6A65B]">₹0</span>
+          <span id="checkout-choice-total" class="font-mono font-bold text-sm text-[#b88a44]">₹0</span>
         </div>
       </div>
 
       <!-- Step 2: Address & Details Form View -->
       <div id="checkout-form-view" class="hidden space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-[#D6A65B]/20">
+        <div class="flex items-center justify-between pb-3 border-b border-[#b88a44]/20">
           <div>
-            <span id="checkout-badge-mode" class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#D6A65B]/15 text-[#D6A65B] border border-[#D6A65B]/30">
+            <span id="checkout-badge-mode" class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#b88a44]/15 text-[#b88a44] border border-[#b88a44]/30">
               Guest Checkout
             </span>
             <h3 class="font-editorial text-xl font-bold text-[#F5EBDD] mt-1">Delivery &amp; Concierge Details</h3>
           </div>
-          <button type="button" onclick="backToCheckoutChoice()" id="btn-back-to-choice" class="text-xs text-[#A49B91] hover:text-[#D6A65B] flex items-center gap-1">
+          <button type="button" onclick="backToCheckoutChoice()" id="btn-back-to-choice" class="text-xs text-[#A49B91] hover:text-[#b88a44] flex items-center gap-1">
             <span>← Change Option</span>
           </button>
         </div>
 
         <!-- Saved Addresses Dropdown if Member -->
-        <div id="member-saved-address-container" class="hidden p-3 rounded-xl bg-[#120f0d] border border-[#D6A65B]/30 space-y-2">
-          <div class="flex items-center justify-between text-xs font-semibold text-[#D6A65B]">
+        <div id="member-saved-address-container" class="hidden p-3 rounded-xl bg-[#120f0d] border border-[#b88a44]/30 space-y-2">
+          <div class="flex items-center justify-between text-xs font-semibold text-[#b88a44]">
             <span class="flex items-center gap-1">👑 <span>Saved VIP Delivery Address</span></span>
             <span id="member-name-tag" class="text-[11px] text-[#A49B91]">Logged in</span>
           </div>
-          <select id="member-address-select" onchange="handleSavedAddressSelect(this.value)" class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-lg px-3 py-2 text-xs text-[#F5EBDD]">
+          <select id="member-address-select" onchange="handleSavedAddressSelect(this.value)" class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-lg px-3 py-2 text-xs text-[#F5EBDD]">
             <!-- Populated dynamically -->
           </select>
         </div>
@@ -1405,25 +1443,25 @@
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Full Name *</label>
               <input type="text" id="order-cust-name" required placeholder="e.g. Yash Gadwal"
-                     class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                     class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
             </div>
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">WhatsApp Phone *</label>
               <input type="tel" id="order-cust-phone" required placeholder="10-digit mobile" maxlength="10"
-                     class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                     class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Delivery Address (House/Flat No, Street) *</label>
             <input type="text" id="order-cust-street" required placeholder="e.g. Flat 302, Royal Palms, Dewas Road"
-                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                   class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Ujjain Locality *</label>
-              <select id="order-cust-locality" class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3 py-2.5 text-xs text-[#F5EBDD] focus:outline-none focus:border-[#D6A65B]">
+              <select id="order-cust-locality" class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-3 py-2.5 text-xs text-[#F5EBDD] focus:outline-none focus:border-[#b88a44]">
                 <option value="Freeganj">Freeganj</option>
                 <option value="Nanakheda">Nanakheda</option>
                 <option value="Mahakal Marg">Mahakal Marg</option>
@@ -1438,29 +1476,29 @@
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Landmark (Optional)</label>
               <input type="text" id="order-cust-landmark" placeholder="Near Tower, Mandir etc"
-                     class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                     class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1">Special Concierge Instructions</label>
             <input type="text" id="order-cust-notes" placeholder="e.g. Ring bell twice, keep chocolates cool..."
-                   class="w-full bg-[#080808] border border-[#D6A65B]/30 rounded-xl px-3.5 py-2 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#D6A65B]">
+                   class="w-full bg-[#080808] border border-[#b88a44]/30 rounded-xl px-3.5 py-2 text-xs text-[#F5EBDD] placeholder-[#706860] focus:outline-none focus:border-[#b88a44]">
           </div>
 
           <!-- Payment Method Selector -->
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-[#A49B91] mb-1.5">Payment Method</label>
             <div class="grid grid-cols-2 gap-3">
-              <label class="p-3 rounded-xl bg-[#090807] border border-[#D6A65B]/30 flex items-center gap-2 cursor-pointer hover:border-[#D6A65B]">
-                <input type="radio" name="paymentMethod" value="UPI on Delivery" checked class="text-[#D6A65B]">
+              <label class="p-3 rounded-xl bg-[#090807] border border-[#b88a44]/30 flex items-center gap-2 cursor-pointer hover:border-[#b88a44]">
+                <input type="radio" name="paymentMethod" value="UPI on Delivery" checked class="text-[#b88a44]">
                 <div class="text-xs">
                   <span class="font-bold text-[#F5EBDD] block">UPI on Delivery</span>
                   <span class="text-[10px] text-[#A49B91]">GPay, PhonePe, Paytm QR</span>
                 </div>
               </label>
-              <label class="p-3 rounded-xl bg-[#090807] border border-[#D6A65B]/30 flex items-center gap-2 cursor-pointer hover:border-[#D6A65B]">
-                <input type="radio" name="paymentMethod" value="Cash on Delivery" class="text-[#D6A65B]">
+              <label class="p-3 rounded-xl bg-[#090807] border border-[#b88a44]/30 flex items-center gap-2 cursor-pointer hover:border-[#b88a44]">
+                <input type="radio" name="paymentMethod" value="Cash on Delivery" class="text-[#b88a44]">
                 <div class="text-xs">
                   <span class="font-bold text-[#F5EBDD] block">Cash on Delivery</span>
                   <span class="text-[10px] text-[#A49B91]">Pay cash to rider</span>
@@ -1470,7 +1508,7 @@
           </div>
 
           <!-- Order Total Banner -->
-          <div class="p-3.5 rounded-xl bg-[#110e0c] border border-[#D6A65B]/20 space-y-1 text-xs">
+          <div class="p-3.5 rounded-xl bg-[#110e0c] border border-[#b88a44]/20 space-y-1 text-xs">
             <div class="flex justify-between text-[#A49B91]">
               <span>Subtotal</span>
               <span id="form-subtotal" class="font-mono text-[#F5EBDD]">₹0</span>
@@ -1479,13 +1517,13 @@
               <span>Ujjain Delivery (25–45 min)</span>
               <span id="form-delivery-fee" class="font-mono text-[#A8B77A]">₹49</span>
             </div>
-            <div class="flex justify-between font-bold text-sm text-[#F5EBDD] pt-1.5 border-t border-[#D6A65B]/15">
+            <div class="flex justify-between font-bold text-sm text-[#F5EBDD] pt-1.5 border-t border-[#b88a44]/15">
               <span>Payable Total</span>
-              <span id="form-grand-total" class="font-mono text-[#D6A65B] text-base">₹0</span>
+              <span id="form-grand-total" class="font-mono text-[#b88a44] text-base">₹0</span>
             </div>
           </div>
 
-          <button type="submit" id="btn-submit-order" class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold shadow-xl shadow-[#D6A65B]/25 flex items-center justify-center gap-2">
+          <button type="submit" id="btn-submit-order" class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold shadow-xl shadow-[#b88a44]/25 flex items-center justify-center gap-2">
             <span>CONFIRM &amp; ORDER ON WHATSAPP</span>
             <span>💬</span>
           </button>
@@ -1512,10 +1550,10 @@
       </div>
 
       <!-- Order Details Pill -->
-      <div class="p-4 rounded-xl bg-[#0a0908] border border-[#D6A65B]/20 text-left space-y-2 text-xs">
+      <div class="p-4 rounded-xl bg-[#0a0908] border border-[#b88a44]/20 text-left space-y-2 text-xs">
         <div class="flex justify-between items-center">
           <span class="text-[#A49B91]">Order Number:</span>
-          <span id="success-order-id" class="font-mono font-bold text-[#D6A65B]">TCJ-ORD-1001</span>
+          <span id="success-order-id" class="font-mono font-bold text-[#b88a44]">TCJ-ORD-1001</span>
         </div>
         <div class="flex justify-between items-center">
           <span class="text-[#A49B91]">Delivery Estimate:</span>
@@ -1525,24 +1563,24 @@
           <span class="text-[#A49B91]">Payable Amount:</span>
           <span id="success-order-total" class="font-mono font-bold text-sm text-[#F5EBDD]">₹0</span>
         </div>
-        <div class="pt-2 border-t border-[#D6A65B]/15 text-[11px] text-[#A49B91]">
+        <div class="pt-2 border-t border-[#b88a44]/15 text-[11px] text-[#A49B91]">
           <span class="text-[#706860] block">Delivery Location:</span>
           <span id="success-order-address" class="text-[#F5EBDD] font-medium block truncate"></span>
         </div>
       </div>
 
       <!-- Big WhatsApp Button -->
-      <a id="success-whatsapp-link" href="#" target="_blank" class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold shadow-xl shadow-[#D6A65B]/30 flex items-center justify-center gap-2">
+      <a id="success-whatsapp-link" href="#" target="_blank" class="btn-gold w-full py-3.5 rounded-xl text-xs font-bold shadow-xl shadow-[#b88a44]/30 flex items-center justify-center gap-2">
         <span>Open WhatsApp Concierge Confirmation</span>
         <span>💬</span>
       </a>
 
       <div class="flex items-center justify-center gap-3 pt-1">
-        <button type="button" onclick="closeOrderSuccessModal()" class="text-xs text-[#A49B91] hover:text-[#D6A65B]">
+        <button type="button" onclick="closeOrderSuccessModal()" class="text-xs text-[#A49B91] hover:text-[#b88a44]">
           Continue Browsing
         </button>
         <span class="text-[#333]">&bull;</span>
-        <button type="button" onclick="openAccountFromSuccess()" class="text-xs text-[#D6A65B] hover:underline">
+        <button type="button" onclick="openAccountFromSuccess()" class="text-xs text-[#b88a44] hover:underline">
           View My Orders
         </button>
       </div>
@@ -1553,20 +1591,20 @@
   <!-- 21. CUSTOMER ACCOUNT & ORDER HISTORY DRAWER                    -->
   <!-- ============================================================== -->
   <div id="account-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleAccountDrawer(false)"></div>
-  <aside id="account-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0e0d0c] border-l border-[#D6A65B]/25 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+  <aside id="account-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0e0d0c] border-l border-[#b88a44]/25 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
     
     <!-- Drawer Header -->
-    <div class="p-5 border-b border-[#D6A65B]/15 flex items-center justify-between">
+    <div class="p-5 border-b border-[#b88a44]/15 flex items-center justify-between">
       <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-full bg-[#D6A65B]/20 border border-[#D6A65B]/40 flex items-center justify-center text-sm font-bold text-[#D6A65B]">
+        <div class="w-9 h-9 rounded-full bg-[#b88a44]/20 border border-[#b88a44]/40 flex items-center justify-center text-sm font-bold text-[#b88a44]">
           👑
         </div>
         <div>
           <h3 id="drawer-cust-name" class="font-editorial text-base font-bold text-[#F5EBDD]">VIP Patron</h3>
-          <span id="drawer-cust-phone" class="text-[11px] font-mono text-[#D6A65B]">+91 ••••• •••••</span>
+          <span id="drawer-cust-phone" class="text-[11px] font-mono text-[#b88a44]">+91 ••••• •••••</span>
         </div>
       </div>
-      <button onclick="toggleAccountDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#D6A65B]/20 flex items-center justify-center text-[#A49B91] hover:text-white">
+      <button onclick="toggleAccountDrawer(false)" class="w-8 h-8 rounded-full bg-[#151312] border border-[#b88a44]/20 flex items-center justify-center text-[#A49B91] hover:text-white">
         ✕
       </button>
     </div>
@@ -1575,9 +1613,9 @@
     <div class="flex-grow overflow-y-auto p-5 space-y-6">
       
       <!-- VIP Member Card -->
-      <div class="p-4 rounded-2xl bg-gradient-to-r from-[#181410] to-[#0c0b0a] border border-[#D6A65B]/30 space-y-2">
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-[#181410] to-[#0c0b0a] border border-[#b88a44]/30 space-y-2">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-[#D6A65B] uppercase tracking-wider">Gourmet Connoisseur</span>
+          <span class="text-xs font-bold text-[#b88a44] uppercase tracking-wider">Gourmet Connoisseur</span>
           <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/30">Active Member</span>
         </div>
         <p class="text-xs text-[#A49B91] leading-relaxed">
@@ -1591,7 +1629,7 @@
           <h4 class="font-editorial text-sm font-bold text-[#F5EBDD]">Saved Delivery Address</h4>
           <span class="text-[10px] text-[#A49B91]">Ujjain Doorstep</span>
         </div>
-        <div id="drawer-address-card" class="p-3.5 rounded-xl bg-[#090807] border border-[#D6A65B]/15 text-xs text-[#F5EBDD] space-y-1">
+        <div id="drawer-address-card" class="p-3.5 rounded-xl bg-[#090807] border border-[#b88a44]/15 text-xs text-[#F5EBDD] space-y-1">
           <!-- Populated dynamically -->
           <span class="text-[#706860]">No address saved yet.</span>
         </div>
@@ -1601,7 +1639,7 @@
       <div class="space-y-3">
         <div class="flex items-center justify-between">
           <h4 class="font-editorial text-sm font-bold text-[#F5EBDD]">Recent Orders &amp; Inquiries</h4>
-          <span id="drawer-orders-count" class="text-xs font-mono text-[#D6A65B]">0 Orders</span>
+          <span id="drawer-orders-count" class="text-xs font-mono text-[#b88a44]">0 Orders</span>
         </div>
 
         <div id="drawer-orders-list" class="space-y-3">
@@ -1615,7 +1653,7 @@
     </div>
 
     <!-- Drawer Footer -->
-    <div class="p-4 bg-[#080808] border-t border-[#D6A65B]/20 flex items-center justify-between">
+    <div class="p-4 bg-[#080808] border-t border-[#b88a44]/20 flex items-center justify-between">
       <button onclick="handleCustomerLogout()" class="px-4 py-2 rounded-xl text-xs font-semibold text-rose-400 hover:bg-rose-950/30 border border-rose-500/20 transition-colors">
         Sign Out
       </button>
@@ -1629,9 +1667,9 @@
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none"></div>
 
   <!-- Scripts -->
-  <script src="js/products.js?v=3.1"></script>
-  <script src="js/scroll-controller.js?v=3.1"></script>
-  <script src="js/app.js?v=3.1"></script>
+  <script src="js/products.js?v=3.2"></script>
+  <script src="js/scroll-controller.js?v=3.2"></script>
+  <script src="js/app.js?v=3.2"></script>
 
 </body>
 </html>

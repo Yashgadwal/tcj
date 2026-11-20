@@ -184,7 +184,7 @@
         ? 'bg-emerald-950/90 border-emerald-500/40 text-emerald-200'
         : type === 'error'
         ? 'bg-red-950/90 border-red-500/40 text-red-200'
-        : 'bg-[#181513]/95 border-[#D6A65B]/40 text-[#F5EBDD]'
+        : 'bg-[#181513]/95 border-[#b88a44]/40 text-[#F5EBDD]'
     }`;
 
     const iconName = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-triangle' : 'info';
@@ -401,7 +401,7 @@
           order => `
         <div class="py-3.5 flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-[#181513] border border-[#D6A65B]/20 flex items-center justify-center text-xs font-bold text-[#D6A65B] flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-[#181513] border border-[#b88a44]/20 flex items-center justify-center text-xs font-bold text-[#b88a44] flex-shrink-0">
               ${(order.customerName || 'G')[0].toUpperCase()}
             </div>
             <div class="min-w-0">
@@ -440,7 +440,7 @@
             <span class="font-mono text-[11px] text-[#A49B91]">${count} items (${pct}%)</span>
           </div>
           <div class="w-full bg-[#161412] rounded-full h-1.5 overflow-hidden">
-            <div class="bg-[#D6A65B] h-1.5 rounded-full" style="width: ${pct}%"></div>
+            <div class="bg-[#b88a44] h-1.5 rounded-full" style="width: ${pct}%"></div>
           </div>
         </div>
       `;
@@ -500,7 +500,7 @@
         <tr class="hover:bg-[#151311] transition-colors group">
           <td class="py-3 px-4">
             <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-lg bg-[#181513] border border-[#D6A65B]/20 overflow-hidden flex-shrink-0 flex items-center justify-center">
+              <div class="w-11 h-11 rounded-lg bg-[#181513] border border-[#b88a44]/20 overflow-hidden flex-shrink-0 flex items-center justify-center">
                 <img src="${img}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'40\\' height=\\'40\\' fill=\\'%23555\\'><rect width=\\'40\\' height=\\'40\\' fill=\\'%2312100e\\'/></svg>'">
               </div>
               <div class="min-w-0">
@@ -513,7 +513,7 @@
             </div>
           </td>
           <td class="py-3 px-4 text-[#A49B91] text-xs whitespace-nowrap">
-            <span class="px-2 py-0.5 rounded-md bg-[#181513] border border-[#D6A65B]/15 text-[#D6A65B]">${escapeHtml(catName)}</span>
+            <span class="px-2 py-0.5 rounded-md bg-[#181513] border border-[#b88a44]/15 text-[#b88a44]">${escapeHtml(catName)}</span>
           </td>
           <td class="py-3 px-4 font-mono font-bold text-[#F5EBDD] whitespace-nowrap">
             ₹${Number(p.price || 0).toLocaleString('en-IN')}
@@ -524,7 +524,7 @@
           <td class="py-3 px-4 whitespace-nowrap">
             ${
               p.badge
-                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-[#D6A65B]/15 text-[#D6A65B] border border-[#D6A65B]/30">${escapeHtml(p.badge)}</span>`
+                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-[#b88a44]/15 text-[#b88a44] border border-[#b88a44]/30">${escapeHtml(p.badge)}</span>`
                 : '<span class="text-[#555]">-</span>'
             }
           </td>
@@ -536,7 +536,7 @@
           </td>
           <td class="py-3 px-4 text-right whitespace-nowrap">
             <div class="inline-flex items-center gap-1.5">
-              <button data-edit-prod="${p.id}" class="p-1.5 text-[#A49B91] hover:text-[#D6A65B] hover:bg-[#1a1715] rounded-lg transition-colors" title="Edit Delicacy">
+              <button data-edit-prod="${p.id}" class="p-1.5 text-[#A49B91] hover:text-[#b88a44] hover:bg-[#1a1715] rounded-lg transition-colors" title="Edit Delicacy">
                 <i data-lucide="edit-3" class="w-4 h-4"></i>
               </button>
               <button data-delete-prod="${p.id}" class="p-1.5 text-[#A49B91] hover:text-red-400 hover:bg-red-950/30 rounded-lg transition-colors" title="Delete Delicacy">
@@ -722,8 +722,8 @@
     if (filtered.length === 0) {
       el.ordersCardsContainer.innerHTML = `
         <div class="admin-card p-12 text-center text-[#A49B91] rounded-2xl">
-          <i data-lucide="shopping-bag" class="w-10 h-10 mx-auto mb-3 opacity-40 text-[#D6A65B]"></i>
-          <p class="font-medium">No customer inquiries found for filter: <span class="text-[#D6A65B]">${state.orderStatusFilter}</span></p>
+          <i data-lucide="shopping-bag" class="w-10 h-10 mx-auto mb-3 opacity-40 text-[#b88a44]"></i>
+          <p class="font-medium">No customer inquiries found for filter: <span class="text-[#b88a44]">${state.orderStatusFilter}</span></p>
           <p class="text-xs text-[#706860] mt-1">When customers click "Proceed via WhatsApp Concierge" on the live store, orders appear here in real-time.</p>
         </div>
       `;
@@ -737,9 +737,9 @@
         const itemsHtml = items
           .map(
             it => `
-          <div class="flex items-center justify-between text-xs py-1 border-b border-[#D6A65B]/10 last:border-none">
+          <div class="flex items-center justify-between text-xs py-1 border-b border-[#b88a44]/10 last:border-none">
             <span class="text-[#F5EBDD]">${it.quantity}x ${escapeHtml(it.title)}</span>
-            <span class="font-mono text-[#D6A65B]">₹${Number(it.price * it.quantity).toLocaleString('en-IN')}</span>
+            <span class="font-mono text-[#b88a44]">₹${Number(it.price * it.quantity).toLocaleString('en-IN')}</span>
           </div>
         `
           )
@@ -752,16 +752,16 @@
 
         return `
         <div class="admin-card p-5 sm:p-6 rounded-2xl space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D6A65B]/15">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#b88a44]/15">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-[#181513] border border-[#D6A65B]/20 flex items-center justify-center font-bold text-[#D6A65B]">
+              <div class="w-10 h-10 rounded-full bg-[#181513] border border-[#b88a44]/20 flex items-center justify-center font-bold text-[#b88a44]">
                 #${(o.id || '').slice(-4).toUpperCase()}
               </div>
               <div>
                 <div class="flex flex-wrap items-center gap-2">
                   <h4 class="font-editorial text-base font-bold text-[#F5EBDD]">${escapeHtml(o.customerName || 'Gourmet Patron')}</h4>
                   ${o.isGuest === false || o.customerId ? `
-                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#D6A65B]/15 text-[#D6A65B] border border-[#D6A65B]/30 flex items-center gap-1">
+                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#b88a44]/15 text-[#b88a44] border border-[#b88a44]/30 flex items-center gap-1">
                       <span>👑</span> VIP Member
                     </span>
                   ` : `
@@ -776,7 +776,7 @@
                   &bull;
                   <span>${formatTimestamp(o.createdAt)}</span>
                   &bull;
-                  <span class="px-2 py-0.5 rounded bg-[#1e1914] text-[10px] text-[#D6A65B] border border-[#D6A65B]/20">${escapeHtml(o.paymentMode || 'UPI on Delivery')}</span>
+                  <span class="px-2 py-0.5 rounded bg-[#1e1914] text-[10px] text-[#b88a44] border border-[#b88a44]/20">${escapeHtml(o.paymentMode || 'UPI on Delivery')}</span>
                 </div>
               </div>
             </div>
@@ -800,14 +800,14 @@
 
           <!-- Items Breakdown -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="md:col-span-2 space-y-2 bg-[#0d0c0a] p-3.5 rounded-xl border border-[#D6A65B]/10">
+            <div class="md:col-span-2 space-y-2 bg-[#0d0c0a] p-3.5 rounded-xl border border-[#b88a44]/10">
               <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860]">Curated Items Ordered</span>
               <div class="space-y-1">
                 ${itemsHtml || '<span class="text-xs text-[#706860]">No items recorded</span>'}
               </div>
             </div>
 
-            <div class="space-y-3 bg-[#0d0c0a] p-3.5 rounded-xl border border-[#D6A65B]/10 flex flex-col justify-between">
+            <div class="space-y-3 bg-[#0d0c0a] p-3.5 rounded-xl border border-[#b88a44]/10 flex flex-col justify-between">
               <div>
                 <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860]">Delivery Address (Ujjain Doorstep)</span>
                 <p class="text-xs text-[#F5EBDD] mt-1 leading-relaxed">${escapeHtml(o.customerAddress || 'Pick-up / Store Concierge')}</p>
@@ -820,9 +820,9 @@
                 ${o.deliveryNotes ? `<p class="text-[11px] text-amber-300/80 mt-1.5 italic">Note: "${escapeHtml(o.deliveryNotes)}"</p>` : ''}
               </div>
 
-              <div class="pt-2 border-t border-[#D6A65B]/10 flex items-center justify-between">
+              <div class="pt-2 border-t border-[#b88a44]/10 flex items-center justify-between">
                 <span class="text-xs text-[#A49B91]">Total Amount</span>
-                <span class="font-mono font-bold text-sm text-[#D6A65B]">₹${Number(o.total || 0).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-bold text-sm text-[#b88a44]">₹${Number(o.total || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
@@ -869,7 +869,7 @@
     if (customers.length === 0) {
       el.customersListContainer.innerHTML = `
         <div class="admin-card p-12 text-center text-[#A49B91] rounded-2xl">
-          <i data-lucide="users" class="w-10 h-10 mx-auto mb-3 opacity-40 text-[#D6A65B]"></i>
+          <i data-lucide="users" class="w-10 h-10 mx-auto mb-3 opacity-40 text-[#b88a44]"></i>
           <p class="font-medium">No VIP patrons registered yet</p>
           <p class="text-xs text-[#706860] mt-1">When customers join the VIP Gourmet Club on the storefront, their accounts appear here in real-time.</p>
         </div>
@@ -886,23 +886,23 @@
       )}`;
 
       const addrsHtml = addrs.length > 0 ? addrs.map(a => `
-        <div class="p-2.5 rounded-lg bg-[#0a0908] border border-[#D6A65B]/10 text-xs">
-          <span class="font-bold text-[#D6A65B] text-[10px] uppercase">${escapeHtml(a.label || 'Home')}</span>
+        <div class="p-2.5 rounded-lg bg-[#0a0908] border border-[#b88a44]/10 text-xs">
+          <span class="font-bold text-[#b88a44] text-[10px] uppercase">${escapeHtml(a.label || 'Home')}</span>
           <p class="text-[#F5EBDD] mt-0.5">${escapeHtml(a.street || '')}${a.landmark ? ', Near ' + escapeHtml(a.landmark) : ''}, ${escapeHtml(a.locality || '')}, Ujjain</p>
         </div>
       `).join('') : '<span class="text-xs text-[#706860]">No saved address</span>';
 
       return `
         <div class="admin-card p-5 sm:p-6 rounded-2xl space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D6A65B]/15">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#b88a44]/15">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-[#1e1914] border border-[#D6A65B]/30 flex items-center justify-center font-bold text-base text-[#D6A65B]">
+              <div class="w-10 h-10 rounded-full bg-[#1e1914] border border-[#b88a44]/30 flex items-center justify-center font-bold text-base text-[#b88a44]">
                 👑
               </div>
               <div>
                 <div class="flex items-center gap-2">
                   <h4 class="font-editorial text-base font-bold text-[#F5EBDD]">${escapeHtml(c.name)}</h4>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#D6A65B]/20 text-[#D6A65B] border border-[#D6A65B]/40 font-bold">${c.id || 'VIP'}</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#b88a44]/20 text-[#b88a44] border border-[#b88a44]/40 font-bold">${c.id || 'VIP'}</span>
                 </div>
                 <div class="text-[11px] text-[#A49B91] flex flex-wrap items-center gap-2 mt-0.5">
                   <span class="font-mono text-[#F5EBDD]">+91 ${escapeHtml(c.phone)}</span>
@@ -916,7 +916,7 @@
             <div class="flex items-center gap-3">
               <div class="text-right hidden sm:block">
                 <span class="text-[10px] text-[#706860] uppercase block">Lifetime Value</span>
-                <span class="font-mono text-xs font-bold text-[#D6A65B]">₹${Number(c.totalSpent || 0).toLocaleString('en-IN')} (${c.orderCount || 0} orders)</span>
+                <span class="font-mono text-xs font-bold text-[#b88a44]">₹${Number(c.totalSpent || 0).toLocaleString('en-IN')} (${c.orderCount || 0} orders)</span>
               </div>
               <a href="${waLink}" target="_blank" class="btn-gold-admin text-xs py-1.5 px-3 gap-1.5">
                 <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
@@ -950,17 +950,17 @@
               <span class="text-3xl">${cat.icon || '✦'}</span>
               <div>
                 <h4 class="font-editorial text-lg font-bold text-[#F5EBDD]">${escapeHtml(cat.name)}</h4>
-                <span class="text-[11px] font-mono text-[#D6A65B]">ID: ${escapeHtml(cat.id)}</span>
+                <span class="text-[11px] font-mono text-[#b88a44]">ID: ${escapeHtml(cat.id)}</span>
               </div>
             </div>
             ${
               cat.badge
-                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#D6A65B]/20 text-[#D6A65B] border border-[#D6A65B]/30">${escapeHtml(cat.badge)}</span>`
+                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#b88a44]/20 text-[#b88a44] border border-[#b88a44]/30">${escapeHtml(cat.badge)}</span>`
                 : ''
             }
           </div>
 
-          <div class="pt-3 border-t border-[#D6A65B]/15 flex items-center justify-between text-xs">
+          <div class="pt-3 border-t border-[#b88a44]/15 flex items-center justify-between text-xs">
             <span class="text-[#A49B91]">${count} delicacies active</span>
             <button data-delete-cat="${cat.id}" class="p-1.5 text-[#A49B91] hover:text-red-400 hover:bg-red-950/30 rounded-lg transition-colors" title="Delete Aisle">
               <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -1148,10 +1148,10 @@
     state.currentTab = tabName;
     el.navTabBtns.forEach(btn => {
       if (btn.getAttribute('data-tab') === tabName) {
-        btn.classList.add('text-[#D6A65B]', 'bg-[#D6A65B]/10', 'border', 'border-[#D6A65B]/30');
+        btn.classList.add('text-[#b88a44]', 'bg-[#b88a44]/10', 'border', 'border-[#b88a44]/30');
         btn.classList.remove('text-[#A49B91]');
       } else {
-        btn.classList.remove('text-[#D6A65B]', 'bg-[#D6A65B]/10', 'border', 'border-[#D6A65B]/30');
+        btn.classList.remove('text-[#b88a44]', 'bg-[#b88a44]/10', 'border', 'border-[#b88a44]/30');
         btn.classList.add('text-[#A49B91]');
       }
     });
@@ -1299,10 +1299,10 @@
     el.orderStatusFilterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         el.orderStatusFilterBtns.forEach(b => {
-          b.classList.remove('active', 'bg-[#D6A65B]/20', 'text-[#D6A65B]', 'border-[#D6A65B]/40');
+          b.classList.remove('active', 'bg-[#b88a44]/20', 'text-[#b88a44]', 'border-[#b88a44]/40');
           b.classList.add('bg-[#141210]', 'text-[#A49B91]');
         });
-        btn.classList.add('active', 'bg-[#D6A65B]/20', 'text-[#D6A65B]', 'border-[#D6A65B]/40');
+        btn.classList.add('active', 'bg-[#b88a44]/20', 'text-[#b88a44]', 'border-[#b88a44]/40');
         btn.classList.remove('bg-[#141210]', 'text-[#A49B91]');
 
         state.orderStatusFilter = btn.getAttribute('data-status') || 'all';

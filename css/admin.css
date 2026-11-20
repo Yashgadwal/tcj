@@ -1,16 +1,17 @@
-/* TCJ Admin Luxury Theme */
+/* TCJ Admin Luxury Theme - ShubhMewa Palette */
 :root {
-  --tcj-gold: #D6A65B;
-  --tcj-gold-hover: #E5BA73;
-  --tcj-gold-dark: #BA8537;
-  --tcj-emerald: #0b1d16;
-  --tcj-dark: #080808;
-  --tcj-card: #12100e;
-  --tcj-card-hover: #191614;
-  --tcj-border: rgba(214, 166, 91, 0.18);
-  --tcj-border-focus: rgba(214, 166, 91, 0.5);
-  --tcj-text-primary: #F5EBDD;
-  --tcj-text-muted: #A49B91;
+  --tcj-gold: #b88a44;
+  --tcj-gold-hover: #c99a4e;
+  --tcj-gold-dark: #996e2e;
+  --tcj-emerald: #173c2d;
+  --tcj-emerald-light: #20503e;
+  --tcj-dark: #0a1a13;
+  --tcj-card: #11261d;
+  --tcj-card-hover: #163226;
+  --tcj-border: rgba(184, 138, 68, 0.22);
+  --tcj-border-focus: rgba(184, 138, 68, 0.55);
+  --tcj-text-primary: #fffdf8;
+  --tcj-text-muted: #a3b5aa;
 }
 
 body {
@@ -26,17 +27,17 @@ body {
 
 /* Glass & Card Surfaces */
 .admin-card {
-  background: linear-gradient(180deg, #151312 0%, #0d0c0b 100%);
+  background: linear-gradient(180deg, #11261d 0%, #0a1a13 100%);
   border: 1px solid var(--tcj-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 .admin-card:hover {
-  border-color: rgba(214, 166, 91, 0.35);
+  border-color: rgba(184, 138, 68, 0.4);
 }
 
 .admin-glass {
-  background: rgba(18, 16, 14, 0.85);
+  background: rgba(17, 38, 29, 0.9);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--tcj-border);
@@ -66,13 +67,13 @@ body {
 
 /* Luxury Buttons */
 .btn-gold-admin {
-  background: linear-gradient(135deg, #E5BA73 0%, #D6A65B 50%, #BA8537 100%);
-  color: #080808;
+  background: linear-gradient(135deg, #d4a85c 0%, #b88a44 50%, #996e2e 100%);
+  color: #ffffff;
   font-weight: 700;
   border-radius: 0.75rem;
   padding: 0.6rem 1.25rem;
   font-size: 0.875rem;
-  box-shadow: 0 4px 15px rgba(214, 166, 91, 0.25);
+  box-shadow: 0 4px 15px rgba(184, 138, 68, 0.28);
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -81,8 +82,9 @@ body {
 }
 
 .btn-gold-admin:hover {
+  background: linear-gradient(135deg, #e0bb72 0%, #c99a4e 50%, #aa7a33 100%);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(214, 166, 91, 0.4);
+  box-shadow: 0 6px 20px rgba(184, 138, 68, 0.45);
 }
 
 .btn-secondary-admin {
