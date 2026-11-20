@@ -201,7 +201,7 @@
       const nx = (cw - nw) / 2;
       const ny = (ch - nh) / 2;
 
-      ctx.fillStyle = '#080808';
+      ctx.fillStyle = '#fffdf8';
       ctx.fillRect(0, 0, cw, ch);
       ctx.drawImage(img, 0, 0, iw, ih, nx, ny, nw, nh);
       drawTCJWatermark(ctx, cw, ch, nw, nh, nx, ny, iw, ih);
@@ -335,7 +335,7 @@
       const nx = (cw - nw) / 2;
       const ny = (ch - nh) / 2;
 
-      ctx.fillStyle = '#080808';
+      ctx.fillStyle = '#fffdf8';
       ctx.fillRect(0, 0, cw, ch);
       ctx.drawImage(img, 0, 0, iw, ih, nx, ny, nw, nh);
       drawTCJWatermark(ctx, cw, ch, nw, nh, nx, ny, iw, ih);
@@ -524,7 +524,7 @@
       const nx = (cw - nw) / 2;
       const ny = (ch - nh) / 2;
 
-      ctx.fillStyle = '#080808';
+      ctx.fillStyle = '#fffdf8';
       ctx.fillRect(0, 0, cw, ch);
       ctx.drawImage(img, 0, 0, iw, ih, nx, ny, nw, nh);
       drawTCJWatermark(ctx, cw, ch, nw, nh, nx, ny, iw, ih);
@@ -705,7 +705,7 @@
       const nx = (cw - nw) / 2;
       const ny = (ch - nh) / 2;
 
-      ctx.fillStyle = '#080808';
+      ctx.fillStyle = '#fffdf8';
       ctx.fillRect(0, 0, cw, ch);
       ctx.drawImage(img, 0, 0, iw, ih, nx, ny, nw, nh);
       drawTCJWatermark(ctx, cw, ch, nw, nh, nx, ny, iw, ih);
@@ -905,7 +905,7 @@
       const nx = (cw - nw) / 2;
       const ny = (ch - nh) / 2;
 
-      ctx.fillStyle = '#080808';
+      ctx.fillStyle = '#fffdf8';
       ctx.fillRect(0, 0, cw, ch);
       ctx.drawImage(img, 0, 0, iw, ih, nx, ny, nw, nh);
       drawTCJWatermark(ctx, cw, ch, nw, nh, nx, ny, iw, ih);

@@ -132,8 +132,8 @@ function renderCategoryPills() {
         onclick="setCategory('${cat.id}')"
         class="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
           isActive 
-            ? 'bg-gradient-to-r from-[#b88a44] to-[#B88536] text-[#080808] font-bold shadow-lg shadow-[#b88a44]/20 scale-105' 
-            : 'bg-[#151312] text-[#A49B91] hover:text-[#F5EBDD] hover:bg-[#1f1b19] border border-[#b88a44]/15'
+            ? 'bg-[#173c2d] text-white font-bold shadow-md shadow-[#173c2d]/20 scale-105' 
+            : 'bg-[#fffdf8] text-[#574F47] hover:text-[#173c2d] hover:bg-[#f7f1e8] border border-[#eadcc8]'
         }"
       >
         <span>${cat.icon}</span>
@@ -521,11 +521,11 @@ function renderAccountButton() {
     const firstName = state.customer.name.split(' ')[0] || 'VIP';
     icon.innerHTML = '<svg class="w-4 h-4 inline-block text-[#b88a44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l4 4 5-7 5 7 4-4v11H3V7z"/><line x1="3" y1="21" x2="21" y2="21"/></svg>';
     label.textContent = `Hi, ${firstName}`;
-    btn.classList.add('border-[#b88a44]', 'bg-[#1e1914]');
+    btn.classList.add('border-[#b88a44]', 'bg-[#f7f1e8]');
   } else {
     icon.innerHTML = '<svg class="w-4 h-4 inline-block text-[#b88a44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>';
     label.textContent = 'VIP / Sign In';
-    btn.classList.remove('border-[#b88a44]', 'bg-[#1e1914]');
+    btn.classList.remove('border-[#b88a44]', 'bg-[#f7f1e8]');
   }
 }
 
@@ -714,11 +714,11 @@ function toggleAccountDrawer(open) {
             <div class="font-semibold text-[#b88a44] flex items-center gap-1.5">
               <span class="inline-flex"><svg class="w-4 h-4 text-[#b88a44] inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span><span>${defAddr.label || 'Home'} (${defAddr.locality || 'Freeganj'})</span>
             </div>
-            <div class="text-[#F5EBDD] mt-0.5">${defAddr.street || ''}</div>
-            ${defAddr.landmark ? `<div class="text-[#A49B91] text-[11px]">Landmark: Near ${defAddr.landmark}</div>` : ''}
+            <div class="text-[#1a1a1a] mt-0.5">${defAddr.street || ''}</div>
+            ${defAddr.landmark ? `<div class="text-[#6b6b6b] text-[11px]">Landmark: Near ${defAddr.landmark}</div>` : ''}
           `;
         } else {
-          addrCard.innerHTML = `<span class="text-[#706860]">No address saved yet.</span>`;
+          addrCard.innerHTML = `<span class="text-[#8c827a]">No address saved yet.</span>`;
         }
       }
     }
@@ -741,11 +741,11 @@ async function loadCustomerOrders() {
   if (!container) return;
 
   if (!state.customerToken) {
-    container.innerHTML = `<div class="py-6 text-center text-xs text-[#706860]">Please sign in to view past orders.</div>`;
+    container.innerHTML = `<div class="py-6 text-center text-xs text-[#8c827a]">Please sign in to view past orders.</div>`;
     return;
   }
 
-  container.innerHTML = `<div class="py-6 text-center text-xs text-[#A49B91]">Loading your gourmet orders...</div>`;
+  container.innerHTML = `<div class="py-6 text-center text-xs text-[#574F47]">Loading your gourmet orders...</div>`;
 
   try {
     const res = await fetch('/api/customer/orders', {
@@ -760,7 +760,7 @@ async function loadCustomerOrders() {
 
     if (orders.length === 0) {
       container.innerHTML = `
-        <div class="py-8 text-center text-xs text-[#706860] border border-[#b88a44]/10 rounded-xl bg-[#090807] p-4">
+        <div class="py-8 text-center text-xs text-[#8c827a] border border-[#eadcc8] rounded-xl bg-[#fffdf8] p-4">
           <svg class="w-8 h-8 text-[#b88a44] mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
           No orders logged yet. Check out viral snacks from the collection!
         </div>
@@ -775,23 +775,23 @@ async function loadCustomerOrders() {
       )}`;
 
       const statusBadgeClass = ord.status === 'Delivered' 
-        ? 'bg-emerald-950 text-emerald-300 border-emerald-500/30' 
+        ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
         : ord.status === 'Dispatched'
-        ? 'bg-purple-950 text-purple-300 border-purple-500/30'
-        : 'bg-amber-950 text-amber-300 border-amber-500/30';
+        ? 'bg-purple-50 text-purple-700 border-purple-200'
+        : 'bg-amber-50 text-amber-700 border-amber-200';
 
       return `
-        <div class="p-3.5 rounded-xl bg-[#0a0908] border border-[#b88a44]/15 space-y-2 text-xs">
+        <div class="p-3.5 rounded-xl bg-white border border-[#eadcc8] space-y-2 text-xs shadow-xs">
           <div class="flex items-center justify-between">
             <span class="font-mono font-bold text-[#b88a44]">${ord.id}</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full border ${statusBadgeClass}">${ord.status || 'Pending'}</span>
           </div>
-          <div class="text-[11px] text-[#A49B91]">
+          <div class="text-[11px] text-[#574F47]">
             ${items.map(it => `${it.quantity}x ${it.title}`).join(', ')}
           </div>
-          <div class="pt-2 border-t border-[#b88a44]/10 flex items-center justify-between">
-            <span class="font-mono font-bold text-[#F5EBDD]">₹${ord.total}</span>
-            <a href="${waLink}" target="_blank" class="text-[11px] text-emerald-400 hover:underline flex items-center gap-1">
+          <div class="pt-2 border-t border-[#eadcc8] flex items-center justify-between">
+            <span class="font-mono font-bold text-[#173c2d]">₹${ord.total}</span>
+            <a href="${waLink}" target="_blank" class="text-[11px] text-[#173c2d] hover:text-[#b88a44] font-semibold flex items-center gap-1">
               <span class="inline-flex items-center gap-1.5"><span>Track via WhatsApp</span><svg class="w-4 h-4 inline-block fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg></span>
             </a>
           </div>
@@ -800,7 +800,7 @@ async function loadCustomerOrders() {
     }).join('');
 
   } catch (err) {
-    container.innerHTML = `<div class="py-4 text-center text-xs text-rose-400">Failed to load order history.</div>`;
+    container.innerHTML = `<div class="py-4 text-center text-xs text-rose-600">Failed to load order history.</div>`;
   }
 }
 
