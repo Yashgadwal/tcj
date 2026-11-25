@@ -207,8 +207,15 @@ function renderProducts() {
   }
 
   container.innerHTML = filtered.map(prod => {
+    const hasVariants = prod.variants && prod.variants.length > 0;
+    const defaultVariant = hasVariants ? prod.variants[0] : null;
+    const currentPrice = defaultVariant ? defaultVariant.price : prod.price;
+    const currentMRP = defaultVariant ? defaultVariant.mrp : prod.originalPrice;
+    const currentImage = defaultVariant ? defaultVariant.image : prod.image;
+    const currentWeight = defaultVariant ? (defaultVariant.weight || prod.weight) : prod.weight;
+
     return `
-      <div class="product-card-3d card-3d-wrap">
+      <div class="product-card-3d card-3d-wrap" id="product-card-${prod.id}" data-product-id="${prod.id}" data-selected-variant="${defaultVariant ? defaultVariant.id : ''}">
         <div class="card-3d-inner group bg-white rounded-2xl border border-[#eadcc8] hover:border-[#b88a44] p-5 sm:p-6 flex flex-col justify-between h-full relative transition-all duration-300 shadow-xs hover:shadow-md">
           
           <!-- Top Badges & Origin -->
@@ -227,14 +234,14 @@ function renderProducts() {
 
           <!-- Product Image with Clean Ivory Surface -->
           <div 
-            onclick="openProductModal('${prod.id}')"
+            onclick="openProductModal('${prod.id}', document.getElementById('product-card-${prod.id}')?.dataset?.selectedVariant)"
             class="relative w-full aspect-square rounded-xl bg-[#fffdf8] border border-[#eadcc8]/60 overflow-hidden flex items-center justify-center p-4 cursor-pointer group-hover:border-[#b88a44]/50 transition-colors"
           >
             <img 
-              src="${prod.image}" 
+              src="${currentImage}" 
               alt="${prod.name}" 
               loading="lazy" 
-              class="max-h-full max-w-full object-contain filter drop-shadow-sm group-hover:scale-105 transition-transform duration-300 ${prod.inStock === false ? 'grayscale opacity-60' : ''}" 
+              class="product-card-img max-h-full max-w-full object-contain filter drop-shadow-sm group-hover:scale-105 transition-transform duration-300 ${prod.inStock === false ? 'grayscale opacity-60' : ''}" 
             />
           </div>
 
@@ -247,7 +254,7 @@ function renderProducts() {
                 <span class="text-[11px] text-[#8c827a]">(${prod.reviewsCount})</span>
               </div>
               <h3 
-                onclick="openProductModal('${prod.id}')"
+                onclick="openProductModal('${prod.id}', document.getElementById('product-card-${prod.id}')?.dataset?.selectedVariant)"
                 class="font-editorial text-base sm:text-lg font-bold text-[#173c2d] leading-snug cursor-pointer hover:text-[#b88a44] transition-colors line-clamp-2"
               >
                 ${prod.name}
@@ -255,6 +262,39 @@ function renderProducts() {
               <p class="text-xs text-[#6b6b6b] mt-1.5 line-clamp-2 leading-relaxed">
                 ${prod.description}
               </p>
+
+              <!-- Variants Selector Pills (Cards) -->
+              ${hasVariants ? `
+                <div class="mt-3 pt-2.5 border-t border-[#eadcc8]/60">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#b88a44]">Options (${prod.variants.length}):</span>
+                    <span class="text-[10px] text-[#6b6b6b] font-medium card-variant-weight">${currentWeight || ''}</span>
+                  </div>
+                  <div class="card-variant-pills flex flex-wrap gap-1.5">
+                    ${prod.variants.map((v, vIdx) => {
+                      const isSelected = vIdx === 0;
+                      return `
+                        <button 
+                          type="button"
+                          onclick="selectCardVariant('${prod.id}', '${v.id}', this, event)"
+                          data-variant-id="${v.id}"
+                          data-price="${v.price}"
+                          data-mrp="${v.mrp}"
+                          data-image="${v.image}"
+                          data-weight="${v.weight || ''}"
+                          class="variant-pill text-[11px] px-2.5 py-1 rounded-lg transition-all duration-200 cursor-pointer ${
+                            isSelected
+                              ? 'bg-[#173c2d] text-white font-bold shadow-xs'
+                              : 'bg-[#f7f1e8] text-[#574F47] hover:text-[#173c2d] hover:bg-[#eadcc8]/60 border border-[#eadcc8]'
+                          }"
+                        >
+                          ${v.name}
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+              ` : ''}
             </div>
 
             <!-- Tags -->
@@ -267,25 +307,25 @@ function renderProducts() {
             </div>
 
             <!-- Pricing and CTAs -->
-            <div class="mt-5 pt-4 border-t border-[#eadcc8]/60 flex items-center justify-between gap-2">
+            <div class="mt-4 pt-3 border-t border-[#eadcc8]/60 flex items-center justify-between gap-2">
               <div class="flex items-baseline gap-1.5">
-                <span class="font-mono text-xl sm:text-2xl font-bold text-[#173c2d]">₹${prod.price}</span>
-                ${prod.originalPrice ? `<span class="font-mono text-xs text-[#8c827a] line-through ml-1.5">₹${prod.originalPrice}</span>` : ''}
+                <span class="product-card-price font-mono text-xl sm:text-2xl font-bold text-[#173c2d]">₹${currentPrice}</span>
+                ${currentMRP ? `<span class="product-card-mrp font-mono text-xs text-[#8c827a] line-through ml-1.5">₹${currentMRP}</span>` : ''}
               </div>
 
               <div class="flex items-center gap-1.5">
                 ${prod.inStock !== false ? `
                   <button 
-                    onclick="buyNowSingleProduct('${prod.id}')"
-                    class="btn-green flex items-center justify-center gap-1 py-2 px-3 sm:px-3.5 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all shadow-xs hover:shadow-md active:scale-95"
+                    onclick="buyNowSingleProduct('${prod.id}', '${defaultVariant ? defaultVariant.id : ''}')"
+                    class="btn-card-buynow btn-green flex items-center justify-center gap-1 py-2 px-3 sm:px-3.5 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all shadow-xs hover:shadow-md active:scale-95"
                     aria-label="Buy Now"
                     title="Buy Now with Instant Guest or VIP Member Checkout"
                   >
                     <span class="inline-flex items-center gap-1"><svg class="w-3.5 h-3.5 inline-block fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg><span>Buy Now</span></span>
                   </button>
                   <button 
-                    onclick="addToCart('${prod.id}')"
-                    class="btn-secondary flex items-center justify-center gap-1 py-2 px-2.5 sm:px-3 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all shadow-xs active:scale-95"
+                    onclick="addToCart('${prod.id}', 1, '${defaultVariant ? defaultVariant.id : ''}')"
+                    class="btn-card-addbag btn-secondary flex items-center justify-center gap-1 py-2 px-2.5 sm:px-3 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all shadow-xs active:scale-95"
                     title="Add to Shopping Bag"
                     aria-label="Add to cart"
                   >
@@ -316,9 +356,68 @@ function renderProducts() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DYNAMIC CARD VARIANT PICKER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function selectCardVariant(productId, variantId, btnEl, event) {
+  if (event) {
+    event.stopPropagation();
+  }
+  const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === productId);
+  if (!prod || !prod.variants) return;
+
+  const variant = prod.variants.find(v => v.id === variantId);
+  if (!variant) return;
+
+  const cardWrap = document.getElementById('product-card-' + productId) || (btnEl ? btnEl.closest('.product-card-3d') : null);
+  if (!cardWrap) return;
+
+  cardWrap.dataset.selectedVariant = variantId;
+
+  const imgEl = cardWrap.querySelector('.product-card-img');
+  if (imgEl && variant.image) {
+    imgEl.src = variant.image;
+  }
+
+  const priceEl = cardWrap.querySelector('.product-card-price');
+  if (priceEl && variant.price !== undefined) {
+    priceEl.textContent = '₹' + variant.price;
+  }
+
+  const mrpEl = cardWrap.querySelector('.product-card-mrp');
+  if (mrpEl && variant.mrp) {
+    mrpEl.textContent = '₹' + variant.mrp;
+  }
+
+  const weightEl = cardWrap.querySelector('.card-variant-weight');
+  if (weightEl) {
+    weightEl.textContent = variant.weight || prod.weight || '';
+  }
+
+  const buyBtn = cardWrap.querySelector('.btn-card-buynow');
+  if (buyBtn) {
+    buyBtn.setAttribute('onclick', `buyNowSingleProduct('${productId}', '${variantId}')`);
+  }
+
+  const bagBtn = cardWrap.querySelector('.btn-card-addbag');
+  if (bagBtn) {
+    bagBtn.setAttribute('onclick', `addToCart('${productId}', 1, '${variantId}')`);
+  }
+
+  const pillContainer = cardWrap.querySelector('.card-variant-pills');
+  if (pillContainer) {
+    pillContainer.querySelectorAll('.variant-pill').forEach(p => {
+      p.className = 'variant-pill text-[11px] px-2.5 py-1 rounded-lg transition-all duration-200 cursor-pointer bg-[#f7f1e8] text-[#574F47] hover:text-[#173c2d] hover:bg-[#eadcc8]/60 border border-[#eadcc8]';
+    });
+    if (btnEl) {
+      btnEl.className = 'variant-pill text-[11px] px-2.5 py-1 rounded-lg transition-all duration-200 cursor-pointer bg-[#173c2d] text-white font-bold shadow-xs';
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INSTANT BUY NOW (DIRECT TO DUAL CHECKOUT MODAL)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function buyNowSingleProduct(productId) {
+function buyNowSingleProduct(productId, variantId) {
   const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === productId);
   if (!prod) {
     showToast('Product not found in catalog');
@@ -330,16 +429,14 @@ function buyNowSingleProduct(productId) {
     return;
   }
 
-  // Ensure item is in cart
-  const existing = state.cart.find(i => i.id === productId);
-  if (existing) {
-    if (existing.quantity < 1) existing.quantity = 1;
-  } else {
-    state.cart.push({ id: productId, quantity: 1 });
+  // Resolve variant if not supplied
+  if (!variantId && prod.variants && prod.variants.length > 0) {
+    const card = document.getElementById('product-card-' + productId);
+    variantId = (card && card.dataset.selectedVariant) || prod.defaultVariantId || prod.variants[0].id;
   }
 
-  saveCart();
-  updateCartUI();
+  // Add or increment item in cart keyed by variant
+  addToCart(productId, 1, variantId, true);
 
   // Close overlays
   closeProductModal();
@@ -350,10 +447,10 @@ function buyNowSingleProduct(productId) {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CART CONTROLLER & SUB-TOTAL LOGIC
+// CART CONTROLLER & SUB-TOTAL LOGIC (WITH VARIANTS)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function addToCart(productId) {
-  const prod = TCJ_PRODUCTS.find(p => p.id === productId);
+function addToCart(productId, quantity = 1, variantId = null, skipToast = false) {
+  const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === productId);
   if (!prod) return;
 
   if (prod.inStock === false) {
@@ -361,33 +458,52 @@ function addToCart(productId) {
     return;
   }
 
-  const existing = state.cart.find(i => i.id === productId);
+  // Resolve variant if not supplied
+  if (!variantId && prod.variants && prod.variants.length > 0) {
+    const card = document.getElementById('product-card-' + productId);
+    variantId = (card && card.dataset.selectedVariant) || prod.defaultVariantId || prod.variants[0].id;
+  }
+
+  const itemKey = variantId ? `${productId}__${variantId}` : productId;
+  const existing = state.cart.find(i => (i.key || (i.variantId ? `${i.id}__${i.variantId}` : i.id)) === itemKey);
+
+  const addQty = Number(quantity) || 1;
   if (existing) {
-    existing.quantity += 1;
+    existing.quantity += addQty;
   } else {
-    state.cart.push({ id: productId, quantity: 1 });
+    state.cart.push({
+      key: itemKey,
+      id: productId,
+      variantId: variantId || null,
+      quantity: addQty
+    });
   }
 
   saveCart();
   updateCartUI();
-  showToast(`Added ${prod.name} to your bag`);
+
+  if (!skipToast) {
+    const variantObj = (prod.variants && variantId) ? prod.variants.find(v => v.id === variantId) : null;
+    const variantLabel = variantObj ? ` (${variantObj.name})` : '';
+    showToast(`Added ${prod.name}${variantLabel} to your bag`);
+  }
 }
 
-function updateCartQuantity(productId, delta) {
-  const item = state.cart.find(i => i.id === productId);
+function updateCartQuantity(itemKey, delta) {
+  const item = state.cart.find(i => (i.key || (i.variantId ? `${i.id}__${i.variantId}` : i.id)) === itemKey);
   if (!item) return;
 
   item.quantity += delta;
   if (item.quantity <= 0) {
-    state.cart = state.cart.filter(i => i.id !== productId);
+    state.cart = state.cart.filter(i => (i.key || (i.variantId ? `${i.id}__${i.variantId}` : i.id)) !== itemKey);
   }
 
   saveCart();
   updateCartUI();
 }
 
-function removeFromCart(productId) {
-  state.cart = state.cart.filter(i => i.id !== productId);
+function removeFromCart(itemKey) {
+  state.cart = state.cart.filter(i => (i.key || (i.variantId ? `${i.id}__${i.variantId}` : i.id)) !== itemKey);
   saveCart();
   updateCartUI();
   showToast('Item removed from bag');
@@ -430,31 +546,40 @@ function updateCartUI() {
   let subtotal = 0;
 
   cartItemsContainer.innerHTML = state.cart.map(item => {
-    const prod = TCJ_PRODUCTS.find(p => p.id === item.id);
+    const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === item.id);
     if (!prod) return '';
 
-    const lineTotal = prod.price * item.quantity;
+    const variant = (prod.variants && item.variantId) 
+      ? prod.variants.find(v => v.id === item.variantId) 
+      : null;
+
+    const itemPrice = variant ? variant.price : prod.price;
+    const itemImage = (variant && variant.image) ? variant.image : prod.image;
+    const itemWeight = (variant && variant.weight) ? variant.weight : prod.weight;
+    const itemKey = item.key || (item.variantId ? `${item.id}__${item.variantId}` : item.id);
+    const lineTotal = itemPrice * item.quantity;
     subtotal += lineTotal;
 
     return `
       <div class="flex items-center gap-3 p-3.5 rounded-xl bg-white border border-[#eadcc8] mb-3 shadow-xs">
         <img 
-          src="${prod.image}" 
+          src="${itemImage}" 
           alt="${prod.name}" 
           class="w-16 h-16 object-contain rounded-lg bg-[#fffdf8] p-1 border border-[#eadcc8]/60 flex-shrink-0"
         />
         <div class="flex-grow min-w-0">
           <h4 class="font-editorial text-xs sm:text-sm font-bold text-[#173c2d] truncate leading-tight">${prod.name}</h4>
-          <span class="text-[11px] text-[#6b6b6b]">${prod.weight} • ${prod.country}</span>
-          <div class="font-mono text-xs font-bold text-[#173c2d] mt-1">₹${prod.price}</div>
+          ${variant ? `<span class="inline-block text-[11px] font-semibold text-[#b88a44]">${variant.name}</span>` : ''}
+          <div class="text-[11px] text-[#6b6b6b]">${itemWeight ? itemWeight + ' • ' : ''}${prod.country}</div>
+          <div class="font-mono text-xs font-bold text-[#173c2d] mt-1">₹${itemPrice}</div>
         </div>
         <div class="flex flex-col items-end gap-1 flex-shrink-0">
           <div class="flex items-center gap-1.5 bg-[#f7f1e8] px-2 py-1 rounded-lg border border-[#eadcc8]">
-            <button onclick="updateCartQuantity('${item.id}', -1)" class="text-xs text-[#173c2d] hover:text-[#b88a44] px-1 font-bold">−</button>
+            <button onclick="updateCartQuantity('${itemKey}', -1)" class="text-xs text-[#173c2d] hover:text-[#b88a44] px-1 font-bold">−</button>
             <span class="font-mono text-xs font-bold text-[#173c2d] px-1">${item.quantity}</span>
-            <button onclick="updateCartQuantity('${item.id}', 1)" class="text-xs text-[#173c2d] hover:text-[#b88a44] px-1 font-bold">+</button>
+            <button onclick="updateCartQuantity('${itemKey}', 1)" class="text-xs text-[#173c2d] hover:text-[#b88a44] px-1 font-bold">+</button>
           </div>
-          <button onclick="removeFromCart('${item.id}')" class="text-[10px] text-[#8c827a] hover:text-rose-500 transition-colors mt-0.5 font-medium">
+          <button onclick="removeFromCart('${itemKey}')" class="text-[10px] text-[#8c827a] hover:text-rose-500 transition-colors mt-0.5 font-medium">
             Remove
           </button>
         </div>
@@ -972,16 +1097,25 @@ async function handleCheckoutFormSubmit(e) {
   const orderItems = [];
 
   state.cart.forEach(item => {
-    const prod = TCJ_PRODUCTS.find(p => p.id === item.id);
+    const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === item.id);
     if (prod) {
-      const linePrice = prod.price * item.quantity;
+      const variant = (prod.variants && item.variantId) ? prod.variants.find(v => v.id === item.variantId) : null;
+      const itemPrice = variant ? variant.price : prod.price;
+      const itemWeight = (variant && variant.weight) ? variant.weight : (prod.weight || '');
+      const variantName = variant ? variant.name : '';
+      const linePrice = itemPrice * item.quantity;
       subtotal += linePrice;
-      itemsList += `• ${item.quantity}x ${prod.name} (${prod.weight || ''}) — ₹${linePrice}\n`;
+
+      const variantDisplay = variantName ? ` (${variantName})` : '';
+      itemsList += `• ${item.quantity}x ${prod.name}${variantDisplay}${itemWeight ? ' [' + itemWeight + ']' : ''} — ₹${linePrice}\n`;
       orderItems.push({
         id: prod.id,
-        title: prod.name,
-        price: prod.price,
+        variantId: item.variantId || null,
+        variantName: variantName || null,
+        title: prod.name + (variantName ? ` - ${variantName}` : ''),
+        price: itemPrice,
         quantity: item.quantity,
+        weight: itemWeight
       });
     }
   });
@@ -1093,8 +1227,9 @@ function openAccountFromSuccess() {
   }
 }
 
-function orderSingleItemWhatsApp(productName, price) {
+function orderSingleItemWhatsApp(productName, price, variantName = '') {
   // Asynchronously log 1-click inquiry into TCJ Admin Tracker
+  const displayTitle = productName + (variantName ? ` (${variantName})` : '');
   try {
     fetch('/api/orders', {
       method: 'POST',
@@ -1104,7 +1239,7 @@ function orderSingleItemWhatsApp(productName, price) {
         customerId: state.customer ? state.customer.id : null,
         phone: state.customer ? state.customer.phone : '',
         address: state.customer && state.customer.addresses && state.customer.addresses[0] ? state.customer.addresses[0].street + ', ' + state.customer.addresses[0].locality + ', Ujjain' : 'Instant 1-Click Inquiry',
-        items: [{ title: productName, price, quantity: 1 }],
+        items: [{ title: displayTitle, price, quantity: 1, variantName: variantName || null }],
         subtotal: price,
         deliveryFee: 0,
         total: price,
@@ -1116,7 +1251,7 @@ function orderSingleItemWhatsApp(productName, price) {
   const message = 
     `*TCJ GOURMET STORE — INSTANT REQUEST*\n` +
     `Hello Tapish! I'd like to order:\n` +
-    `• 1x ${productName} (₹${price})\n\n` +
+    `• 1x ${displayTitle} (₹${price})\n\n` +
     (state.customer ? `*Customer:* ${state.customer.name} (VIP Member)\n` : '') +
     `Please confirm instant availability & delivery time in Ujjain!`;
 
@@ -1127,18 +1262,28 @@ function orderSingleItemWhatsApp(productName, price) {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // PRODUCT QUICK VIEW MODAL
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function openProductModal(productId) {
-  const prod = TCJ_PRODUCTS.find(p => p.id === productId);
+function openProductModal(productId, selectedVariantId = null) {
+  const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === productId);
   if (!prod) return;
 
   const modal = document.getElementById('product-modal');
   const body = document.getElementById('product-modal-body');
   if (!modal || !body) return;
 
+  const hasVariants = prod.variants && prod.variants.length > 0;
+  const activeVariant = hasVariants 
+    ? ((selectedVariantId && prod.variants.find(v => v.id === selectedVariantId)) || prod.variants[0])
+    : null;
+
+  const currentPrice = activeVariant ? activeVariant.price : prod.price;
+  const currentMRP = activeVariant ? activeVariant.mrp : prod.originalPrice;
+  const currentImage = activeVariant ? activeVariant.image : prod.image;
+  const currentWeight = activeVariant ? (activeVariant.weight || prod.weight) : prod.weight;
+
   body.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
       <div class="flex items-center justify-center p-8 bg-[#fffdf8] rounded-2xl border border-[#eadcc8]/60">
-        <img src="${prod.image}" alt="${prod.name}" class="max-h-64 w-auto object-contain drop-shadow-md" />
+        <img id="modal-product-img" src="${currentImage}" alt="${prod.name}" class="max-h-64 w-auto object-contain drop-shadow-md" />
       </div>
 
       <div>
@@ -1146,7 +1291,7 @@ function openProductModal(productId) {
           <span class="px-2.5 py-0.5 rounded-full bg-[#173c2d]/10 text-[#173c2d] text-xs font-bold uppercase border border-[#173c2d]/20">
             ${prod.badge}
           </span>
-          <span class="text-xs text-[#6b6b6b] font-medium">${prod.country} • ${prod.weight}</span>
+          <span id="modal-product-weight" class="text-xs text-[#6b6b6b] font-medium">${prod.country}${currentWeight ? ' • ' + currentWeight : ''}</span>
         </div>
 
         <h3 class="font-editorial text-xl sm:text-2xl font-bold text-[#173c2d] leading-tight">
@@ -1163,6 +1308,35 @@ function openProductModal(productId) {
           ${prod.description}
         </p>
 
+        <!-- Variants Selector (Modal) -->
+        ${hasVariants ? `
+          <div class="my-3 pt-3 border-t border-[#eadcc8]/60">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#b88a44]">Select Flavor / Option:</span>
+              <span id="modal-variant-name-badge" class="text-xs font-semibold text-[#173c2d]">${activeVariant.name}</span>
+            </div>
+            <div id="modal-variant-options" class="flex flex-wrap gap-2">
+              ${prod.variants.map(v => {
+                const isSelected = v.id === activeVariant.id;
+                return `
+                  <button
+                    type="button"
+                    onclick="selectModalVariant('${prod.id}', '${v.id}', this)"
+                    data-variant-id="${v.id}"
+                    class="modal-variant-btn px-3 py-1.5 rounded-xl text-xs transition-all ${
+                      isSelected
+                        ? 'bg-[#173c2d] text-white font-bold shadow-sm ring-2 ring-[#b88a44]/50'
+                        : 'bg-[#f7f1e8] text-[#574F47] hover:text-[#173c2d] border border-[#eadcc8]'
+                    }"
+                  >
+                    ${v.name}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        ` : ''}
+
         <!-- Tags -->
         <div class="flex flex-wrap gap-1.5 my-3">
           ${(prod.tags || []).map(t => `
@@ -1175,19 +1349,21 @@ function openProductModal(productId) {
         <!-- Pricing & Action -->
         <div class="pt-4 border-t border-[#eadcc8]/60 flex items-center justify-between gap-3 mt-4">
           <div class="flex items-baseline gap-1.5">
-            <span class="font-mono text-2xl font-bold text-[#173c2d]">₹${prod.price}</span>
-            ${prod.originalPrice ? `<span class="font-mono text-sm text-[#8c827a] line-through ml-2">₹${prod.originalPrice}</span>` : ''}
+            <span id="modal-product-price" class="font-mono text-2xl font-bold text-[#173c2d]">₹${currentPrice}</span>
+            ${currentMRP ? `<span id="modal-product-mrp" class="font-mono text-sm text-[#8c827a] line-through ml-2">₹${currentMRP}</span>` : ''}
           </div>
 
           <div class="flex items-center gap-2">
             <button 
-              onclick="buyNowSingleProduct('${prod.id}'); closeProductModal();" 
+              id="modal-btn-buynow"
+              onclick="buyNowSingleProduct('${prod.id}', '${activeVariant ? activeVariant.id : ''}'); closeProductModal();" 
               class="btn-green px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:shadow-md active:scale-95 transition-all flex items-center gap-1.5"
             >
               <span class="inline-flex items-center gap-1"><svg class="w-3.5 h-3.5 inline-block fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg><span>Buy Now</span></span>
             </button>
             <button 
-              onclick="addToCart('${prod.id}'); closeProductModal();" 
+              id="modal-btn-addbag"
+              onclick="addToCart('${prod.id}', 1, '${activeVariant ? activeVariant.id : ''}'); closeProductModal();" 
               class="btn-secondary px-4 py-2.5 rounded-xl font-bold text-xs border border-[#eadcc8] hover:border-[#b88a44] transition-all flex items-center gap-1.5 active:scale-95"
             >
               <span class="inline-flex items-center gap-1"><svg class="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span>Add to Bag</span></span>
@@ -1199,6 +1375,52 @@ function openProductModal(productId) {
   `;
 
   modal.classList.remove('hidden');
+}
+
+function selectModalVariant(productId, variantId, btnEl) {
+  const prod = (typeof TCJ_PRODUCTS !== 'undefined' ? TCJ_PRODUCTS : []).find(p => p.id === productId);
+  if (!prod || !prod.variants) return;
+
+  const variant = prod.variants.find(v => v.id === variantId);
+  if (!variant) return;
+
+  const modal = document.getElementById('product-modal');
+  if (!modal) return;
+
+  const imgEl = modal.querySelector('#modal-product-img');
+  if (imgEl && variant.image) imgEl.src = variant.image;
+
+  const priceEl = modal.querySelector('#modal-product-price');
+  if (priceEl && variant.price !== undefined) priceEl.textContent = '₹' + variant.price;
+
+  const mrpEl = modal.querySelector('#modal-product-mrp');
+  if (mrpEl && variant.mrp) mrpEl.textContent = '₹' + variant.mrp;
+
+  const weightEl = modal.querySelector('#modal-product-weight');
+  if (weightEl) weightEl.textContent = `${prod.country}${variant.weight ? ' • ' + variant.weight : ''}`;
+
+  const badgeEl = modal.querySelector('#modal-variant-name-badge');
+  if (badgeEl) badgeEl.textContent = variant.name;
+
+  const buyBtn = modal.querySelector('#modal-btn-buynow');
+  if (buyBtn) {
+    buyBtn.setAttribute('onclick', `buyNowSingleProduct('${productId}', '${variantId}'); closeProductModal();`);
+  }
+
+  const bagBtn = modal.querySelector('#modal-btn-addbag');
+  if (bagBtn) {
+    bagBtn.setAttribute('onclick', `addToCart('${productId}', 1, '${variantId}'); closeProductModal();`);
+  }
+
+  const optionsContainer = modal.querySelector('#modal-variant-options');
+  if (optionsContainer) {
+    optionsContainer.querySelectorAll('.modal-variant-btn').forEach(btn => {
+      btn.className = 'modal-variant-btn px-3 py-1.5 rounded-xl text-xs transition-all bg-[#f7f1e8] text-[#574F47] hover:text-[#173c2d] border border-[#eadcc8]';
+    });
+    if (btnEl) {
+      btnEl.className = 'modal-variant-btn px-3 py-1.5 rounded-xl text-xs transition-all bg-[#173c2d] text-white font-bold shadow-sm ring-2 ring-[#b88a44]/50';
+    }
+  }
 }
 
 function closeProductModal() {

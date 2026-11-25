@@ -494,7 +494,7 @@
         const isInStock = p.inStock !== false;
         const catObj = state.categories.find(c => c.id === p.category);
         const catName = catObj ? `${catObj.icon || ''} ${catObj.name}` : p.category;
-        const img = p.image || 'assets/mockup/matcha-soda.png';
+        const img = p.image || 'assets/product/IMG_7139.JPG';
 
         return `
         <tr class="hover:bg-[#f7f1e8] transition-colors group">
@@ -504,10 +504,11 @@
                 <img src="${img}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'40\\' height=\\'40\\' fill=\\'%23888\\'><rect width=\\'40\\' height=\\'40\\' fill=\\'%23f7f1e8\\'/></svg>'">
               </div>
               <div class="min-w-0">
-                <div class="font-semibold text-[#173c2d] truncate max-w-xs sm:max-w-md">${escapeHtml(p.title)}</div>
-                <div class="text-[11px] text-[#574F47] flex items-center gap-1.5">
-                  <span class="truncate">${escapeHtml(p.origin || 'Imported')}</span>
-                  ${p.netWeight ? `&bull; <span>${escapeHtml(p.netWeight)}</span>` : ''}
+                <div class="font-semibold text-[#173c2d] truncate max-w-xs sm:max-w-md">${escapeHtml(p.title || p.name)}</div>
+                <div class="text-[11px] text-[#574F47] flex items-center gap-1.5 flex-wrap">
+                  <span class="truncate">${escapeHtml(p.origin || p.country || 'Imported Exclusive')}</span>
+                  ${(p.netWeight || p.weight) ? `&bull; <span>${escapeHtml(p.netWeight || p.weight)}</span>` : ''}
+                  ${p.variants && p.variants.length > 0 ? `&bull; <span class="px-1.5 py-0.5 rounded text-[10px] bg-[#b88a44]/15 text-[#996e2e] font-semibold">${p.variants.length} Variants</span>` : ''}
                 </div>
               </div>
             </div>
@@ -628,7 +629,7 @@
       origin: el.prodFormOrigin.value.trim() || 'Imported Exclusive',
       country: el.prodFormOrigin.value.trim() || 'Imported Exclusive',
       badge: el.prodFormBadge.value.trim() || undefined,
-      image: el.prodFormImage.value.trim() || 'assets/mockup/food-dubai-chocolate.png',
+      image: el.prodFormImage.value.trim() || 'assets/product/IMG_7139.JPG',
       description: el.prodFormDescription.value.trim(),
       tags: el.prodFormTags.value
         .split(',')
@@ -738,7 +739,7 @@
           .map(
             it => `
           <div class="flex items-center justify-between text-xs py-1.5 border-b border-[#eadcc8] last:border-none">
-            <span class="text-[#1a1a1a] font-medium">${it.quantity}x ${escapeHtml(it.title)}</span>
+            <span class="text-[#1a1a1a] font-medium">${it.quantity}x ${escapeHtml(it.title)}${it.variantName && !it.title.includes(it.variantName) ? ` <span class="text-[#b88a44] font-semibold text-[11px]">(${escapeHtml(it.variantName)})</span>` : ''}</span>
             <span class="font-mono font-bold text-[#173c2d]">₹${Number(it.price * it.quantity).toLocaleString('en-IN')}</span>
           </div>
         `

@@ -346,12 +346,12 @@ const server = http.createServer(async (req, res) => {
       price: Number(body.price),
       originalPrice: Number(body.originalPrice || body.mrp || body.price),
       mrp: Number(body.mrp || body.originalPrice || body.price),
-      badge: body.badge || '✨ Gourmet Exclusive',
+      badge: body.badge || 'Gourmet Exclusive',
       weight: body.weight || body.netWeight || '100g',
       netWeight: body.netWeight || body.weight || '100g',
-      country: body.country || body.origin || '🇮🇳 India',
-      origin: body.origin || body.country || '🇮🇳 India',
-      image: body.image || 'assets/mockup/food-dubai-chocolate.png',
+      country: body.country || body.origin || 'Imported Exclusive',
+      origin: body.origin || body.country || 'Imported Exclusive',
+      image: body.image || 'assets/product/IMG_7139.JPG',
       rating: Number(body.rating || 5.0),
       reviewsCount: Number(body.reviewsCount || 10),
       inStock: body.inStock !== false,
@@ -446,7 +446,7 @@ const server = http.createServer(async (req, res) => {
       subtitle: body.subtitle || '',
       badge: body.badge || '',
       icon: body.icon || '?',
-      image: body.image || 'assets/mockup/food-dubai-chocolate.png'
+      image: body.image || 'assets/product/IMG_7139.JPG'
     };
 
     if (existingIdx !== -1) {
@@ -564,19 +564,19 @@ const server = http.createServer(async (req, res) => {
     }
 
     try {
-      const mockupDir = path.join(BASE_DIR, 'assets', 'mockup');
-      if (!fs.existsSync(mockupDir)) fs.mkdirSync(mockupDir, { recursive: true });
+      const uploadDir = path.join(BASE_DIR, 'assets', 'product');
+      if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
       const cleanName = body.name.toLowerCase().replace(/[^a-z0-9.]/g, '-');
       const filename = `upload-${Date.now()}-${cleanName}`;
-      const targetPath = path.join(mockupDir, filename);
+      const targetPath = path.join(uploadDir, filename);
 
       const base64Data = body.data.replace(/^data:image\/\w+;base64,/, '');
       fs.writeFileSync(targetPath, Buffer.from(base64Data, 'base64'));
 
       return sendJson(res, 200, {
         success: true,
-        url: `assets/mockup/${filename}`
+        url: `assets/product/${filename}`
       });
     } catch (err) {
       console.error('Upload error:', err);

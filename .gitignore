@@ -13,3 +13,6 @@ node_modules/
 # Editor directories
 .vscode/
 .idea/
+
+# Backups
+assets/product_originals_backup/
