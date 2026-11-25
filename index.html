@@ -868,6 +868,67 @@
         <!-- Injected dynamically via js/app.js -->
       </div>
 
+      <!-- Prominent "Explore Entire Shop" Bar right after product grid -->
+      <div class="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#173c2d] to-[#1f4e3b] text-[#fffdf8] flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg border border-[#b88a44]/30">
+        <div class="flex items-center gap-4 text-center md:text-left">
+          <div class="w-12 h-12 rounded-2xl bg-[#b88a44]/20 border border-[#b88a44]/40 flex items-center justify-center text-[#f6c86a] flex-shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-editorial text-lg sm:text-xl font-bold tracking-wide">
+              Craving More? Explore Our Entire Vault of 71 Import Delicacies
+            </h3>
+            <p class="text-xs text-[#eadcc8] mt-1">
+              From viral Dubai chocolate bars &amp; Monster energy editions to Korean Buldak ramen, Prime &amp; Reese's.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <a href="/shop" class="btn-gold px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase flex items-center gap-2 shadow-md hover:scale-105 active:scale-95 transition-all">
+            <span>View All Products in Shop</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Pagination Controls & View All Bar -->
+      <div id="products-pagination-wrapper" class="mt-8 flex flex-col items-center gap-6">
+        
+        <!-- Pagination Nav Buttons -->
+        <div id="products-pagination" class="flex flex-wrap items-center justify-center gap-2">
+          <!-- Dynamically populated via js/app.js -->
+        </div>
+
+        <!-- Pagination Info & View All Actions -->
+        <div class="flex flex-col sm:flex-row items-center justify-between w-full pt-6 border-t border-[#eadcc8] gap-4">
+          <div id="pagination-info" class="text-xs text-[#574F47] font-medium font-mono">
+            <!-- Dynamically populated via js/app.js -->
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- Toggle View All / Paginated on page -->
+            <button 
+              id="toggle-view-all-btn" 
+              onclick="toggleViewAllProducts()" 
+              class="px-4 py-2.5 rounded-xl border border-[#eadcc8] bg-white hover:bg-[#f7f1e8] text-xs font-bold text-[#173c2d] hover:text-[#b88a44] transition-all shadow-xs flex items-center gap-1.5"
+            >
+              <svg class="w-4 h-4 text-[#b88a44] inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+              <span id="toggle-view-all-text">Show All on Page</span>
+            </button>
+
+            <!-- Dedicated Shop All Page Link -->
+            <a 
+              href="/shop" 
+              class="btn-green px-5 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:shadow-md flex items-center gap-2 transition-all"
+            >
+              <span>Explore Full Shop (71 Items)</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </section>
 

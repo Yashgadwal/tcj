@@ -9,6 +9,9 @@ const state = {
   searchQuery: '',
   sortBy: 'featured',
   inStockOnly: false,
+  currentPage: 1,
+  itemsPerPage: 12,
+  viewAll: false,
   cart: [],
   wishlist: [],
   customer: null,
@@ -147,6 +150,7 @@ function renderCategoryPills() {
 
 function setCategory(catId) {
   state.activeCategory = catId;
+  state.currentPage = 1;
   renderCategoryPills();
   renderProducts();
 
@@ -165,6 +169,7 @@ function setCategory(catId) {
 
 function setSortBy(val) {
   state.sortBy = val;
+  state.currentPage = 1;
   renderProducts();
   if (typeof renderProductsTableView === 'function') {
     renderProductsTableView();
@@ -173,6 +178,7 @@ function setSortBy(val) {
 
 function setInStockFilter(checked) {
   state.inStockOnly = Boolean(checked);
+  state.currentPage = 1;
   renderProducts();
   if (typeof renderProductsTableView === 'function') {
     renderProductsTableView();
@@ -185,6 +191,7 @@ function setInStockFilter(checked) {
 function renderProducts() {
   const container = document.getElementById('products-grid');
   const countLabel = document.getElementById('products-count-label');
+  const paginationWrapper = document.getElementById('products-pagination-wrapper');
   if (!container || typeof TCJ_PRODUCTS === 'undefined') return;
 
   let filtered = [...TCJ_PRODUCTS];
@@ -227,6 +234,7 @@ function renderProducts() {
   }
 
   if (filtered.length === 0) {
+    if (paginationWrapper) paginationWrapper.classList.add('hidden');
     container.innerHTML = `
       <div class="col-span-full py-16 text-center">
         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#f7f1e8] border border-[#eadcc8] flex items-center justify-center text-[#173c2d]">
@@ -245,7 +253,24 @@ function renderProducts() {
     return;
   }
 
-  container.innerHTML = filtered.map(prod => {
+  // Determine items to slice for pagination (if pagination container exists on current page)
+  let itemsToRender = filtered;
+  if (paginationWrapper) {
+    paginationWrapper.classList.remove('hidden');
+    if (!state.viewAll) {
+      const totalPages = Math.ceil(filtered.length / state.itemsPerPage) || 1;
+      if (state.currentPage > totalPages) {
+        state.currentPage = totalPages;
+      }
+      if (state.currentPage < 1) {
+        state.currentPage = 1;
+      }
+      const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+      itemsToRender = filtered.slice(startIndex, startIndex + state.itemsPerPage);
+    }
+  }
+
+  container.innerHTML = itemsToRender.map(prod => {
     const hasVariants = prod.variants && prod.variants.length > 0;
     const defaultVariant = hasVariants ? prod.variants[0] : null;
     const currentPrice = defaultVariant ? defaultVariant.price : prod.price;
@@ -391,6 +416,155 @@ function renderProducts() {
 
   if (typeof window.attach3DTiltListeners === 'function') {
     window.attach3DTiltListeners();
+  }
+
+  if (paginationWrapper && filtered.length > 0) {
+    renderPagination(filtered.length);
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PAGINATION CONTROLS & LOGIC
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderPagination(totalItems) {
+  const paginationEl = document.getElementById('products-pagination');
+  const infoEl = document.getElementById('pagination-info');
+  const toggleBtnText = document.getElementById('toggle-view-all-text');
+  if (!paginationEl) return;
+
+  const totalPages = Math.ceil(totalItems / state.itemsPerPage) || 1;
+
+  if (state.viewAll) {
+    paginationEl.innerHTML = `
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-[#b88a44] bg-[#b88a44]/10 border border-[#b88a44]/30 px-3.5 py-1.5 rounded-full font-mono font-bold">
+          Viewing All ${totalItems} Delicacies
+        </span>
+      </div>
+    `;
+    if (infoEl) {
+      infoEl.innerHTML = `Showing all <span class="font-bold text-[#173c2d]">${totalItems}</span> authentic delicacies without pagination`;
+    }
+    if (toggleBtnText) {
+      toggleBtnText.textContent = 'Switch to Pages (12/page)';
+    }
+    return;
+  }
+
+  if (toggleBtnText) {
+    toggleBtnText.textContent = 'Show All on Page';
+  }
+
+  const startItem = (state.currentPage - 1) * state.itemsPerPage + 1;
+  const endItem = Math.min(state.currentPage * state.itemsPerPage, totalItems);
+
+  if (infoEl) {
+    infoEl.innerHTML = `Showing <span class="font-bold text-[#173c2d]">${startItem}–${endItem}</span> of <span class="font-bold text-[#173c2d]">${totalItems}</span> items &bull; Page <span class="font-bold text-[#173c2d]">${state.currentPage}</span> of <span class="font-bold text-[#173c2d]">${totalPages}</span>`;
+  }
+
+  if (totalPages <= 1) {
+    paginationEl.innerHTML = '';
+    return;
+  }
+
+  let html = '';
+
+  // Previous Page Button
+  const isFirstPage = state.currentPage === 1;
+  html += `
+    <button 
+      onclick="${isFirstPage ? '' : `changePage(${state.currentPage - 1})`}"
+      class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+        isFirstPage 
+          ? 'opacity-40 cursor-not-allowed bg-[#f7f1e8] text-[#8c827a] border border-[#eadcc8]' 
+          : 'bg-white border border-[#eadcc8] text-[#173c2d] hover:border-[#b88a44] hover:bg-[#f7f1e8] hover:text-[#b88a44] shadow-xs active:scale-95'
+      }"
+      ${isFirstPage ? 'disabled' : ''}
+      title="Previous Page"
+    >
+      <svg class="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      <span>Prev</span>
+    </button>
+  `;
+
+  // Numbered Page Buttons
+  let pages = [];
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages.push(1);
+    if (state.currentPage > 3) pages.push('...');
+    const start = Math.max(2, state.currentPage - 1);
+    const end = Math.min(totalPages - 1, state.currentPage + 1);
+    for (let i = start; i <= end; i++) pages.push(i);
+    if (state.currentPage < totalPages - 2) pages.push('...');
+    pages.push(totalPages);
+  }
+
+  pages.forEach(p => {
+    if (p === '...') {
+      html += `<span class="w-8 h-9 flex items-center justify-center text-xs font-mono text-[#8c827a]">...</span>`;
+    } else {
+      const isActive = p === state.currentPage;
+      html += `
+        <button 
+          onclick="changePage(${p})"
+          class="w-9 h-9 rounded-xl text-xs font-bold transition-all flex items-center justify-center ${
+            isActive
+              ? 'bg-[#173c2d] text-[#fffdf8] shadow-md shadow-[#173c2d]/20 scale-105 border border-[#173c2d]'
+              : 'bg-white border border-[#eadcc8] text-[#173c2d] hover:border-[#b88a44] hover:bg-[#f7f1e8] hover:text-[#b88a44] shadow-xs active:scale-95'
+          }"
+          title="Page ${p}"
+        >
+          ${p}
+        </button>
+      `;
+    }
+  });
+
+  // Next Page Button
+  const isLastPage = state.currentPage === totalPages;
+  html += `
+    <button 
+      onclick="${isLastPage ? '' : `changePage(${state.currentPage + 1})`}"
+      class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+        isLastPage 
+          ? 'opacity-40 cursor-not-allowed bg-[#f7f1e8] text-[#8c827a] border border-[#eadcc8]' 
+          : 'bg-white border border-[#eadcc8] text-[#173c2d] hover:border-[#b88a44] hover:bg-[#f7f1e8] hover:text-[#b88a44] shadow-xs active:scale-95'
+      }"
+      ${isLastPage ? 'disabled' : ''}
+      title="Next Page"
+    >
+      <span>Next</span>
+      <svg class="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  `;
+
+  paginationEl.innerHTML = html;
+}
+
+function changePage(page) {
+  state.currentPage = Number(page);
+  renderProducts();
+  const prodSec = document.getElementById('collection-section') || document.getElementById('products-grid');
+  if (prodSec) {
+    const yOffset = -90;
+    const y = prodSec.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+
+function toggleViewAllProducts() {
+  state.viewAll = !state.viewAll;
+  renderProducts();
+  const prodSec = document.getElementById('collection-section') || document.getElementById('products-grid');
+  if (prodSec) {
+    const yOffset = -90;
+    const y = prodSec.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+  if (typeof showToast === 'function') {
+    showToast(state.viewAll ? 'Showing all delicacies on page' : 'Switched to paginated view (12/page)');
   }
 }
 
@@ -1520,12 +1694,14 @@ function toggleSearch(open) {
 
 function handleSearch(val) {
   state.searchQuery = val;
+  state.currentPage = 1;
   renderProducts();
 }
 
 function clearSearch() {
   state.searchQuery = '';
-  const input = document.getElementById('mobile-search-input');
+  state.currentPage = 1;
+  const input = document.getElementById('mobile-search-input') || document.getElementById('shop-search-input');
   if (input) input.value = '';
   renderProducts();
 }
