@@ -1,24 +1,5 @@
 [
   {
-    "id": "test-caviar-crisps-1795190592832",
-    "name": "Test Iranian Caviar Crisps",
-    "category": "international-snacks",
-    "price": 899,
-    "originalPrice": 850,
-    "badge": "Updated Test",
-    "weight": "100g",
-    "country": "???? India",
-    "image": "assets/mockup/food-dubai-chocolate.png",
-    "rating": 5,
-    "reviewsCount": 10,
-    "inStock": false,
-    "stockQuantity": 50,
-    "tags": [],
-    "description": "Crisp potatoes infused with golden Caspian caviar.",
-    "createdAt": "2026-11-20T16:03:12.833Z",
-    "updatedAt": "2026-11-20T16:03:12.844Z"
-  },
-  {
     "id": "dubai-knafeh-chocolate",
     "name": "Dubai Knafeh Pistachio Chocolate Bar",
     "category": "dubai-specials",

@@ -179,12 +179,12 @@
   // --- Toast Notifications ---
   function showToast(message, type = 'success') {
     const toast = document.createElement('div');
-    toast.className = `p-4 rounded-xl shadow-2xl flex items-center gap-3 border transition-all duration-300 pointer-events-auto transform translate-y-2 opacity-0 text-xs font-medium ${
+    toast.className = `p-4 rounded-xl shadow-xl flex items-center gap-3 border transition-all duration-300 pointer-events-auto transform translate-y-2 opacity-0 text-xs font-semibold ${
       type === 'success'
-        ? 'bg-emerald-950/90 border-emerald-500/40 text-emerald-200'
+        ? 'bg-emerald-50 border-emerald-300 text-emerald-900 shadow-emerald-900/10'
         : type === 'error'
-        ? 'bg-red-950/90 border-red-500/40 text-red-200'
-        : 'bg-[#181513]/95 border-[#b88a44]/40 text-[#F5EBDD]'
+        ? 'bg-red-50 border-red-300 text-red-900 shadow-red-900/10'
+        : 'bg-white border-[#eadcc8] text-[#173c2d] shadow-black/5'
     }`;
 
     const iconName = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-triangle' : 'info';
@@ -347,14 +347,14 @@
     const isOpen = state.settings.storeOpen !== false;
     if (isOpen) {
       el.storeStatusPill.className =
-        'flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-medium';
+        'flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium';
       el.storeStatusPill.innerHTML =
-        '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>Store Open</span>';
+        '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>Store Open</span>';
     } else {
       el.storeStatusPill.className =
-        'flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/60 border border-red-500/30 text-red-300 text-xs font-medium';
+        'flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-800 text-xs font-medium';
       el.storeStatusPill.innerHTML =
-        '<span class="w-2 h-2 rounded-full bg-red-400"></span><span>Orders Paused</span>';
+        '<span class="w-2 h-2 rounded-full bg-red-500"></span><span>Orders Paused</span>';
     }
 
     if (state.settings.conciergePhone) {
@@ -391,7 +391,7 @@
     const recent = [...state.orders].slice(0, 5);
     if (recent.length === 0) {
       el.overviewRecentOrders.innerHTML = `
-        <div class="py-8 text-center text-xs text-[#A49B91]">
+        <div class="py-8 text-center text-xs text-[#574F47]">
           No orders or WhatsApp inquiries logged yet. Test checkouts from the storefront will appear here!
         </div>
       `;
@@ -401,20 +401,20 @@
           order => `
         <div class="py-3.5 flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-[#181513] border border-[#b88a44]/20 flex items-center justify-center text-xs font-bold text-[#b88a44] flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-[#f7f1e8] border border-[#eadcc8] flex items-center justify-center text-xs font-bold text-[#173c2d] flex-shrink-0">
               ${(order.customerName || 'G')[0].toUpperCase()}
             </div>
             <div class="min-w-0">
               <div class="flex items-center gap-2">
-                <span class="text-xs font-semibold text-[#F5EBDD] truncate">${escapeHtml(order.customerName || 'Gourmet Patron')}</span>
+                <span class="text-xs font-semibold text-[#173c2d] truncate">${escapeHtml(order.customerName || 'Gourmet Patron')}</span>
                 <span class="text-[10px] px-2 py-0.5 rounded-full border ${getStatusBadgeClass(order.status)}">${escapeHtml(order.status || 'Pending')}</span>
               </div>
-              <p class="text-[11px] text-[#A49B91] truncate">
+              <p class="text-[11px] text-[#574F47] truncate">
                 ${order.items ? order.items.length : 0} items &bull; ₹${Number(order.total || 0).toLocaleString('en-IN')} &bull; ${formatTimestamp(order.createdAt)}
               </p>
             </div>
           </div>
-          <button data-order-chat="${order.id}" class="btn-secondary-admin text-xs px-2.5 py-1.5 flex-shrink-0 hover:text-emerald-400" title="Chat on WhatsApp">
+          <button data-order-chat="${order.id}" class="btn-secondary-admin text-xs px-2.5 py-1.5 flex-shrink-0 hover:text-emerald-700" title="Chat on WhatsApp">
             <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
             <span class="hidden sm:inline">WhatsApp</span>
           </button>
@@ -433,14 +433,14 @@
         return `
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs">
-            <span class="text-[#F5EBDD] flex items-center gap-1.5">
+            <span class="text-[#173c2d] font-medium flex items-center gap-1.5">
               <span>${cat.icon ? '' : '•'}</span>
               <span>${escapeHtml(cat.name)}</span>
             </span>
-            <span class="font-mono text-[11px] text-[#A49B91]">${count} items (${pct}%)</span>
+            <span class="font-mono text-[11px] text-[#574F47]">${count} items (${pct}%)</span>
           </div>
-          <div class="w-full bg-[#161412] rounded-full h-1.5 overflow-hidden">
-            <div class="bg-[#b88a44] h-1.5 rounded-full" style="width: ${pct}%"></div>
+          <div class="w-full bg-[#eadcc8] rounded-full h-1.5 overflow-hidden">
+            <div class="bg-[#173c2d] h-1.5 rounded-full" style="width: ${pct}%"></div>
           </div>
         </div>
       `;
@@ -479,7 +479,7 @@
     if (filtered.length === 0) {
       el.productsTableBody.innerHTML = `
         <tr>
-          <td colspan="7" class="py-12 text-center text-[#A49B91]">
+          <td colspan="7" class="py-12 text-center text-[#574F47]">
             <i data-lucide="package-x" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
             <p>No delicacies match your filter criteria.</p>
           </td>
@@ -497,35 +497,35 @@
         const img = p.image || 'assets/mockup/matcha-soda.png';
 
         return `
-        <tr class="hover:bg-[#151311] transition-colors group">
+        <tr class="hover:bg-[#f7f1e8] transition-colors group">
           <td class="py-3 px-4">
             <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-lg bg-[#181513] border border-[#b88a44]/20 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                <img src="${img}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'40\\' height=\\'40\\' fill=\\'%23555\\'><rect width=\\'40\\' height=\\'40\\' fill=\\'%2312100e\\'/></svg>'">
+              <div class="w-11 h-11 rounded-lg bg-[#f7f1e8] border border-[#eadcc8] overflow-hidden flex-shrink-0 flex items-center justify-center">
+                <img src="${img}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'40\\' height=\\'40\\' fill=\\'%23888\\'><rect width=\\'40\\' height=\\'40\\' fill=\\'%23f7f1e8\\'/></svg>'">
               </div>
               <div class="min-w-0">
-                <div class="font-semibold text-[#F5EBDD] truncate max-w-xs sm:max-w-md">${escapeHtml(p.title)}</div>
-                <div class="text-[11px] text-[#A49B91] flex items-center gap-1.5">
+                <div class="font-semibold text-[#173c2d] truncate max-w-xs sm:max-w-md">${escapeHtml(p.title)}</div>
+                <div class="text-[11px] text-[#574F47] flex items-center gap-1.5">
                   <span class="truncate">${escapeHtml(p.origin || 'Imported')}</span>
                   ${p.netWeight ? `&bull; <span>${escapeHtml(p.netWeight)}</span>` : ''}
                 </div>
               </div>
             </div>
           </td>
-          <td class="py-3 px-4 text-[#A49B91] text-xs whitespace-nowrap">
-            <span class="px-2 py-0.5 rounded-md bg-[#181513] border border-[#b88a44]/15 text-[#b88a44]">${escapeHtml(catName)}</span>
+          <td class="py-3 px-4 text-[#574F47] text-xs whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded-md bg-[#f7f1e8] border border-[#eadcc8] text-[#173c2d] font-medium">${escapeHtml(catName)}</span>
           </td>
-          <td class="py-3 px-4 font-mono font-bold text-[#F5EBDD] whitespace-nowrap">
+          <td class="py-3 px-4 font-mono font-bold text-[#173c2d] whitespace-nowrap">
             ₹${Number(p.price || 0).toLocaleString('en-IN')}
           </td>
-          <td class="py-3 px-4 font-mono text-[#706860] line-through whitespace-nowrap">
+          <td class="py-3 px-4 font-mono text-[#8c827a] line-through whitespace-nowrap">
             ${p.mrp ? `₹${Number(p.mrp).toLocaleString('en-IN')}` : '-'}
           </td>
           <td class="py-3 px-4 whitespace-nowrap">
             ${
               p.badge
-                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-[#b88a44]/15 text-[#b88a44] border border-[#b88a44]/30">${escapeHtml(p.badge)}</span>`
-                : '<span class="text-[#555]">-</span>'
+                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-[#b88a44]/15 text-[#996e2e] border border-[#b88a44]/30">${escapeHtml(p.badge)}</span>`
+                : '<span class="text-[#8c827a]">-</span>'
             }
           </td>
           <td class="py-3 px-4 text-center whitespace-nowrap">
@@ -536,10 +536,10 @@
           </td>
           <td class="py-3 px-4 text-right whitespace-nowrap">
             <div class="inline-flex items-center gap-1.5">
-              <button data-edit-prod="${p.id}" class="p-1.5 text-[#A49B91] hover:text-[#b88a44] hover:bg-[#1a1715] rounded-lg transition-colors" title="Edit Delicacy">
+              <button data-edit-prod="${p.id}" class="p-1.5 text-[#574F47] hover:text-[#173c2d] hover:bg-[#f7f1e8] rounded-lg transition-colors" title="Edit Delicacy">
                 <i data-lucide="edit-3" class="w-4 h-4"></i>
               </button>
-              <button data-delete-prod="${p.id}" class="p-1.5 text-[#A49B91] hover:text-red-400 hover:bg-red-950/30 rounded-lg transition-colors" title="Delete Delicacy">
+              <button data-delete-prod="${p.id}" class="p-1.5 text-[#574F47] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete Delicacy">
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
               </button>
             </div>
@@ -687,17 +687,17 @@
   function getStatusBadgeClass(status) {
     switch (status) {
       case 'Pending':
-        return 'bg-amber-950/60 text-amber-300 border-amber-500/30';
+        return 'bg-amber-50 text-amber-800 border-amber-300';
       case 'Contacted':
-        return 'bg-blue-950/60 text-blue-300 border-blue-500/30';
+        return 'bg-blue-50 text-blue-800 border-blue-300';
       case 'Dispatched':
-        return 'bg-purple-950/60 text-purple-300 border-purple-500/30';
+        return 'bg-purple-50 text-purple-800 border-purple-300';
       case 'Delivered':
-        return 'bg-emerald-950/60 text-emerald-300 border-emerald-500/30';
+        return 'bg-emerald-50 text-emerald-800 border-emerald-300';
       case 'Cancelled':
-        return 'bg-red-950/60 text-red-300 border-red-500/30';
+        return 'bg-red-50 text-red-800 border-red-300';
       default:
-        return 'bg-zinc-800 text-zinc-300 border-zinc-700';
+        return 'bg-gray-100 text-gray-800 border-gray-300';
     }
   }
 
@@ -721,10 +721,10 @@
 
     if (filtered.length === 0) {
       el.ordersCardsContainer.innerHTML = `
-        <div class="admin-card p-12 text-center text-[#A49B91] rounded-2xl">
+        <div class="admin-card p-12 text-center text-[#574F47] rounded-2xl">
           <i data-lucide="shopping-bag" class="w-10 h-10 mx-auto mb-3 opacity-40 text-[#b88a44]"></i>
-          <p class="font-medium">No customer inquiries found for filter: <span class="text-[#b88a44]">${state.orderStatusFilter}</span></p>
-          <p class="text-xs text-[#706860] mt-1">When customers click "Proceed via WhatsApp Concierge" on the live store, orders appear here in real-time.</p>
+          <p class="font-medium">No customer inquiries found for filter: <span class="text-[#173c2d] font-bold">${state.orderStatusFilter}</span></p>
+          <p class="text-xs text-[#6b6b6b] mt-1">When customers click "Proceed via WhatsApp Concierge" on the live store, orders appear here in real-time.</p>
         </div>
       `;
       if (window.lucide) lucide.createIcons();
@@ -737,9 +737,9 @@
         const itemsHtml = items
           .map(
             it => `
-          <div class="flex items-center justify-between text-xs py-1 border-b border-[#b88a44]/10 last:border-none">
-            <span class="text-[#F5EBDD]">${it.quantity}x ${escapeHtml(it.title)}</span>
-            <span class="font-mono text-[#b88a44]">₹${Number(it.price * it.quantity).toLocaleString('en-IN')}</span>
+          <div class="flex items-center justify-between text-xs py-1.5 border-b border-[#eadcc8] last:border-none">
+            <span class="text-[#1a1a1a] font-medium">${it.quantity}x ${escapeHtml(it.title)}</span>
+            <span class="font-mono font-bold text-[#173c2d]">₹${Number(it.price * it.quantity).toLocaleString('en-IN')}</span>
           </div>
         `
           )
@@ -752,31 +752,31 @@
 
         return `
         <div class="admin-card p-5 sm:p-6 rounded-2xl space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#b88a44]/15">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#eadcc8]">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-[#181513] border border-[#b88a44]/20 flex items-center justify-center font-bold text-[#b88a44]">
+              <div class="w-10 h-10 rounded-full bg-[#f7f1e8] border border-[#eadcc8] flex items-center justify-center font-bold text-xs text-[#173c2d]">
                 #${(o.id || '').slice(-4).toUpperCase()}
               </div>
               <div>
                 <div class="flex flex-wrap items-center gap-2">
-                  <h4 class="font-editorial text-base font-bold text-[#F5EBDD]">${escapeHtml(o.customerName || 'Gourmet Patron')}</h4>
+                  <h4 class="font-editorial text-base font-bold text-[#173c2d]">${escapeHtml(o.customerName || 'Gourmet Patron')}</h4>
                   ${o.isGuest === false || o.customerId ? `
-                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#b88a44]/15 text-[#b88a44] border border-[#b88a44]/30 flex items-center gap-1">
+                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#b88a44]/15 text-[#996e2e] border border-[#b88a44]/30 flex items-center gap-1">
                       <svg class="w-3.5 h-3.5 inline-block mr-1 text-[#b88a44]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l4 4 5-7 5 7 4-4v11H3V7z"/><line x1="3" y1="21" x2="21" y2="21"/></svg> VIP Member
                     </span>
                   ` : `
-                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25 flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 inline-block mr-1 text-amber-500 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg> Guest Order
+                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5 inline-block mr-1 text-amber-600 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg> Guest Order
                     </span>
                   `}
                   <span class="text-[10px] px-2.5 py-0.5 rounded-full font-semibold border ${getStatusBadgeClass(o.status)}">${escapeHtml(o.status || 'Pending')}</span>
                 </div>
-                <div class="text-[11px] text-[#A49B91] flex flex-wrap items-center gap-2 mt-0.5">
-                  <span class="font-mono text-[#F5EBDD]">${escapeHtml(o.customerPhone || '-')}</span>
+                <div class="text-[11px] text-[#574F47] flex flex-wrap items-center gap-2 mt-0.5">
+                  <span class="font-mono text-[#173c2d] font-semibold">${escapeHtml(o.customerPhone || '-')}</span>
                   &bull;
                   <span>${formatTimestamp(o.createdAt)}</span>
                   &bull;
-                  <span class="px-2 py-0.5 rounded bg-[#1e1914] text-[10px] text-[#b88a44] border border-[#b88a44]/20">${escapeHtml(o.paymentMode || 'UPI on Delivery')}</span>
+                  <span class="px-2 py-0.5 rounded bg-[#f7f1e8] text-[10px] text-[#173c2d] border border-[#eadcc8] font-medium">${escapeHtml(o.paymentMode || 'UPI on Delivery')}</span>
                 </div>
               </div>
             </div>
@@ -800,29 +800,29 @@
 
           <!-- Items Breakdown -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="md:col-span-2 space-y-2 bg-[#0d0c0a] p-3.5 rounded-xl border border-[#b88a44]/10">
-              <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860]">Curated Items Ordered</span>
+            <div class="md:col-span-2 space-y-2 bg-[#fffdf8] p-3.5 rounded-xl border border-[#eadcc8]">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-[#8c827a]">Curated Items Ordered</span>
               <div class="space-y-1">
-                ${itemsHtml || '<span class="text-xs text-[#706860]">No items recorded</span>'}
+                ${itemsHtml || '<span class="text-xs text-[#8c827a]">No items recorded</span>'}
               </div>
             </div>
 
-            <div class="space-y-3 bg-[#0d0c0a] p-3.5 rounded-xl border border-[#b88a44]/10 flex flex-col justify-between">
+            <div class="space-y-3 bg-[#fffdf8] p-3.5 rounded-xl border border-[#eadcc8] flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860]">Delivery Address (Ujjain Doorstep)</span>
-                <p class="text-xs text-[#F5EBDD] mt-1 leading-relaxed">${escapeHtml(o.customerAddress || 'Pick-up / Store Concierge')}</p>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-[#8c827a]">Delivery Address (Ujjain Doorstep)</span>
+                <p class="text-xs text-[#1a1a1a] mt-1 leading-relaxed">${escapeHtml(o.customerAddress || 'Pick-up / Store Concierge')}</p>
                 ${o.addressDetails && o.addressDetails.locality ? `
                   <div class="mt-1 flex items-center gap-1.5 text-[10px]">
-                    <span class="px-2 py-0.5 rounded bg-[#181512] text-[#A8B77A] border border-[#A8B77A]/20"><svg class="w-3.5 h-3.5 inline-block mr-1 text-[#b88a44]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${escapeHtml(o.addressDetails.locality)}</span>
-                    ${o.addressDetails.landmark ? `<span class="text-[#A49B91]">Near ${escapeHtml(o.addressDetails.landmark)}</span>` : ''}
+                    <span class="px-2 py-0.5 rounded bg-[#f7f1e8] text-[#173c2d] border border-[#eadcc8] font-medium"><svg class="w-3.5 h-3.5 inline-block mr-1 text-[#b88a44]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${escapeHtml(o.addressDetails.locality)}</span>
+                    ${o.addressDetails.landmark ? `<span class="text-[#574F47]">Near ${escapeHtml(o.addressDetails.landmark)}</span>` : ''}
                   </div>
                 ` : ''}
-                ${o.deliveryNotes ? `<p class="text-[11px] text-amber-300/80 mt-1.5 italic">Note: "${escapeHtml(o.deliveryNotes)}"</p>` : ''}
+                ${o.deliveryNotes ? `<p class="text-[11px] text-amber-800 mt-1.5 italic">Note: "${escapeHtml(o.deliveryNotes)}"</p>` : ''}
               </div>
 
-              <div class="pt-2 border-t border-[#b88a44]/10 flex items-center justify-between">
-                <span class="text-xs text-[#A49B91]">Total Amount</span>
-                <span class="font-mono font-bold text-sm text-[#b88a44]">₹${Number(o.total || 0).toLocaleString('en-IN')}</span>
+              <div class="pt-2 border-t border-[#eadcc8] flex items-center justify-between">
+                <span class="text-xs text-[#574F47]">Total Amount</span>
+                <span class="font-mono font-bold text-sm text-[#173c2d]">₹${Number(o.total || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
@@ -868,10 +868,10 @@
 
     if (customers.length === 0) {
       el.customersListContainer.innerHTML = `
-        <div class="admin-card p-12 text-center text-[#A49B91] rounded-2xl">
+        <div class="admin-card p-12 text-center text-[#574F47] rounded-2xl">
           <i data-lucide="users" class="w-10 h-10 mx-auto mb-3 opacity-40 text-[#b88a44]"></i>
           <p class="font-medium">No VIP patrons registered yet</p>
-          <p class="text-xs text-[#706860] mt-1">When customers join the VIP Gourmet Club on the storefront, their accounts appear here in real-time.</p>
+          <p class="text-xs text-[#6b6b6b] mt-1">When customers join the VIP Gourmet Club on the storefront, their accounts appear here in real-time.</p>
         </div>
       `;
       if (window.lucide) lucide.createIcons();
@@ -886,26 +886,26 @@
       )}`;
 
       const addrsHtml = addrs.length > 0 ? addrs.map(a => `
-        <div class="p-2.5 rounded-lg bg-[#0a0908] border border-[#b88a44]/10 text-xs">
+        <div class="p-2.5 rounded-lg bg-[#fffdf8] border border-[#eadcc8] text-xs">
           <span class="font-bold text-[#b88a44] text-[10px] uppercase">${escapeHtml(a.label || 'Home')}</span>
-          <p class="text-[#F5EBDD] mt-0.5">${escapeHtml(a.street || '')}${a.landmark ? ', Near ' + escapeHtml(a.landmark) : ''}, ${escapeHtml(a.locality || '')}, Ujjain</p>
+          <p class="text-[#1a1a1a] mt-0.5">${escapeHtml(a.street || '')}${a.landmark ? ', Near ' + escapeHtml(a.landmark) : ''}, ${escapeHtml(a.locality || '')}, Ujjain</p>
         </div>
-      `).join('') : '<span class="text-xs text-[#706860]">No saved address</span>';
+      `).join('') : '<span class="text-xs text-[#6b6b6b]">No saved address</span>';
 
       return `
         <div class="admin-card p-5 sm:p-6 rounded-2xl space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#b88a44]/15">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#eadcc8]">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-[#1e1914] border border-[#b88a44]/30 flex items-center justify-center font-bold text-base text-[#b88a44]">
-                
+              <div class="w-10 h-10 rounded-full bg-[#f7f1e8] border border-[#eadcc8] flex items-center justify-center font-bold text-base text-[#173c2d]">
+                ${(c.name || 'V')[0].toUpperCase()}
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <h4 class="font-editorial text-base font-bold text-[#F5EBDD]">${escapeHtml(c.name)}</h4>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#b88a44]/20 text-[#b88a44] border border-[#b88a44]/40 font-bold">${c.id || 'VIP'}</span>
+                  <h4 class="font-editorial text-base font-bold text-[#173c2d]">${escapeHtml(c.name)}</h4>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#b88a44]/15 text-[#996e2e] border border-[#b88a44]/30 font-bold">${c.id || 'VIP'}</span>
                 </div>
-                <div class="text-[11px] text-[#A49B91] flex flex-wrap items-center gap-2 mt-0.5">
-                  <span class="font-mono text-[#F5EBDD]">+91 ${escapeHtml(c.phone)}</span>
+                <div class="text-[11px] text-[#574F47] flex flex-wrap items-center gap-2 mt-0.5">
+                  <span class="font-mono text-[#173c2d] font-semibold">+91 ${escapeHtml(c.phone)}</span>
                   ${c.email ? `&bull; <span>${escapeHtml(c.email)}</span>` : ''}
                   &bull;
                   <span>Joined ${formatTimestamp(c.createdAt)}</span>
@@ -915,8 +915,8 @@
 
             <div class="flex items-center gap-3">
               <div class="text-right hidden sm:block">
-                <span class="text-[10px] text-[#706860] uppercase block">Lifetime Value</span>
-                <span class="font-mono text-xs font-bold text-[#b88a44]">₹${Number(c.totalSpent || 0).toLocaleString('en-IN')} (${c.orderCount || 0} orders)</span>
+                <span class="text-[10px] text-[#6b6b6b] uppercase block">Lifetime Value</span>
+                <span class="font-mono text-xs font-bold text-[#173c2d]">₹${Number(c.totalSpent || 0).toLocaleString('en-IN')} (${c.orderCount || 0} orders)</span>
               </div>
               <a href="${waLink}" target="_blank" class="btn-gold-admin text-xs py-1.5 px-3 gap-1.5">
                 <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
@@ -926,7 +926,7 @@
           </div>
 
           <div>
-            <span class="text-[10px] font-semibold uppercase tracking-wider text-[#706860] block mb-2">Saved Delivery Locations (Ujjain Doorstep)</span>
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-[#8c827a] block mb-2">Saved Delivery Locations (Ujjain Doorstep)</span>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
               ${addrsHtml}
             </div>
@@ -949,20 +949,20 @@
             <div class="flex items-center gap-3">
               <span class="text-xl text-[#b88a44]">${cat.icon || '•'}</span>
               <div>
-                <h4 class="font-editorial text-lg font-bold text-[#F5EBDD]">${escapeHtml(cat.name)}</h4>
+                <h4 class="font-editorial text-lg font-bold text-[#173c2d]">${escapeHtml(cat.name)}</h4>
                 <span class="text-[11px] font-mono text-[#b88a44]">ID: ${escapeHtml(cat.id)}</span>
               </div>
             </div>
             ${
               cat.badge
-                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#b88a44]/20 text-[#b88a44] border border-[#b88a44]/30">${escapeHtml(cat.badge)}</span>`
+                ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#b88a44]/15 text-[#996e2e] border border-[#b88a44]/30">${escapeHtml(cat.badge)}</span>`
                 : ''
             }
           </div>
 
-          <div class="pt-3 border-t border-[#b88a44]/15 flex items-center justify-between text-xs">
-            <span class="text-[#A49B91]">${count} delicacies active</span>
-            <button data-delete-cat="${cat.id}" class="p-1.5 text-[#A49B91] hover:text-red-400 hover:bg-red-950/30 rounded-lg transition-colors" title="Delete Aisle">
+          <div class="pt-3 border-t border-[#eadcc8] flex items-center justify-between text-xs">
+            <span class="text-[#574F47]">${count} delicacies active</span>
+            <button data-delete-cat="${cat.id}" class="p-1.5 text-[#574F47] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete Aisle">
               <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
           </div>
@@ -1148,11 +1148,11 @@
     state.currentTab = tabName;
     el.navTabBtns.forEach(btn => {
       if (btn.getAttribute('data-tab') === tabName) {
-        btn.classList.add('text-[#b88a44]', 'bg-[#b88a44]/10', 'border', 'border-[#b88a44]/30');
-        btn.classList.remove('text-[#A49B91]');
+        btn.classList.add('active', 'text-[#173c2d]', 'bg-white', 'border', 'border-[#eadcc8]', 'shadow-xs', 'font-semibold');
+        btn.classList.remove('text-[#574F47]', 'hover:bg-white/70');
       } else {
-        btn.classList.remove('text-[#b88a44]', 'bg-[#b88a44]/10', 'border', 'border-[#b88a44]/30');
-        btn.classList.add('text-[#A49B91]');
+        btn.classList.remove('active', 'text-[#173c2d]', 'bg-white', 'border', 'border-[#eadcc8]', 'shadow-xs', 'font-semibold');
+        btn.classList.add('text-[#574F47]', 'hover:text-[#173c2d]', 'hover:bg-white/70');
       }
     });
 
@@ -1299,11 +1299,11 @@
     el.orderStatusFilterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         el.orderStatusFilterBtns.forEach(b => {
-          b.classList.remove('active', 'bg-[#b88a44]/20', 'text-[#b88a44]', 'border-[#b88a44]/40');
-          b.classList.add('bg-[#141210]', 'text-[#A49B91]');
+          b.classList.remove('active', 'bg-[#173c2d]', 'text-white', 'border-[#173c2d]', 'shadow-sm');
+          b.classList.add('bg-white', 'text-[#574F47]', 'border-[#eadcc8]');
         });
-        btn.classList.add('active', 'bg-[#b88a44]/20', 'text-[#b88a44]', 'border-[#b88a44]/40');
-        btn.classList.remove('bg-[#141210]', 'text-[#A49B91]');
+        btn.classList.add('active', 'bg-[#173c2d]', 'text-white', 'border-[#173c2d]', 'shadow-sm');
+        btn.classList.remove('bg-white', 'text-[#574F47]');
 
         state.orderStatusFilter = btn.getAttribute('data-status') || 'all';
         renderOrdersList();

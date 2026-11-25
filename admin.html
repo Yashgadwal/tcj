@@ -20,15 +20,15 @@
             tcjGold: '#b88a44',
             tcjGoldHover: '#c99a4e',
             tcjEmerald: '#173c2d',
-            tcjDark: '#0a1a13',
-            tcjCard: '#11261d',
-            tcjBorder: 'rgba(184, 138, 68, 0.22)',
+            tcjDark: '#173c2d',
+            tcjCard: '#ffffff',
+            tcjBorder: '#eadcc8',
             brandGreen: '#173c2d',
             brandGold: '#b88a44',
             brandCreamLight: '#fffdf8',
             brandCreamWarm: '#f7f1e8',
             brandCreamDark: '#eadcc8',
-            brandMuted: '#6b6b6b'
+            brandMuted: '#574F47'
           }
         }
       }
@@ -39,38 +39,38 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Admin Styles -->
-  <link rel="stylesheet" href="css/admin.css?v=3.2">
+  <link rel="stylesheet" href="css/admin.css?v=3.3">
 </head>
-<body class="bg-[#0a1a13] text-[#fffdf8] min-h-screen flex flex-col font-sans selection:bg-[#b88a44] selection:text-white">
+<body class="bg-[#fffdf8] text-[#1a1a1a] min-h-screen flex flex-col font-sans selection:bg-[#b88a44] selection:text-white">
 
   <!-- ============================================================== -->
   <!-- 1. AUTHENTICATION GATE (Passcode Protected) -->
   <!-- ============================================================== -->
-  <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
-    <div class="admin-card w-full max-w-md p-8 rounded-2xl relative border border-[#b88a44]/30 shadow-2xl">
+  <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md">
+    <div class="admin-card w-full max-w-md p-8 rounded-2xl relative border border-[#eadcc8] shadow-2xl bg-white">
       <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#b88a44]/10 border border-[#b88a44]/30 mb-4 text-[#b88a44]">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#173c2d]/10 border border-[#173c2d]/20 mb-4 text-[#173c2d]">
           <i data-lucide="shield-check" class="w-7 h-7"></i>
         </div>
-        <h1 class="font-editorial text-2xl font-bold tracking-wider text-[#b88a44] uppercase">The Convenience Junction</h1>
-        <p class="text-xs uppercase tracking-widest text-[#a3b5aa] mt-1 font-medium">Gourmet Concierge &bull; Admin Portal</p>
+        <h1 class="font-editorial text-2xl font-bold tracking-wider text-[#173c2d] uppercase">The Convenience Junction</h1>
+        <p class="text-xs uppercase tracking-widest text-[#574F47] mt-1 font-semibold">Gourmet Concierge &bull; Admin Portal</p>
       </div>
 
       <form id="login-form" class="space-y-5">
         <div>
-          <label for="passcode-input" class="block text-xs font-semibold uppercase tracking-wider text-[#a3b5aa] mb-2">Master Passcode</label>
+          <label for="passcode-input" class="block text-xs font-semibold uppercase tracking-wider text-[#574F47] mb-2">Master Passcode</label>
           <div class="relative">
             <input type="password" id="passcode-input" autocomplete="current-password" required
                    class="admin-input pr-12 text-center text-lg tracking-widest font-mono"
                    placeholder="Enter passcode...">
-            <button type="button" id="toggle-pwd-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#a3b5aa] hover:text-[#b88a44] transition-colors">
+            <button type="button" id="toggle-pwd-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#574F47] hover:text-[#173c2d] transition-colors">
               <i data-lucide="eye" class="w-5 h-5"></i>
             </button>
           </div>
         </div>
 
-        <div id="login-error" class="hidden p-3 rounded-lg bg-red-950/60 border border-red-500/30 text-red-200 text-xs flex items-center gap-2">
-          <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
+        <div id="login-error" class="hidden p-3 rounded-lg bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2">
+          <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0 text-red-600"></i>
           <span id="login-error-text">Invalid master passcode.</span>
         </div>
 
@@ -80,11 +80,11 @@
         </button>
       </form>
 
-      <div class="mt-6 pt-5 border-t border-[#b88a44]/10 text-center">
-        <p class="text-[11px] text-[#706860]">
-          Default credential: <span class="font-mono text-[#b88a44]">tcj2026</span>
+      <div class="mt-6 pt-5 border-t border-[#eadcc8] text-center">
+        <p class="text-[11px] text-[#6b6b6b]">
+          Default credential: <span class="font-mono text-[#b88a44] font-bold">tcj2026</span>
         </p>
-        <a href="/" class="inline-flex items-center gap-1 text-xs text-[#a3b5aa] hover:text-[#b88a44] mt-3 transition-colors">
+        <a href="/" class="inline-flex items-center gap-1 text-xs text-[#574F47] hover:text-[#173c2d] mt-3 font-medium transition-colors">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
           <span>Back to Public Storefront</span>
         </a>
@@ -98,40 +98,40 @@
   <div id="admin-app" class="hidden flex-1 flex flex-col min-h-screen">
     
     <!-- Top Navigation Bar -->
-    <header class="admin-glass sticky top-0 z-40 px-4 lg:px-8 py-3.5 flex items-center justify-between border-b border-[#b88a44]/20">
+    <header class="admin-glass sticky top-0 z-40 px-4 lg:px-8 py-3.5 flex items-center justify-between border-b border-[#eadcc8]">
       <div class="flex items-center gap-4">
-        <button id="mobile-menu-toggle" class="lg:hidden p-2 text-[#a3b5aa] hover:text-[#b88a44] rounded-lg">
+        <button id="mobile-menu-toggle" class="lg:hidden p-2 text-[#574F47] hover:text-[#173c2d] rounded-lg">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-[#b88a44]/10 border border-[#b88a44]/30 flex items-center justify-center text-[#b88a44] font-editorial font-bold text-lg">
+          <div class="w-9 h-9 rounded-lg bg-[#173c2d]/10 border border-[#173c2d]/20 flex items-center justify-center text-[#173c2d] font-editorial font-bold text-lg">
             TCJ
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-editorial text-lg font-bold tracking-wide text-[#fffdf8]">The Convenience Junction</span>
-              <span class="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#b88a44]/15 text-[#b88a44] border border-[#b88a44]/30">Admin</span>
+              <span class="font-editorial text-lg font-bold tracking-wide text-[#173c2d]">The Convenience Junction</span>
+              <span class="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#b88a44]/15 text-[#996e2e] border border-[#b88a44]/30">Admin</span>
             </div>
-            <p class="text-[11px] text-[#a3b5aa] hidden sm:block">Luxury Imports &amp; Artisanal Delicacies</p>
+            <p class="text-[11px] text-[#574F47] hidden sm:block">Luxury Imports &amp; Artisanal Delicacies</p>
           </div>
         </div>
       </div>
 
       <div class="flex items-center gap-2 sm:gap-4">
         <!-- Live Store Indicator -->
-        <div id="store-status-pill" class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-medium">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div id="store-status-pill" class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span id="store-status-text">Store Open</span>
         </div>
 
         <!-- View Store Button -->
-        <a href="/" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#b88a44]/30 bg-[#141210] hover:bg-[#1f1c19] text-[#fffdf8] hover:text-[#b88a44] text-xs font-medium transition-all">
+        <a href="/" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#eadcc8] bg-white hover:bg-[#f7f1e8] text-[#173c2d] hover:text-[#b88a44] text-xs font-medium transition-all shadow-xs">
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           <span>View Storefront</span>
         </a>
 
         <!-- Logout Button -->
-        <button id="logout-btn" title="Sign Out" class="p-2 text-[#a3b5aa] hover:text-red-400 hover:bg-red-950/30 rounded-lg transition-colors border border-transparent hover:border-red-500/20">
+        <button id="logout-btn" title="Sign Out" class="p-2 text-[#574F47] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-200">
           <i data-lucide="log-out" class="w-5 h-5"></i>
         </button>
       </div>
@@ -141,71 +141,71 @@
     <div class="flex-1 flex overflow-hidden">
       
       <!-- Sidebar -->
-      <aside id="admin-sidebar" class="w-64 bg-[#0d0c0b] border-r border-[#b88a44]/15 flex flex-col justify-between fixed lg:static inset-y-0 left-0 z-30 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+      <aside id="admin-sidebar" class="w-64 bg-[#f7f1e8] border-r border-[#eadcc8] flex flex-col justify-between fixed lg:static inset-y-0 left-0 z-30 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
         <div class="p-4 space-y-1.5 overflow-y-auto">
-          <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-[#706860]">Navigation</div>
+          <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-[#8c827a]">Navigation</div>
           
-          <button data-tab="overview" class="nav-tab-btn active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#b88a44] bg-[#b88a44]/10 border border-[#b88a44]/30">
+          <button data-tab="overview" class="nav-tab-btn active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all text-[#173c2d] bg-white border border-[#eadcc8] shadow-xs">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
             <span>Overview &amp; Metrics</span>
           </button>
 
-          <button data-tab="products" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#a3b5aa] hover:text-[#fffdf8] hover:bg-[#171513]">
+          <button data-tab="products" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#574F47] hover:text-[#173c2d] hover:bg-white/70">
             <div class="flex items-center gap-3">
               <i data-lucide="package" class="w-4 h-4"></i>
               <span>Delicacies Catalog</span>
             </div>
-            <span id="badge-products-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#1e1a17] text-[#b88a44]">0</span>
+            <span id="badge-products-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white border border-[#eadcc8] text-[#173c2d]">0</span>
           </button>
 
-          <button data-tab="orders" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#a3b5aa] hover:text-[#fffdf8] hover:bg-[#171513]">
+          <button data-tab="orders" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#574F47] hover:text-[#173c2d] hover:bg-white/70">
             <div class="flex items-center gap-3">
               <i data-lucide="shopping-bag" class="w-4 h-4"></i>
               <span>Orders &amp; WhatsApp</span>
             </div>
-            <span id="badge-orders-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/20">0</span>
+            <span id="badge-orders-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">0</span>
           </button>
 
-          <button data-tab="customers" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#a3b5aa] hover:text-[#fffdf8] hover:bg-[#171513]">
+          <button data-tab="customers" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#574F47] hover:text-[#173c2d] hover:bg-white/70">
             <div class="flex items-center gap-3">
               <i data-lucide="users" class="w-4 h-4"></i>
               <span>VIP Patrons &amp; Members</span>
             </div>
-            <span id="badge-customers-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#b88a44]/20 text-[#b88a44]">0</span>
+            <span id="badge-customers-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#b88a44]/15 text-[#996e2e] border border-[#b88a44]/30">0</span>
           </button>
 
-          <button data-tab="categories" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#a3b5aa] hover:text-[#fffdf8] hover:bg-[#171513]">
+          <button data-tab="categories" class="nav-tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#574F47] hover:text-[#173c2d] hover:bg-white/70">
             <div class="flex items-center gap-3">
               <i data-lucide="layers" class="w-4 h-4"></i>
               <span>Aisles &amp; Categories</span>
             </div>
-            <span id="badge-categories-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#1e1a17] text-[#a3b5aa]">0</span>
+            <span id="badge-categories-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white border border-[#eadcc8] text-[#574F47]">0</span>
           </button>
 
-          <div class="pt-4 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-[#706860]">System</div>
+          <div class="pt-4 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-[#8c827a]">System</div>
 
-          <button data-tab="settings" class="nav-tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#a3b5aa] hover:text-[#fffdf8] hover:bg-[#171513]">
+          <button data-tab="settings" class="nav-tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-[#574F47] hover:text-[#173c2d] hover:bg-white/70">
             <i data-lucide="settings" class="w-4 h-4"></i>
             <span>Store Settings &amp; Fees</span>
           </button>
         </div>
 
         <!-- Sidebar Footer -->
-        <div class="p-4 border-t border-[#b88a44]/15 bg-[#0a0908]">
+        <div class="p-4 border-t border-[#eadcc8] bg-white/60">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-[#b88a44]/20 flex items-center justify-center text-[#b88a44]">
+            <div class="w-8 h-8 rounded-full bg-[#173c2d]/10 flex items-center justify-center text-[#173c2d]">
               <i data-lucide="crown" class="w-4 h-4"></i>
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-xs font-semibold text-[#fffdf8] truncate">TCJ Concierge</p>
-              <p id="concierge-phone-display" class="text-[11px] font-mono text-[#a3b5aa] truncate">+91 62683 44816</p>
+              <p class="text-xs font-semibold text-[#173c2d] truncate">TCJ Concierge</p>
+              <p id="concierge-phone-display" class="text-[11px] font-mono text-[#574F47] truncate">+91 62683 44816</p>
             </div>
           </div>
         </div>
       </aside>
 
       <!-- Sidebar Backdrop on Mobile -->
-      <div id="sidebar-backdrop" class="fixed inset-0 bg-black/60 z-20 hidden lg:hidden"></div>
+      <div id="sidebar-backdrop" class="fixed inset-0 bg-black/40 z-20 hidden lg:hidden"></div>
 
       <!-- Main Tab Workspace -->
       <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
@@ -216,8 +216,8 @@
         <section id="panel-overview" class="admin-tab-panel space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#fffdf8]">Executive Storefront Overview</h2>
-              <p class="text-xs sm:text-sm text-[#a3b5aa] mt-1">Live metrics, inventory health, and recent customer concierge inquiries.</p>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#173c2d]">Executive Storefront Overview</h2>
+              <p class="text-xs sm:text-sm text-[#574F47] mt-1">Live metrics, inventory health, and recent customer concierge inquiries.</p>
             </div>
             <div class="flex items-center gap-3">
               <button id="btn-refresh-dashboard" class="btn-secondary-admin text-xs">
@@ -235,16 +235,16 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="admin-card p-5 rounded-2xl">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#a3b5aa]">Delicacies Catalog</span>
-                <div class="w-9 h-9 rounded-xl bg-[#b88a44]/10 text-[#b88a44] flex items-center justify-center">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#574F47]">Delicacies Catalog</span>
+                <div class="w-9 h-9 rounded-xl bg-[#173c2d]/10 text-[#173c2d] flex items-center justify-center">
                   <i data-lucide="boxes" class="w-5 h-5"></i>
                 </div>
               </div>
               <div class="mt-4 flex items-baseline gap-2">
-                <span id="kpi-total-products" class="text-3xl font-bold font-mono text-[#fffdf8]">0</span>
-                <span class="text-xs text-[#a3b5aa]">delicacies</span>
+                <span id="kpi-total-products" class="text-3xl font-bold font-mono text-[#173c2d]">0</span>
+                <span class="text-xs text-[#574F47]">delicacies</span>
               </div>
-              <div class="mt-2 text-xs flex items-center gap-1 text-emerald-400">
+              <div class="mt-2 text-xs flex items-center gap-1 text-emerald-700 font-medium">
                 <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
                 <span id="kpi-instock-products">0 in stock</span>
               </div>
@@ -252,32 +252,32 @@
 
             <div class="admin-card p-5 rounded-2xl">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#a3b5aa]">Stock Health</span>
-                <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#574F47]">Stock Health</span>
+                <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center">
                   <i data-lucide="alert-triangle" class="w-5 h-5"></i>
                 </div>
               </div>
               <div class="mt-4 flex items-baseline gap-2">
-                <span id="kpi-outofstock-products" class="text-3xl font-bold font-mono text-amber-400">0</span>
-                <span class="text-xs text-[#a3b5aa]">out of stock</span>
+                <span id="kpi-outofstock-products" class="text-3xl font-bold font-mono text-amber-700">0</span>
+                <span class="text-xs text-[#574F47]">out of stock</span>
               </div>
-              <div class="mt-2 text-xs text-[#a3b5aa]">
-                <span id="kpi-stock-ratio">0%</span> operational availability
+              <div class="mt-2 text-xs text-[#574F47]">
+                <span id="kpi-stock-ratio" class="font-semibold text-[#173c2d]">0%</span> operational availability
               </div>
             </div>
 
             <div class="admin-card p-5 rounded-2xl">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#a3b5aa]">Inquiries &amp; Orders</span>
-                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#574F47]">Inquiries &amp; Orders</span>
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-700 flex items-center justify-center">
                   <i data-lucide="shopping-bag" class="w-5 h-5"></i>
                 </div>
               </div>
               <div class="mt-4 flex items-baseline gap-2">
-                <span id="kpi-total-orders" class="text-3xl font-bold font-mono text-[#fffdf8]">0</span>
-                <span class="text-xs text-[#a3b5aa]">inquiries logged</span>
+                <span id="kpi-total-orders" class="text-3xl font-bold font-mono text-[#173c2d]">0</span>
+                <span class="text-xs text-[#574F47]">inquiries logged</span>
               </div>
-              <div class="mt-2 text-xs flex items-center gap-1 text-[#b88a44]">
+              <div class="mt-2 text-xs flex items-center gap-1 text-[#b88a44] font-medium">
                 <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
                 <span id="kpi-pending-orders">0 pending action</span>
               </div>
@@ -285,15 +285,15 @@
 
             <div class="admin-card p-5 rounded-2xl">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#a3b5aa]">Logged Order Value</span>
-                <div class="w-9 h-9 rounded-xl bg-[#b88a44]/10 text-[#b88a44] flex items-center justify-center">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#574F47]">Logged Order Value</span>
+                <div class="w-9 h-9 rounded-xl bg-[#b88a44]/15 text-[#996e2e] flex items-center justify-center">
                   <i data-lucide="sparkles" class="w-5 h-5"></i>
                 </div>
               </div>
               <div class="mt-4 flex items-baseline gap-2">
                 <span id="kpi-order-value" class="text-3xl font-bold font-mono text-[#b88a44]">₹0</span>
               </div>
-              <div class="mt-2 text-xs text-[#a3b5aa]">
+              <div class="mt-2 text-xs text-[#574F47]">
                 Via WhatsApp Concierge
               </div>
             </div>
@@ -306,40 +306,40 @@
             <div class="lg:col-span-2 admin-card p-6 rounded-2xl space-y-4">
               <div class="flex items-center justify-between">
                 <div>
-                  <h3 class="font-editorial text-lg font-bold text-[#fffdf8]">Recent Concierge Inquiries</h3>
-                  <p class="text-xs text-[#a3b5aa]">Direct checkouts initiated via WhatsApp from the public storefront.</p>
+                  <h3 class="font-editorial text-lg font-bold text-[#173c2d]">Recent Concierge Inquiries</h3>
+                  <p class="text-xs text-[#574F47]">Direct checkouts initiated via WhatsApp from the public storefront.</p>
                 </div>
-                <button data-tab-switch="orders" class="text-xs text-[#b88a44] hover:underline flex items-center gap-1">
+                <button data-tab-switch="orders" class="text-xs text-[#b88a44] hover:text-[#173c2d] hover:underline flex items-center gap-1 font-semibold">
                   <span>View All</span>
                   <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
 
-              <div id="overview-recent-orders-list" class="divide-y divide-[#b88a44]/10 overflow-hidden">
+              <div id="overview-recent-orders-list" class="divide-y divide-[#eadcc8] overflow-hidden">
                 <!-- Dynamically rendered -->
-                <div class="py-8 text-center text-sm text-[#a3b5aa]">Loading inquiries...</div>
+                <div class="py-8 text-center text-sm text-[#574F47]">Loading inquiries...</div>
               </div>
             </div>
 
             <!-- Right 1 Col: Quick Category & Stock Health -->
             <div class="admin-card p-6 rounded-2xl space-y-4">
               <div class="flex items-center justify-between">
-                <h3 class="font-editorial text-lg font-bold text-[#fffdf8]">Aisle Breakdown</h3>
-                <span class="text-xs font-mono text-[#b88a44]" id="overview-category-count">6 Aisles</span>
+                <h3 class="font-editorial text-lg font-bold text-[#173c2d]">Aisle Breakdown</h3>
+                <span class="text-xs font-mono font-bold text-[#b88a44]" id="overview-category-count">6 Aisles</span>
               </div>
-              <p class="text-xs text-[#a3b5aa]">Product count distributed across curated departments.</p>
+              <p class="text-xs text-[#574F47]">Product count distributed across curated departments.</p>
 
               <div id="overview-category-breakdown" class="space-y-3 pt-2">
                 <!-- Dynamically rendered -->
               </div>
 
-              <div class="pt-4 border-t border-[#b88a44]/15">
-                <div class="p-4 rounded-xl bg-[#0c0b0a] border border-[#b88a44]/15 space-y-2">
-                  <div class="flex items-center gap-2 text-xs font-semibold text-[#b88a44]">
-                    <i data-lucide="zap" class="w-4 h-4"></i>
+              <div class="pt-4 border-t border-[#eadcc8]">
+                <div class="p-4 rounded-xl bg-[#f7f1e8] border border-[#eadcc8] space-y-2">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-[#173c2d]">
+                    <i data-lucide="zap" class="w-4 h-4 text-[#b88a44]"></i>
                     <span>Instant Live Sync</span>
                   </div>
-                  <p class="text-[11px] text-[#a3b5aa] leading-relaxed">
+                  <p class="text-[11px] text-[#574F47] leading-relaxed">
                     Changes made to stock, pricing, or products immediately reflect on the live storefront when customers view or refresh.
                   </p>
                 </div>
@@ -355,8 +355,8 @@
         <section id="panel-products" class="admin-tab-panel hidden space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#fffdf8]">Delicacies Catalog</h2>
-              <p class="text-xs sm:text-sm text-[#a3b5aa] mt-1">Manage, modify, restock, or add rare gourmet delicacies and pricing.</p>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#173c2d]">Delicacies Catalog</h2>
+              <p class="text-xs sm:text-sm text-[#574F47] mt-1">Manage, modify, restock, or add rare gourmet delicacies and pricing.</p>
             </div>
             <button id="btn-add-product" class="btn-gold-admin text-sm">
               <i data-lucide="plus" class="w-4 h-4"></i>
@@ -367,7 +367,7 @@
           <!-- Filter & Search Toolbar -->
           <div class="admin-card p-4 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
             <div class="flex-1 relative">
-              <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#a3b5aa]"></i>
+              <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#574F47]"></i>
               <input type="text" id="prod-search-input" placeholder="Search by title, origin, tag, or SKU..."
                      class="admin-input pl-10 text-xs sm:text-sm">
             </div>
@@ -395,7 +395,7 @@
           <div class="admin-card rounded-2xl overflow-hidden">
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs sm:text-sm">
-                <thead class="bg-[#0e0d0c] border-b border-[#b88a44]/20 text-[#a3b5aa] uppercase tracking-wider text-[11px] font-semibold">
+                <thead class="bg-[#f7f1e8] border-b border-[#eadcc8] text-[#574F47] uppercase tracking-wider text-[11px] font-semibold">
                   <tr>
                     <th class="py-3.5 px-4">Item &amp; Origin</th>
                     <th class="py-3.5 px-4">Aisle</th>
@@ -406,17 +406,17 @@
                     <th class="py-3.5 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody id="products-table-body" class="divide-y divide-[#b88a44]/10">
+                <tbody id="products-table-body" class="divide-y divide-[#eadcc8]">
                   <!-- Dynamically rendered -->
                   <tr>
-                    <td colspan="7" class="py-12 text-center text-[#a3b5aa]">Loading delicacies...</td>
+                    <td colspan="7" class="py-12 text-center text-[#574F47]">Loading delicacies...</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             
             <!-- Table Footer -->
-            <div class="p-4 bg-[#0c0b0a] border-t border-[#b88a44]/15 flex items-center justify-between text-xs text-[#a3b5aa]">
+            <div class="p-4 bg-[#f7f1e8] border-t border-[#eadcc8] flex items-center justify-between text-xs text-[#574F47]">
               <span id="products-count-label">Showing 0 delicacies</span>
               <span class="font-mono text-[11px]">Real-time REST API Persistence</span>
             </div>
@@ -430,8 +430,8 @@
         <section id="panel-orders" class="admin-tab-panel hidden space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#fffdf8]">Customer Inquiries &amp; Orders</h2>
-              <p class="text-xs sm:text-sm text-[#a3b5aa] mt-1">Review checkout inquiries sent via WhatsApp, customer delivery notes, and status.</p>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#173c2d]">Customer Inquiries &amp; Orders</h2>
+              <p class="text-xs sm:text-sm text-[#574F47] mt-1">Review checkout inquiries sent via WhatsApp, customer delivery notes, and status.</p>
             </div>
             <button id="btn-refresh-orders" class="btn-secondary-admin text-sm">
               <i data-lucide="rotate-cw" class="w-4 h-4"></i>
@@ -441,19 +441,19 @@
 
           <!-- Order Status Summary Filter -->
           <div class="flex flex-wrap items-center gap-2">
-            <button class="order-status-filter-btn active px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#b88a44]/20 text-[#b88a44] border border-[#b88a44]/40" data-status="all">
+            <button class="order-status-filter-btn active px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#173c2d] text-white border border-[#173c2d] shadow-sm" data-status="all">
               All Inquiries (<span id="count-all-orders">0</span>)
             </button>
-            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#a3b5aa] hover:text-[#fffdf8] border border-[#b88a44]/15" data-status="Pending">
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-[#574F47] hover:text-[#173c2d] border border-[#eadcc8]" data-status="Pending">
               Pending (<span id="count-pending-orders">0</span>)
             </button>
-            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#a3b5aa] hover:text-[#fffdf8] border border-[#b88a44]/15" data-status="Contacted">
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-[#574F47] hover:text-[#173c2d] border border-[#eadcc8]" data-status="Contacted">
               Contacted (<span id="count-contacted-orders">0</span>)
             </button>
-            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#a3b5aa] hover:text-[#fffdf8] border border-[#b88a44]/15" data-status="Dispatched">
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-[#574F47] hover:text-[#173c2d] border border-[#eadcc8]" data-status="Dispatched">
               Dispatched (<span id="count-dispatched-orders">0</span>)
             </button>
-            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#141210] text-[#a3b5aa] hover:text-[#fffdf8] border border-[#b88a44]/15" data-status="Delivered">
+            <button class="order-status-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-[#574F47] hover:text-[#173c2d] border border-[#eadcc8]" data-status="Delivered">
               Delivered (<span id="count-delivered-orders">0</span>)
             </button>
           </div>
@@ -461,7 +461,7 @@
           <!-- Orders Container -->
           <div id="orders-cards-container" class="space-y-4">
             <!-- Dynamically populated -->
-            <div class="admin-card p-12 text-center text-[#a3b5aa] rounded-2xl">
+            <div class="admin-card p-12 text-center text-[#574F47] rounded-2xl">
               Loading orders...
             </div>
           </div>
@@ -474,8 +474,8 @@
         <section id="panel-customers" class="admin-tab-panel hidden space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#fffdf8]">VIP Patrons &amp; Members</h2>
-              <p class="text-xs sm:text-sm text-[#a3b5aa] mt-1">Review registered VIP customer accounts, saved doorstep addresses, and order volume.</p>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#173c2d]">VIP Patrons &amp; Members</h2>
+              <p class="text-xs sm:text-sm text-[#574F47] mt-1">Review registered VIP customer accounts, saved doorstep addresses, and order volume.</p>
             </div>
             <button id="btn-refresh-customers" class="btn-secondary-admin text-sm">
               <i data-lucide="rotate-cw" class="w-4 h-4"></i>
@@ -485,23 +485,23 @@
 
           <!-- Customer Metric Summary -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="admin-card p-4 rounded-xl border border-[#b88a44]/20">
-              <span class="text-xs text-[#a3b5aa]">Registered VIP Members</span>
+            <div class="admin-card p-4 rounded-xl border border-[#eadcc8]">
+              <span class="text-xs text-[#574F47]">Registered VIP Members</span>
               <p id="stat-total-vip-customers" class="text-2xl font-bold font-mono text-[#b88a44] mt-1">0</p>
             </div>
-            <div class="admin-card p-4 rounded-xl border border-[#b88a44]/20">
-              <span class="text-xs text-[#a3b5aa]">Total Patron Orders</span>
-              <p id="stat-total-vip-orders" class="text-2xl font-bold font-mono text-emerald-400 mt-1">0</p>
+            <div class="admin-card p-4 rounded-xl border border-[#eadcc8]">
+              <span class="text-xs text-[#574F47]">Total Patron Orders</span>
+              <p id="stat-total-vip-orders" class="text-2xl font-bold font-mono text-emerald-700 mt-1">0</p>
             </div>
-            <div class="admin-card p-4 rounded-xl border border-[#b88a44]/20">
-              <span class="text-xs text-[#a3b5aa]">Patron GMV Volume</span>
-              <p id="stat-total-vip-spent" class="text-2xl font-bold font-mono text-[#fffdf8] mt-1">₹0</p>
+            <div class="admin-card p-4 rounded-xl border border-[#eadcc8]">
+              <span class="text-xs text-[#574F47]">Patron GMV Volume</span>
+              <p id="stat-total-vip-spent" class="text-2xl font-bold font-mono text-[#173c2d] mt-1">₹0</p>
             </div>
           </div>
 
           <!-- Customers Container -->
           <div id="customers-list-container" class="space-y-4">
-            <div class="admin-card p-12 text-center text-[#a3b5aa] rounded-2xl">
+            <div class="admin-card p-12 text-center text-[#574F47] rounded-2xl">
               Loading VIP patrons...
             </div>
           </div>
@@ -514,8 +514,8 @@
         <section id="panel-categories" class="admin-tab-panel hidden space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#fffdf8]">Aisles &amp; Departments</h2>
-              <p class="text-xs sm:text-sm text-[#a3b5aa] mt-1">Organize storefront navigation filters, aisle icons, and showcase badges.</p>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#173c2d]">Aisles &amp; Departments</h2>
+              <p class="text-xs sm:text-sm text-[#574F47] mt-1">Organize storefront navigation filters, aisle icons, and showcase badges.</p>
             </div>
             <button id="btn-add-category" class="btn-gold-admin text-sm">
               <i data-lucide="plus" class="w-4 h-4"></i>
@@ -525,7 +525,7 @@
 
           <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <!-- Dynamically rendered -->
-            <div class="admin-card p-8 text-center text-[#a3b5aa] rounded-2xl col-span-full">
+            <div class="admin-card p-8 text-center text-[#574F47] rounded-2xl col-span-full">
               Loading aisles...
             </div>
           </div>
@@ -537,8 +537,8 @@
         <!-- ============================================================== -->
         <section id="panel-settings" class="admin-tab-panel hidden space-y-6">
           <div>
-            <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#fffdf8]">Store Configuration &amp; Policies</h2>
-            <p class="text-xs sm:text-sm text-[#a3b5aa] mt-1">Control top live announcement banners, delivery fee rules, WhatsApp concierge, and security passcode.</p>
+            <h2 class="font-editorial text-2xl sm:text-3xl font-bold text-[#173c2d]">Store Configuration &amp; Policies</h2>
+            <p class="text-xs sm:text-sm text-[#574F47] mt-1">Control top live announcement banners, delivery fee rules, WhatsApp concierge, and security passcode.</p>
           </div>
 
           <form id="settings-form" class="space-y-6">
@@ -547,8 +547,8 @@
             <div class="admin-card p-6 rounded-2xl space-y-4">
               <div class="flex items-center justify-between">
                 <div>
-                  <h3 class="font-editorial text-lg font-bold text-[#fffdf8]">Store Availability</h3>
-                  <p class="text-xs text-[#a3b5aa]">Toggle whether the store is accepting live orders and inquiries.</p>
+                  <h3 class="font-editorial text-lg font-bold text-[#173c2d]">Store Availability</h3>
+                  <p class="text-xs text-[#574F47]">Toggle whether the store is accepting live orders and inquiries.</p>
                 </div>
                 <label class="switch">
                   <input type="checkbox" id="setting-store-open">
@@ -561,8 +561,8 @@
             <div class="admin-card p-6 rounded-2xl space-y-4">
               <div class="flex items-center justify-between">
                 <div>
-                  <h3 class="font-editorial text-lg font-bold text-[#fffdf8]">Top Announcement Banner</h3>
-                  <p class="text-xs text-[#a3b5aa]">Display a luxury ticker across the storefront for offers or store hours.</p>
+                  <h3 class="font-editorial text-lg font-bold text-[#173c2d]">Top Announcement Banner</h3>
+                  <p class="text-xs text-[#574F47]">Display a luxury ticker across the storefront for offers or store hours.</p>
                 </div>
                 <label class="switch">
                   <input type="checkbox" id="setting-announcement-enabled">
@@ -571,50 +571,50 @@
               </div>
 
               <div>
-                <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-2">Banner Announcement Text</label>
+                <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-2">Banner Announcement Text</label>
                 <input type="text" id="setting-announcement-text" class="admin-input" placeholder="e.g. Rare Japanese KitKat & Craft Sodas Just Restocked...">
               </div>
             </div>
 
             <!-- Concierge & Delivery Pricing -->
             <div class="admin-card p-6 rounded-2xl space-y-4">
-              <h3 class="font-editorial text-lg font-bold text-[#fffdf8]">Concierge &amp; Delivery Rules</h3>
+              <h3 class="font-editorial text-lg font-bold text-[#173c2d]">Concierge &amp; Delivery Rules</h3>
               
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-2">WhatsApp Concierge Phone (With Country Code)</label>
+                  <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-2">WhatsApp Concierge Phone (With Country Code)</label>
                   <input type="text" id="setting-phone" class="admin-input font-mono" placeholder="916268344816" required>
-                  <p class="text-[11px] text-[#706860] mt-1">Incoming orders from storefront are directed here.</p>
+                  <p class="text-[11px] text-[#6b6b6b] mt-1">Incoming orders from storefront are directed here.</p>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-2">Store Email Address</label>
+                  <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-2">Store Email Address</label>
                   <input type="email" id="setting-email" class="admin-input" placeholder="concierge@theconveniencejunction.com">
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-2">Free Delivery Threshold (₹)</label>
+                  <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-2">Free Delivery Threshold (₹)</label>
                   <input type="number" id="setting-free-delivery" class="admin-input font-mono" placeholder="799" min="0">
-                  <p class="text-[11px] text-[#706860] mt-1">Orders at or above this value get complimentary delivery.</p>
+                  <p class="text-[11px] text-[#6b6b6b] mt-1">Orders at or above this value get complimentary delivery.</p>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-2">Standard Delivery Charge (₹)</label>
+                  <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-2">Standard Delivery Charge (₹)</label>
                   <input type="number" id="setting-delivery-fee" class="admin-input font-mono" placeholder="49" min="0">
-                  <p class="text-[11px] text-[#706860] mt-1">Applied when cart total is below the free threshold.</p>
+                  <p class="text-[11px] text-[#6b6b6b] mt-1">Applied when cart total is below the free threshold.</p>
                 </div>
               </div>
             </div>
 
             <!-- Admin Passcode Update -->
             <div class="admin-card p-6 rounded-2xl space-y-4">
-              <h3 class="font-editorial text-lg font-bold text-[#fffdf8]">Admin Security</h3>
-              <p class="text-xs text-[#a3b5aa]">Update the master passcode required to access this portal.</p>
+              <h3 class="font-editorial text-lg font-bold text-[#173c2d]">Admin Security</h3>
+              <p class="text-xs text-[#574F47]">Update the master passcode required to access this portal.</p>
               
               <div class="max-w-sm">
-                <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-2">New Admin Passcode</label>
+                <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-2">New Admin Passcode</label>
                 <input type="text" id="setting-passcode" class="admin-input font-mono text-center tracking-widest" placeholder="Leave blank to keep current">
-                <p class="text-[11px] text-[#706860] mt-1">Enter a new passcode to change, or leave blank to retain existing.</p>
+                <p class="text-[11px] text-[#6b6b6b] mt-1">Enter a new passcode to change, or leave blank to retain existing.</p>
               </div>
             </div>
 
@@ -637,14 +637,14 @@
   <!-- ============================================================== -->
 
   <!-- Modal: Product (Create / Edit) -->
-  <div id="modal-product" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden overflow-y-auto">
-    <div class="admin-card w-full max-w-2xl rounded-2xl p-6 sm:p-8 my-8 relative border border-[#b88a44]/30 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-4 border-b border-[#b88a44]/20 mb-6">
+  <div id="modal-product" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm hidden overflow-y-auto">
+    <div class="admin-card w-full max-w-2xl rounded-2xl p-6 sm:p-8 my-8 relative border border-[#eadcc8] bg-white shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-[#eadcc8] mb-6">
         <div>
-          <h3 id="modal-product-title" class="font-editorial text-xl font-bold text-[#fffdf8]">Add New Delicacy</h3>
-          <p class="text-xs text-[#a3b5aa]">Fill in product details, pricing, origins, and stock status.</p>
+          <h3 id="modal-product-title" class="font-editorial text-xl font-bold text-[#173c2d]">Add New Delicacy</h3>
+          <p class="text-xs text-[#574F47]">Fill in product details, pricing, origins, and stock status.</p>
         </div>
-        <button type="button" id="modal-product-close" class="text-[#a3b5aa] hover:text-[#b88a44] p-1.5 rounded-lg">
+        <button type="button" id="modal-product-close" class="text-[#574F47] hover:text-[#173c2d] p-1.5 rounded-lg">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -655,11 +655,11 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="sm:col-span-2">
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Delicacy Name *</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Delicacy Name *</label>
             <input type="text" id="prod-form-title" class="admin-input" placeholder="e.g. Tomoe River Matcha Soda" required>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Aisle / Category *</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Aisle / Category *</label>
             <select id="prod-form-category" class="admin-input" required>
               <!-- Populated dynamically -->
             </select>
@@ -668,36 +668,36 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Selling Price (₹) *</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Selling Price (₹) *</label>
             <input type="number" id="prod-form-price" class="admin-input font-mono" placeholder="299" min="1" required>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Original MRP (₹)</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Original MRP (₹)</label>
             <input type="number" id="prod-form-mrp" class="admin-input font-mono" placeholder="349" min="1">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Weight / Volume</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Weight / Volume</label>
             <input type="text" id="prod-form-weight" class="admin-input" placeholder="e.g. 330ml">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Rating (1-5)</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Rating (1-5)</label>
             <input type="number" id="prod-form-rating" class="admin-input font-mono" step="0.1" min="1" max="5" value="4.8">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Origin Country / City</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Origin Country / City</label>
             <input type="text" id="prod-form-origin" class="admin-input" placeholder="e.g. Kyoto, Japan">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Badge / Highlight</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Badge / Highlight</label>
             <input type="text" id="prod-form-badge" class="admin-input" placeholder="e.g. Bestseller, Rare Import, Limited">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Image URL or Upload</label>
+          <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Image URL or Upload</label>
           <div class="flex gap-2">
             <input type="text" id="prod-form-image" class="admin-input flex-1 font-mono text-xs" placeholder="assets/mockup/... or https://...">
             <label class="btn-secondary-admin text-xs cursor-pointer flex items-center gap-1.5 whitespace-nowrap">
@@ -706,26 +706,26 @@
               <input type="file" id="prod-form-file-upload" accept="image/*" class="hidden">
             </label>
           </div>
-          <div id="image-preview-container" class="mt-2 hidden flex items-center gap-3 p-2 rounded-lg bg-[#0e0c0b] border border-[#b88a44]/15">
-            <img id="image-preview" src="" alt="Preview" class="w-12 h-12 object-cover rounded border border-[#b88a44]/20">
-            <span class="text-xs text-[#a3b5aa]" id="image-preview-name">Image selected</span>
+          <div id="image-preview-container" class="mt-2 hidden flex items-center gap-3 p-2 rounded-lg bg-[#f7f1e8] border border-[#eadcc8]">
+            <img id="image-preview" src="" alt="Preview" class="w-12 h-12 object-cover rounded border border-[#eadcc8]">
+            <span class="text-xs text-[#574F47]" id="image-preview-name">Image selected</span>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Description &amp; Tasting Notes</label>
+          <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Description &amp; Tasting Notes</label>
           <textarea id="prod-form-description" rows="3" class="admin-input" placeholder="Describe flavor profile, artisanal source, and pairings..."></textarea>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Search Tags (Comma-separated)</label>
+          <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Search Tags (Comma-separated)</label>
           <input type="text" id="prod-form-tags" class="admin-input" placeholder="e.g. matcha, sparkling, japanese, vegan">
         </div>
 
-        <div class="p-4 rounded-xl bg-[#0e0c0b] border border-[#b88a44]/15 flex items-center justify-between">
+        <div class="p-4 rounded-xl bg-[#f7f1e8] border border-[#eadcc8] flex items-center justify-between">
           <div>
-            <span class="text-xs font-semibold text-[#fffdf8] block">In Stock &amp; Orderable</span>
-            <span class="text-[11px] text-[#a3b5aa]">When disabled, product displays 'Sold Out' on the public storefront.</span>
+            <span class="text-xs font-semibold text-[#173c2d] block">In Stock &amp; Orderable</span>
+            <span class="text-[11px] text-[#574F47]">When disabled, product displays 'Sold Out' on the public storefront.</span>
           </div>
           <label class="switch">
             <input type="checkbox" id="prod-form-instock" checked>
@@ -733,7 +733,7 @@
           </label>
         </div>
 
-        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#b88a44]/15">
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#eadcc8]">
           <button type="button" id="modal-product-cancel" class="btn-secondary-admin">Cancel</button>
           <button type="submit" id="modal-product-submit" class="btn-gold-admin">
             <i data-lucide="check" class="w-4 h-4"></i>
@@ -745,41 +745,41 @@
   </div>
 
   <!-- Modal: Category (Create) -->
-  <div id="modal-category" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
-    <div class="admin-card w-full max-w-md rounded-2xl p-6 sm:p-8 relative border border-[#b88a44]/30">
-      <div class="flex items-center justify-between pb-4 border-b border-[#b88a44]/20 mb-6">
+  <div id="modal-category" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm hidden">
+    <div class="admin-card w-full max-w-md rounded-2xl p-6 sm:p-8 relative border border-[#eadcc8] bg-white shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-[#eadcc8] mb-6">
         <div>
-          <h3 class="font-editorial text-xl font-bold text-[#fffdf8]">Add Store Aisle</h3>
-          <p class="text-xs text-[#a3b5aa]">Create a new product department or category.</p>
+          <h3 class="font-editorial text-xl font-bold text-[#173c2d]">Add Store Aisle</h3>
+          <p class="text-xs text-[#574F47]">Create a new product department or category.</p>
         </div>
-        <button type="button" id="modal-category-close" class="text-[#a3b5aa] hover:text-[#b88a44] p-1.5 rounded-lg">
+        <button type="button" id="modal-category-close" class="text-[#574F47] hover:text-[#173c2d] p-1.5 rounded-lg">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <form id="category-form" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Aisle Identifier (ID) *</label>
+          <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Aisle Identifier (ID) *</label>
           <input type="text" id="cat-form-id" class="admin-input font-mono lowercase" placeholder="e.g. coffee" required>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Display Name *</label>
+          <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Display Name *</label>
           <input type="text" id="cat-form-name" class="admin-input" placeholder="e.g. Rare Coffees &amp; Brews" required>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Icon (Emoji or text)</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Icon (Emoji or text)</label>
             <input type="text" id="cat-form-icon" class="admin-input text-center text-lg" placeholder="star">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#a3b5aa] uppercase tracking-wider mb-1.5">Badge (Optional)</label>
+            <label class="block text-xs font-semibold text-[#574F47] uppercase tracking-wider mb-1.5">Badge (Optional)</label>
             <input type="text" id="cat-form-badge" class="admin-input" placeholder="e.g. Curated">
           </div>
         </div>
 
-        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#b88a44]/15">
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#eadcc8]">
           <button type="button" id="modal-category-cancel" class="btn-secondary-admin">Cancel</button>
           <button type="submit" class="btn-gold-admin">
             <i data-lucide="check" class="w-4 h-4"></i>
@@ -791,17 +791,17 @@
   </div>
 
   <!-- Modal: Delete Confirmation -->
-  <div id="modal-confirm" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
-    <div class="admin-card w-full max-w-sm rounded-2xl p-6 relative border border-red-500/30 text-center space-y-4">
-      <div class="w-12 h-12 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 mx-auto flex items-center justify-center">
+  <div id="modal-confirm" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm hidden">
+    <div class="admin-card w-full max-w-sm rounded-2xl p-6 relative border border-red-300 bg-white shadow-2xl text-center space-y-4">
+      <div class="w-12 h-12 rounded-full bg-red-100 border border-red-300 text-red-600 mx-auto flex items-center justify-center">
         <i data-lucide="trash-2" class="w-6 h-6"></i>
       </div>
-      <h3 class="font-editorial text-lg font-bold text-[#fffdf8]">Confirm Deletion</h3>
-      <p id="confirm-modal-text" class="text-xs text-[#a3b5aa]">Are you sure you want to permanently remove this delicacy?</p>
+      <h3 class="font-editorial text-lg font-bold text-[#173c2d]">Confirm Deletion</h3>
+      <p id="confirm-modal-text" class="text-xs text-[#574F47]">Are you sure you want to permanently remove this delicacy?</p>
       
       <div class="flex items-center justify-center gap-3 pt-2">
         <button type="button" id="confirm-modal-cancel" class="btn-secondary-admin text-xs">Cancel</button>
-        <button type="button" id="confirm-modal-proceed" class="px-5 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white font-semibold text-xs transition-colors shadow-lg shadow-red-900/30">
+        <button type="button" id="confirm-modal-proceed" class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs transition-colors shadow-md">
           Delete Item
         </button>
       </div>
@@ -812,6 +812,6 @@
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none"></div>
 
   <!-- Admin JavaScript -->
-  <script src="js/admin.js?v=3.2"></script>
+  <script src="js/admin.js?v=3.3"></script>
 </body>
 </html>

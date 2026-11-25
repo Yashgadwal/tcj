@@ -1,22 +1,24 @@
-/* TCJ Admin Luxury Theme - ShubhMewa Palette */
+/* TCJ Admin Luxury Light Theme - ShubhMewa Palette */
 :root {
   --tcj-gold: #b88a44;
   --tcj-gold-hover: #c99a4e;
   --tcj-gold-dark: #996e2e;
   --tcj-emerald: #173c2d;
   --tcj-emerald-light: #20503e;
-  --tcj-dark: #0a1a13;
-  --tcj-card: #11261d;
-  --tcj-card-hover: #163226;
-  --tcj-border: rgba(184, 138, 68, 0.22);
-  --tcj-border-focus: rgba(184, 138, 68, 0.55);
-  --tcj-text-primary: #fffdf8;
-  --tcj-text-muted: #a3b5aa;
+  --tcj-bg: #fffdf8;
+  --tcj-bg-secondary: #f7f1e8;
+  --tcj-card: #ffffff;
+  --tcj-card-hover: #fffdf8;
+  --tcj-border: #eadcc8;
+  --tcj-border-focus: #b88a44;
+  --tcj-text-primary: #173c2d;
+  --tcj-text-body: #1a1a1a;
+  --tcj-text-muted: #574F47;
 }
 
 body {
-  background-color: var(--tcj-dark);
-  color: var(--tcj-text-primary);
+  background-color: var(--tcj-bg);
+  color: var(--tcj-text-body);
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
@@ -27,17 +29,18 @@ body {
 
 /* Glass & Card Surfaces */
 .admin-card {
-  background: linear-gradient(180deg, #11261d 0%, #0a1a13 100%);
+  background: #ffffff;
   border: 1px solid var(--tcj-border);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 20px -2px rgba(23, 60, 45, 0.05), 0 0 10px -2px rgba(184, 138, 68, 0.06);
+  color: var(--tcj-text-body);
 }
 
 .admin-card:hover {
-  border-color: rgba(184, 138, 68, 0.4);
+  border-color: rgba(184, 138, 68, 0.45);
 }
 
 .admin-glass {
-  background: rgba(17, 38, 29, 0.9);
+  background: rgba(255, 253, 248, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--tcj-border);
@@ -45,9 +48,9 @@ body {
 
 /* Luxury Form Inputs */
 .admin-input {
-  background-color: #0c0b0a;
+  background-color: #ffffff;
   border: 1px solid var(--tcj-border);
-  color: var(--tcj-text-primary);
+  color: var(--tcj-text-body);
   border-radius: 0.75rem;
   padding: 0.65rem 0.9rem;
   font-size: 0.875rem;
@@ -58,22 +61,22 @@ body {
 .admin-input:focus {
   outline: none;
   border-color: var(--tcj-gold);
-  box-shadow: 0 0 0 2px rgba(214, 166, 91, 0.2);
+  box-shadow: 0 0 0 2px rgba(184, 138, 68, 0.18);
 }
 
 .admin-input::placeholder {
-  color: #635b54;
+  color: #8c827a;
 }
 
 /* Luxury Buttons */
 .btn-gold-admin {
-  background: linear-gradient(135deg, #d4a85c 0%, #b88a44 50%, #996e2e 100%);
+  background: linear-gradient(135deg, #173c2d 0%, #20503e 100%);
   color: #ffffff;
   font-weight: 700;
   border-radius: 0.75rem;
   padding: 0.6rem 1.25rem;
   font-size: 0.875rem;
-  box-shadow: 0 4px 15px rgba(184, 138, 68, 0.28);
+  box-shadow: 0 4px 15px rgba(23, 60, 45, 0.18);
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -82,15 +85,15 @@ body {
 }
 
 .btn-gold-admin:hover {
-  background: linear-gradient(135deg, #e0bb72 0%, #c99a4e 50%, #aa7a33 100%);
+  background: linear-gradient(135deg, #1f503c 0%, #29634d 100%);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(184, 138, 68, 0.45);
+  box-shadow: 0 6px 20px rgba(23, 60, 45, 0.28);
 }
 
 .btn-secondary-admin {
-  background-color: #1a1715;
+  background-color: #ffffff;
   border: 1px solid var(--tcj-border);
-  color: var(--tcj-text-primary);
+  color: var(--tcj-emerald);
   font-weight: 600;
   border-radius: 0.75rem;
   padding: 0.6rem 1.25rem;
@@ -103,9 +106,9 @@ body {
 }
 
 .btn-secondary-admin:hover {
-  background-color: #24201c;
-  border-color: rgba(214, 166, 91, 0.35);
-  color: #fff;
+  background-color: #f7f1e8;
+  border-color: var(--tcj-gold);
+  color: var(--tcj-emerald);
 }
 
 /* Custom Scrollbar */
@@ -114,10 +117,10 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #080808;
+  background: #fffdf8;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2b2520;
+  background: #eadcc8;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -143,10 +146,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #25201c;
+  background-color: #eadcc8;
   transition: .3s;
   border-radius: 24px;
-  border: 1px solid rgba(214, 166, 91, 0.2);
+  border: 1px solid rgba(184, 138, 68, 0.3);
 }
 .slider:before {
   position: absolute;
@@ -155,17 +158,18 @@ body {
   width: 18px;
   left: 2px;
   bottom: 2px;
-  background-color: #A49B91;
+  background-color: #ffffff;
   transition: .3s;
   border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 input:checked + .slider {
-  background-color: #0b3b28;
-  border-color: #10b981;
+  background-color: #173c2d;
+  border-color: #173c2d;
 }
 input:checked + .slider:before {
   transform: translateX(20px);
-  background-color: #34d399;
+  background-color: #ffffff;
 }
 
 /* Toast */

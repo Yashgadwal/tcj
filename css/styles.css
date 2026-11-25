@@ -478,9 +478,7 @@ body.light-theme {
 
 /* Text Color Overrides */
 .light-theme .text-\[\#F5EBDD\],
-.light-theme .text-\[\#FAF4EB\],
-.light-theme .text-\[\#fffdf8\],
-.light-theme .text-white {
+.light-theme .text-\[\#FAF4EB\] {
   color: #1a1a1a !important;
 }
 
@@ -640,4 +638,44 @@ body.light-theme {
   background-color: #fffdf8 !important;
   pointer-events: none !important;
 }
+
+/* ============================================================== */
+/* LUXURY ANNOUNCEMENT BANNER - HIGH-CONTRAST PALETTE              */
+/* ============================================================== */
+#announcement-banner {
+  background-color: #173c2d !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid rgba(184, 138, 68, 0.4) !important;
+}
+
+#announcement-banner .banner-text,
+#announcement-banner span.text-\[\#fffdf8\],
+#announcement-banner .text-\[\#fffdf8\],
+#announcement-banner .truncate {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+#announcement-banner .banner-gold,
+#announcement-banner .text-\[\#b88a44\],
+#announcement-banner svg {
+  color: #f6c86a !important;
+  stroke: #f6c86a !important;
+}
+
+#announcement-banner .banner-pill,
+#announcement-banner .text-\[\#eadcc8\]\/90 {
+  color: #eadcc8 !important;
+}
+
+#announcement-banner a {
+  color: #f6c86a !important;
+  text-decoration: underline !important;
+  transition: color 0.2s ease !important;
+}
+
+#announcement-banner a:hover {
+  color: #ffffff !important;
+}
+
 
