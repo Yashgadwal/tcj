@@ -7,6 +7,8 @@
 const state = {
   activeCategory: 'all',
   searchQuery: '',
+  sortBy: 'featured',
+  inStockOnly: false,
   cart: [],
   wishlist: [],
   customer: null,
@@ -155,6 +157,26 @@ function setCategory(catId) {
     const y = prodSec.getBoundingClientRect().top + window.pageYOffset + yOffset;
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
+
+  if (typeof renderProductsTableView === 'function') {
+    renderProductsTableView();
+  }
+}
+
+function setSortBy(val) {
+  state.sortBy = val;
+  renderProducts();
+  if (typeof renderProductsTableView === 'function') {
+    renderProductsTableView();
+  }
+}
+
+function setInStockFilter(checked) {
+  state.inStockOnly = Boolean(checked);
+  renderProducts();
+  if (typeof renderProductsTableView === 'function') {
+    renderProductsTableView();
+  }
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -165,7 +187,7 @@ function renderProducts() {
   const countLabel = document.getElementById('products-count-label');
   if (!container || typeof TCJ_PRODUCTS === 'undefined') return;
 
-  let filtered = TCJ_PRODUCTS;
+  let filtered = [...TCJ_PRODUCTS];
 
   // Filter by category
   if (state.activeCategory !== 'all') {
@@ -179,8 +201,25 @@ function renderProducts() {
       p.name.toLowerCase().includes(q) ||
       p.description.toLowerCase().includes(q) ||
       p.country.toLowerCase().includes(q) ||
-      (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
+      (p.tags && p.tags.some(t => t.toLowerCase().includes(q))) ||
+      (p.variants && p.variants.some(v => v.name.toLowerCase().includes(q)))
     );
+  }
+
+  // Filter by stock
+  if (state.inStockOnly) {
+    filtered = filtered.filter(p => p.inStock !== false);
+  }
+
+  // Sorting
+  if (state.sortBy === 'price-low') {
+    filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+  } else if (state.sortBy === 'price-high') {
+    filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+  } else if (state.sortBy === 'rating') {
+    filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  } else if (state.sortBy === 'name') {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   if (countLabel) {

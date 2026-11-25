@@ -84,10 +84,22 @@
         <p class="text-[11px] text-[#6b6b6b]">
           Default credential: <span class="font-mono text-[#b88a44] font-bold">tcj2026</span>
         </p>
-        <a href="/" class="inline-flex items-center gap-1 text-xs text-[#574F47] hover:text-[#173c2d] mt-3 font-medium transition-colors">
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-          <span>Back to Public Storefront</span>
-        </a>
+        <div class="flex items-center justify-center gap-3 mt-3">
+          <a href="/" class="inline-flex items-center gap-1 text-xs text-[#574F47] hover:text-[#173c2d] font-medium transition-colors">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            <span>Public Storefront</span>
+          </a>
+          <span class="text-[#eadcc8]">&bull;</span>
+          <a href="/shop" class="inline-flex items-center gap-1 text-xs text-[#b88a44] hover:text-[#173c2d] font-medium transition-colors">
+            <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+            <span>Shop</span>
+          </a>
+          <span class="text-[#eadcc8]">&bull;</span>
+          <a href="/products" class="inline-flex items-center gap-1 text-xs text-[#173c2d] hover:text-[#b88a44] font-medium transition-colors">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+            <span>Directory</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -124,8 +136,20 @@
           <span id="store-status-text">Store Open</span>
         </div>
 
+        <!-- View Shop All -->
+        <a href="/shop" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#eadcc8] bg-white hover:bg-[#f7f1e8] text-[#173c2d] hover:text-[#b88a44] text-xs font-medium transition-all shadow-xs">
+          <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+          <span>Shop All</span>
+        </a>
+
+        <!-- View Directory -->
+        <a href="/products" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#eadcc8] bg-white hover:bg-[#f7f1e8] text-[#173c2d] hover:text-[#b88a44] text-xs font-medium transition-all shadow-xs">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+          <span>Directory</span>
+        </a>
+
         <!-- View Store Button -->
-        <a href="/" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#eadcc8] bg-white hover:bg-[#f7f1e8] text-[#173c2d] hover:text-[#b88a44] text-xs font-medium transition-all shadow-xs">
+        <a href="/" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#eadcc8] bg-white hover:bg-[#f7f1e8] text-[#173c2d] hover:text-[#b88a44] text-xs font-medium transition-all shadow-xs">
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           <span>View Storefront</span>
         </a>

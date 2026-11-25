@@ -590,6 +590,8 @@ const server = http.createServer(async (req, res) => {
   let filePath = reqPath;
   if (filePath === '/') filePath = '/index.html';
   if (filePath === '/admin' || filePath === '/admin/') filePath = '/admin.html';
+  if (filePath === '/shop' || filePath === '/shop/') filePath = '/shop.html';
+  if (filePath === '/products' || filePath === '/products/' || filePath === '/all-products' || filePath === '/all-products/') filePath = '/products.html';
 
   const fullPath = path.join(BASE_DIR, filePath);
 

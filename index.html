@@ -72,6 +72,10 @@
         <span class="text-[11px] truncate text-white banner-text font-medium">Viral Dubai Chocolates &bull; Imported Korean Buldak &bull; Prime Sips &bull; 25–45 Min Doorstep Delivery in Ujjain</span>
       </div>
       <div class="hidden sm:flex items-center gap-3 text-[11px] flex-shrink-0">
+        <a href="/shop" class="text-[#f6c86a] hover:text-white font-bold underline transition-colors banner-gold">Shop All (71)</a>
+        <span class="text-[#f6c86a] banner-gold">&bull;</span>
+        <a href="/products" class="text-[#eadcc8] hover:text-white font-semibold underline transition-colors banner-pill">Directory</a>
+        <span class="text-[#f6c86a] banner-gold">&bull;</span>
         <span class="text-[#eadcc8] banner-pill">Free Delivery on ₹799+</span>
         <span class="text-[#f6c86a] banner-gold">&bull;</span>
         <a href="https://wa.me/916268344816" target="_blank" class="text-[#f6c86a] hover:text-white font-bold underline transition-colors banner-gold">
@@ -838,10 +842,17 @@
           </p>
         </div>
         
-        <div class="flex items-center gap-3">
+        <div class="flex flex-wrap items-center gap-2.5">
           <span id="products-count-label" class="text-xs font-mono font-bold text-[#b88a44] bg-[#b88a44]/10 border border-[#b88a44]/30 px-3 py-1.5 rounded-full">
             Showing 71 viral delicacies
           </span>
+          <a href="/shop" class="btn-green text-xs font-bold px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-md flex items-center gap-1.5 transition-all">
+            <span>Shop All Products</span>
+            <span>&rarr;</span>
+          </a>
+          <a href="/products" class="btn-secondary text-xs font-bold px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-md flex items-center gap-1.5 transition-all">
+            <span>Inventory Directory</span>
+          </a>
         </div>
       </div>
 
@@ -1046,6 +1057,8 @@
         <h4 class="font-editorial text-xs font-bold text-[#173c2d] uppercase tracking-wider mb-3">Quick Navigation</h4>
         <ul class="space-y-2 text-xs">
           <li><a href="#" class="hover:text-[#173c2d] transition-colors">Home</a></li>
+          <li><a href="/shop" class="font-bold text-[#b88a44] hover:text-[#173c2d] transition-colors">Shop All Products (71 Items)</a></li>
+          <li><a href="/products" class="font-bold text-[#173c2d] hover:text-[#b88a44] transition-colors">All Products Directory</a></li>
           <li><a href="#drinks-experience-section" class="hover:text-[#173c2d] transition-colors">Drinks Special</a></li>
           <li><a href="#snacks-experience-section" class="hover:text-[#173c2d] transition-colors">Snacks Special</a></li>
           <li><a href="#candy-experience-section" class="hover:text-[#173c2d] transition-colors">Candy Special</a></li>
@@ -1175,14 +1188,29 @@
       <button onclick="toggleNavDrawer(false)" class="w-8 h-8 rounded-full bg-[#f7f1e8] border border-[#eadcc8] flex items-center justify-center text-[#173c2d]"><svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
     </div>
 
-    <nav class="flex flex-col space-y-4 text-sm font-bold uppercase tracking-wider text-[#173c2d]">
-      <a href="#shopfront-experience-section" onclick="toggleNavDrawer(false)" class="text-[#b88a44]">Shop Front</a>
-      <a href="#drinks-experience-section" onclick="toggleNavDrawer(false)" class="text-sky-400">Drinks Special</a>
-      <a href="#snacks-experience-section" onclick="toggleNavDrawer(false)" class="text-orange-400">Snacks Special</a>
-      <a href="#candy-experience-section" onclick="toggleNavDrawer(false)" class="text-pink-400">Candy Special</a>
-      <a href="#chocolate-experience-section" onclick="toggleNavDrawer(false)" class="hover:text-[#b88a44] transition-colors">Dubai Chocolate</a>
-      <a href="#store-section" onclick="toggleNavDrawer(false)" class="hover:text-[#b88a44] transition-colors">Visit Flagship Store</a>
-      <button type="button" onclick="toggleNavDrawer(false); handleAccountClick();" class="text-left text-[#b88a44] flex items-center justify-between py-1 hover:brightness-110">
+    <nav class="flex flex-col space-y-3 text-sm font-bold uppercase tracking-wider text-[#173c2d]">
+      <a href="/shop" class="flex items-center justify-between py-2 px-3 rounded-xl bg-[#173c2d] text-[#fffdf8] hover:bg-[#1f4e3b] transition-all shadow-xs">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#f6c86a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span>Shop All (71 Items)</span>
+        </span>
+        <span class="text-[10px] bg-[#b88a44] text-[#fffdf8] px-2 py-0.5 rounded-full font-mono">NEW</span>
+      </a>
+      <a href="/products" class="flex items-center justify-between py-2 px-3 rounded-xl bg-[#f7f1e8] text-[#173c2d] hover:bg-[#eadcc8] transition-all border border-[#eadcc8]">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#b88a44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+          <span>Inventory Directory</span>
+        </span>
+        <span class="text-[10px] text-[#574F47] font-mono">Catalog</span>
+      </a>
+      <div class="h-px bg-[#eadcc8] my-1"></div>
+      <a href="#shopfront-experience-section" onclick="toggleNavDrawer(false)" class="text-[#b88a44] py-1">Shop Front</a>
+      <a href="#drinks-experience-section" onclick="toggleNavDrawer(false)" class="text-sky-600 py-1">Drinks Special</a>
+      <a href="#snacks-experience-section" onclick="toggleNavDrawer(false)" class="text-orange-600 py-1">Snacks Special</a>
+      <a href="#candy-experience-section" onclick="toggleNavDrawer(false)" class="text-pink-600 py-1">Candy Special</a>
+      <a href="#chocolate-experience-section" onclick="toggleNavDrawer(false)" class="hover:text-[#b88a44] transition-colors py-1">Dubai Chocolate</a>
+      <a href="#store-section" onclick="toggleNavDrawer(false)" class="hover:text-[#b88a44] transition-colors py-1">Visit Flagship Store</a>
+      <button type="button" onclick="toggleNavDrawer(false); handleAccountClick();" class="text-left text-[#b88a44] flex items-center justify-between py-1.5 hover:brightness-110">
         <span>VIP Account &amp; Orders</span>
         <span class="text-[10px] bg-[#b88a44]/20 border border-[#b88a44]/30 px-2 py-0.5 rounded-full text-[#b88a44]">Manage</span>
       </button>
